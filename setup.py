@@ -11,9 +11,9 @@ setuptools.setup(
     description="A popup manager for pygame",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="",
+    url="https://github.com/Grimmys/pygame_popup_manager",
     project_urls={
-        "Issue Tracker": "",
+        "Issue Tracker": "https://github.com/Grimmys/pygame_popup_manager/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",

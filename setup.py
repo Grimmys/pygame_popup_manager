@@ -23,5 +23,5 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.0",
-    install_requires=["<pygame>"]
+    install_requires=["pygame~=2.0.0"]
 )

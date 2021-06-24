@@ -2,7 +2,7 @@
 Defines the initialization process of the package through the function init.
 """
 
-import fonts
+from . import fonts
 
 
 def init() -> None:

@@ -14,6 +14,46 @@ The most easy way to install this package is to do it with `pip`:
 
 # Use
 
+First, don't forget to call `pygamepopu.init` function right after
+having call `pygame.init` function.
+
+The whole system is working around the `MenuManager` class that is
+the controller of all the popups in background and in foreground.
+
+An unique instance per scene/window has to be created and the pygame screen
+on which the popups will appear should be provided, like this:
+
+```py
+from pygamepopup.menu_manager import MenuManager
+
+menu_manager = MenuManager(screen)
+```
+
+The `display`, `motion` and `click` methods of this class should be called in the application main loop 
+in order to notify the manager of any pygame event.
+
+To open a new popup menu, you should first create it by instanciate the `InfoBox` class.
+The components that should be in the menu should be provided.
+Next, don't forget to call the `open_menu` method of the menu manager to notify it about the new menu.
+
+For example, the following code will open a popup with a "do-nothing" button and a close button (added by default by the `InfoBox`)
+
+```py
+from pygamepopup.components import Button, InfoBox
+
+my_custom_menu = InfoBox(
+    "Title of the Menu",
+    [
+        Button(
+            title="Hello World!",
+            callback=lambda: None
+        )
+    ]
+)
+
+menu_manager.open(my_custom_menu)
+```
+If you want more code illustrations, check the `examples/minimal_main_menu.py` module
 
 # Customization
 

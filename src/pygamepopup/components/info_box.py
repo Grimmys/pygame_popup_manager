@@ -2,6 +2,9 @@
 Defines InfoBox class, an helper to draw any kind of popup (menu or informative message).
 """
 
+import pkg_resources
+
+resource_package = 'pygamepopup'
 from typing import Union, Sequence, List, Callable, Optional
 
 import pygame
@@ -64,17 +67,17 @@ class InfoBox:
     """
 
     def __init__(
-        self,
-        title: str,
-        element_grid: List[List[BoxElement]],
-        width: int = DEFAULT_POPUP_WIDTH,
-        element_linked: pygame.Rect = None,
-        has_close_button: bool = True,
-        title_color: pygame.Color = WHITE,
-        background: pygame.Surface = None,
-        close_button_sprite: pygame.Surface = None,
-        close_button_sprite_hover: pygame.Surface = None,
-        visible_on_background: bool = True,
+            self,
+            title: str,
+            element_grid: List[List[BoxElement]],
+            width: int = DEFAULT_POPUP_WIDTH,
+            element_linked: pygame.Rect = None,
+            has_close_button: bool = True,
+            title_color: pygame.Color = WHITE,
+            background: pygame.Surface = None,
+            close_button_sprite: pygame.Surface = None,
+            close_button_sprite_hover: pygame.Surface = None,
+            visible_on_background: bool = True,
     ) -> None:
         self.title: str = title
         self.element_linked: pygame.Rect = element_linked
@@ -86,14 +89,15 @@ class InfoBox:
         self.__size: tuple[int, int] = (width, 0)
         self.__position: Position = pygame.Vector2(0, 0)
         if not background:
-            background = pygame.image.load("gui/images/default_box.png")
+            background = pygame.image.load(pkg_resources.resource_filename(resource_package, '/'.join(
+                ('images', 'default_box.png'))))
         self.sprite: pygame.Surface = background
         self.close_button_sprite = close_button_sprite
         self.close_button_sprite_hover = close_button_sprite_hover
         self.visible_on_background: bool = visible_on_background
 
     def init_render(
-        self, screen: pygame.Surface, close_button_callback: Callable = None
+            self, screen: pygame.Surface, close_button_callback: Callable = None
     ) -> None:
         """
         Initialize the rendering of the popup.
@@ -114,8 +118,8 @@ class InfoBox:
         self.sprite = pygame.transform.scale(self.sprite.convert_alpha(), self.__size)
 
     def init_elements(
-        self,
-        width: int
+            self,
+            width: int
     ) -> List[List[BoxElement]]:
         """
         Initialize the graphical elements associated to the formal data that the infoBox should
@@ -165,9 +169,9 @@ class InfoBox:
             row.insert(0, max_height)
         if self.has_close_button:
             close_button_height: int = (
-                DEFAULT_CLOSE_BUTTON_SIZE[1]
-                + DEFAULT_MARGIN_TOP
-                + CLOSE_BUTTON_MARGIN_TOP
+                    DEFAULT_CLOSE_BUTTON_SIZE[1]
+                    + DEFAULT_MARGIN_TOP
+                    + CLOSE_BUTTON_MARGIN_TOP
             )
             height += close_button_height
 

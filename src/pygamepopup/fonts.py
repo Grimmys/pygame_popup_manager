@@ -4,11 +4,9 @@ The init_fonts function should be called at the beginning of the application
 after pygame initialization.
 """
 
-from typing import Union
-
 import pygame
 
-fonts_description: dict[str, dict[str, Union[str, int]]] = {
+fonts_description: dict[str, dict[str, any]] = {
     "MENU_TITLE_FONT": {"default": True, "size": 40, "is_bold": True},
     "DEFAULT_FONT": {"default": True, "size": 20, "is_bold": True},
 }

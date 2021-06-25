@@ -2,6 +2,8 @@
 Defines Button class, a BoxElement able to react to user actions.
 """
 
+import pkg_resources
+resource_package = 'pygamepopup'
 from enum import Enum
 from typing import Union, Callable
 
@@ -65,7 +67,7 @@ class Button(BoxElement):
         title = font.render(title, True, WHITE)
 
         raw_sprite = (
-            sprite if sprite else pygame.image.load("gui/images/default_box.png")
+            sprite if sprite else pygame.image.load(pkg_resources.resource_filename(resource_package, '/'.join(('images', 'default_box.png'))))
         )
         sprite = pygame.transform.scale(raw_sprite.convert_alpha(), size)
         sprite.blit(
@@ -78,7 +80,7 @@ class Button(BoxElement):
         raw_sprite_hover = (
             sprite_hover
             if sprite_hover
-            else pygame.image.load("gui/images/default_box_hover" ".png")
+            else pygame.image.load(pkg_resources.resource_filename(resource_package, '/'.join(('images', 'default_box_hover.png'))))
         )
         sprite_hover = pygame.transform.scale(raw_sprite_hover.convert_alpha(), size)
         sprite_hover.blit(

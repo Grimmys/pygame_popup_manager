@@ -1,11 +1,16 @@
 # Pygame Popup Manager
 
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![dl-pypi](https://img.shields.io/pypi/dm/pygame-popup)](https://pypi.org/project/pygame-popup/)
+[![license](https://img.shields.io/github/license/grimmys/pygame_popup_manager)](https://github.com/Grimmys/pygame_popup_manager/blob/main/LICENSE)
+[![version](https://img.shields.io/pypi/v/pygame-popup)](https://pypi.org/project/pygame-popup/)
+
+
 Pygame Popup Manage is a very small engine permitting to easily build all kind of popup in a pygame project.
 
 Here is an example of basic menus that could be created with this manager:
 
 ![Main menu with side menu](https://github.com/Grimmys/pygame_popup_manager/blob/main/screenshots/main_menu_with_side_menu.png)
-
 # Installation
 
 The most easy way to install this package is to do it with `pip`:

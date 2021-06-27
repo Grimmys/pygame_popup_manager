@@ -19,8 +19,8 @@ The most easy way to install this package is to do it with `pip`:
 
 # Use
 
-First, don't forget to call `pygamepopu.init` function right after
-having call `pygame.init` function.
+First, don't forget to call `pygamepopup.init` function right after 
+calling `pygame.init` function.
 
 The whole system is working around the `MenuManager` class that is
 the controller of all the popups in background and in foreground.

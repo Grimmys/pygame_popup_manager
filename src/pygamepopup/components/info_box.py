@@ -2,13 +2,11 @@
 Defines InfoBox class, an helper to draw any kind of popup (menu or informative message).
 """
 
-import pkg_resources
-
-resource_package = 'pygamepopup'
 from typing import Union, Sequence, List, Callable, Optional
 
 import pygame
 
+from ..configuration import default_sprites
 from ..constants import (
     WHITE,
     CLOSE_BUTTON_MARGIN_TOP,
@@ -89,8 +87,7 @@ class InfoBox:
         self.__size: tuple[int, int] = (width, 0)
         self.__position: Position = pygame.Vector2(0, 0)
         if not background:
-            background = pygame.image.load(pkg_resources.resource_filename(resource_package, '/'.join(
-                ('images', 'default_box.png'))))
+            background = pygame.image.load(default_sprites["info_box_background"])
         self.sprite: pygame.Surface = background
         self.close_button_sprite = close_button_sprite
         self.close_button_sprite_hover = close_button_sprite_hover

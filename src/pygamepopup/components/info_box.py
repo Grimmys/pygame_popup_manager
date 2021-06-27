@@ -14,7 +14,7 @@ from ..constants import (
     DEFAULT_MARGIN_TOP,
     DEFAULT_CLOSE_BUTTON_SIZE,
     MARGIN_LINKED_ELEMENT,
-    DEFAULT_POPUP_WIDTH
+    DEFAULT_POPUP_WIDTH,
 )
 from .box_element import BoxElement
 from ..fonts import fonts
@@ -65,17 +65,17 @@ class InfoBox:
     """
 
     def __init__(
-            self,
-            title: str,
-            element_grid: List[List[BoxElement]],
-            width: int = DEFAULT_POPUP_WIDTH,
-            element_linked: pygame.Rect = None,
-            has_close_button: bool = True,
-            title_color: pygame.Color = WHITE,
-            background: pygame.Surface = None,
-            close_button_sprite: pygame.Surface = None,
-            close_button_sprite_hover: pygame.Surface = None,
-            visible_on_background: bool = True,
+        self,
+        title: str,
+        element_grid: List[List[BoxElement]],
+        width: int = DEFAULT_POPUP_WIDTH,
+        element_linked: pygame.Rect = None,
+        has_close_button: bool = True,
+        title_color: pygame.Color = WHITE,
+        background: pygame.Surface = None,
+        close_button_sprite: pygame.Surface = None,
+        close_button_sprite_hover: pygame.Surface = None,
+        visible_on_background: bool = True,
     ) -> None:
         self.title: str = title
         self.element_linked: pygame.Rect = element_linked
@@ -94,7 +94,7 @@ class InfoBox:
         self.visible_on_background: bool = visible_on_background
 
     def init_render(
-            self, screen: pygame.Surface, close_button_callback: Callable = None
+        self, screen: pygame.Surface, close_button_callback: Callable = None
     ) -> None:
         """
         Initialize the rendering of the popup.
@@ -114,10 +114,7 @@ class InfoBox:
         self.buttons: Sequence[Button] = self.find_buttons()
         self.sprite = pygame.transform.scale(self.sprite.convert_alpha(), self.__size)
 
-    def init_elements(
-            self,
-            width: int
-    ) -> List[List[BoxElement]]:
+    def init_elements(self, width: int) -> List[List[BoxElement]]:
         """
         Initialize the graphical elements associated to the formal data that the infoBox should
         represent.
@@ -166,9 +163,9 @@ class InfoBox:
             row.insert(0, max_height)
         if self.has_close_button:
             close_button_height: int = (
-                    DEFAULT_CLOSE_BUTTON_SIZE[1]
-                    + DEFAULT_MARGIN_TOP
-                    + CLOSE_BUTTON_MARGIN_TOP
+                DEFAULT_CLOSE_BUTTON_SIZE[1]
+                + DEFAULT_MARGIN_TOP
+                + CLOSE_BUTTON_MARGIN_TOP
             )
             height += close_button_height
 

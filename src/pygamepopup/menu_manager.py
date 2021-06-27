@@ -28,6 +28,7 @@ class MenuManager:
     active_menu -- the current menu in the foreground, the only one that will react to user events
     background_menus -- the ordered sequence of menus that are in the background
     """
+
     def __init__(self, screen: pygame.Surface) -> None:
         self.screen: pygame.Surface = screen
         self.active_menu: Optional[InfoBox] = None

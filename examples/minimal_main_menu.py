@@ -22,20 +22,18 @@ class MainMenuScene:
                 [
                     Button(
                         title="Open other menu",
-                        callback=lambda: self.create_other_menu()
+                        callback=lambda: self.create_other_menu(),
                     )
                 ],
                 [
                     Button(
                         title="Exit",
-                        callback=lambda: self.exit()
-                    )
+                        callback=lambda: self.exit())
                 ],
             ],
-            has_close_button=False
+            has_close_button=False,
         )
         self.menu_manager.open_menu(main_menu)
-
 
     def create_other_menu(self):
         other_menu = InfoBox(
@@ -43,13 +41,14 @@ class MainMenuScene:
             [
                 [
                     TextElement(
-                        text="The text content of a menu is automaticaly splitted in multiple part to fit "
-                             "in the box. To add a new paragraph, just create another TextElement.",
-                        container_width=300
+                        text="The text content of a menu is automaticaly splitted in multiple part "
+                             "to fit in the box. To add a new paragraph, just create another "
+                             "TextElement.",
+                        container_width=300,
                     )
                 ]
             ],
-            width=300
+            width=300,
         )
         self.menu_manager.open_menu(other_menu)
 

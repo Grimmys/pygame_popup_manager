@@ -62,9 +62,30 @@ If you want more code illustrations, check the `examples/minimal_main_menu.py` m
 
 # Customization
 
-Unfortunately, the customization is limited for the moment.
+The default graphics resources can be easily changed by your own by simply calling certain methods of the `configuration` module, wherever you want, as can be seen below. 
 
-But you can still provide your own graphical assets to the components, as you can see in the screenshot below.
+```py
+import pygamepopup
+
+pygamepopup.configuration.set_button_background("sprites/inactive_button.png",
+                                                "sprites/active_button.png")
+pygamepopup.configuration.set_dynamic_button_background("sprites/inactive_button.png",
+                                                        "sprites/active_button.png")
+pygamepopup.configuration.set_info_box_background("sprites/menu_box.png")
+```
+
+It is also possible to directly provide an asset to a specific component, if you want a button to be different from others for example.
+
+```py
+Button(
+    title="Hello World!",
+    callback=lambda: None,
+    sprite=pygame.image.load("sprites/different_button.png"),
+    sprite_hover=pygame.image.load("sprites/different_button_hover.png")
+)
+ ```
+
+With this kind of configuration you can made an interface similar to this one: 
 
 ![Options menu with assets](https://github.com/Grimmys/pygame_popup_manager/blob/main/screenshots/options_menu_with_assets.png)
 

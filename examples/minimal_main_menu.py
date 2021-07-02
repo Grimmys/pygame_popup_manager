@@ -41,7 +41,7 @@ class MainMenuScene:
             [
                 [
                     TextElement(
-                        text="The text content of a menu is automaticaly splitted in multiple part "
+                        text="The text content of a menu is automatically splitted in multiple part "
                              "to fit in the box. To add a new paragraph, just create another "
                              "TextElement.",
                         container_width=300,

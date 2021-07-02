@@ -31,8 +31,8 @@ class DynamicButton(Button):
     base_title -- the common prefix of all the different labels
     (it could be the name of the dynamic button in a way)
     position -- the position of the element on the screen
-    sprite -- the pygame Surface corresponding to the sprite of the element
-    sprite_hover -- the pygame Surface corresponding to the sprite of the element
+    background_path -- the path to the image corresponding to the sprite of the element
+    background_hover_path -- the path to the image corresponding to the sprite of the element
     when it has the focus
     margin -- a tuple containing the margins of the box,
     should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
@@ -54,8 +54,8 @@ class DynamicButton(Button):
         current_value_index: int,
         base_title: str,
         position: Position = pygame.Vector2(0, 0),
-        sprite: pygame.Surface = None,
-        sprite_hover: pygame.Surface = None,
+        background_path: str = None,
+        background_hover_path: str = None,
         margin: Margin = (10, 0, 10, 0),
         linked_object: any = None,
         disabled: bool = False,
@@ -65,8 +65,8 @@ class DynamicButton(Button):
             size,
             "",
             position,
-            sprite,
-            sprite_hover,
+            background_path,
+            background_hover_path,
             margin,
             linked_object,
             disabled,

@@ -1,7 +1,7 @@
 """
 Defines InfoBox class, an helper to draw any kind of popup (menu or informative message).
 """
-
+import os.path
 from typing import Union, Sequence, List, Callable, Optional
 
 import pygame
@@ -40,10 +40,10 @@ class InfoBox:
     has_close_button -- a boolean indicating whether a close button should be added
     at the bottom or not
     title_color -- the color of the title
-    background -- the pygame Surface corresponding to the image that will be the sprite of
+    background_path -- the path corresponding to the image that will be the sprite of
     the infoBox
-    close_button_sprite -- the pygame Surface corresponding to the sprite of the close button if there should be one
-    close_button_sprite_hover -- the pygame Surface corresponding to the sprite of the close button when it is hovered if there should be one
+    close_button_sprite -- the path to the image corresponding to the sprite of the close button if there should be one
+    close_button_sprite_hover -- the path to the image corresponding to the sprite of the close button when it is hovered if there should be one
     visible_on_background -- a boolean indicating whether the popup is visible on background or not
 
     Attributes:
@@ -59,8 +59,8 @@ class InfoBox:
     position -- the position of the infoBox. Will be beside the linked element if present,
     or only computed at display time otherwise
     sprite -- the pygame Surface corresponding to the sprite of the infoBox
-    close_button_sprite -- the pygame Surface corresponding to the sprite of the close button if there should be one
-    close_button_sprite_hover -- the pygame Surface corresponding to the sprite of the close button when it is hovered if there should be one
+    close_button_sprite -- the path to the image corresponding to the sprite of the close button if there should be one
+    close_button_sprite_hover -- the path to the image corresponding to the sprite of the close button when it is hovered if there should be one
     visible_on_background -- whether the popup is visible on background or not
     """
 
@@ -72,9 +72,9 @@ class InfoBox:
         element_linked: pygame.Rect = None,
         has_close_button: bool = True,
         title_color: pygame.Color = WHITE,
-        background: pygame.Surface = None,
-        close_button_sprite: pygame.Surface = None,
-        close_button_sprite_hover: pygame.Surface = None,
+        background_path: str = None,
+        close_button_background_path: str = None,
+        close_button_background_hover_path: str = None,
         visible_on_background: bool = True,
     ) -> None:
         self.title: str = title
@@ -86,11 +86,10 @@ class InfoBox:
         self.buttons: Sequence[Button] = []
         self.__size: tuple[int, int] = (width, 0)
         self.__position: Position = pygame.Vector2(0, 0)
-        if not background:
-            background = pygame.image.load(default_sprites["info_box_background"])
-        self.sprite: pygame.Surface = background
-        self.close_button_sprite = close_button_sprite
-        self.close_button_sprite_hover = close_button_sprite_hover
+        background_path = os.path.abspath(background_path) if background_path else default_sprites["info_box_background"]
+        self.sprite: pygame.Surface = pygame.image.load(background_path)
+        self.close_button_background_path: str = close_button_background_path
+        self.close_button_background_hover_path: str = close_button_background_hover_path
         self.visible_on_background: bool = visible_on_background
 
     def init_render(
@@ -176,8 +175,8 @@ class InfoBox:
                         close_button_action,
                         DEFAULT_CLOSE_BUTTON_SIZE,
                         "Close",
-                        sprite=self.close_button_sprite,
-                        sprite_hover=self.close_button_sprite_hover,
+                        background_path=self.close_button_background_path,
+                        background_hover_path=self.close_button_background_hover_path,
                         margin=(CLOSE_BUTTON_MARGIN_TOP, 0, 0, 0),
                     ),
                 ]

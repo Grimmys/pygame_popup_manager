@@ -1,8 +1,7 @@
 """
 Defines Button class, a BoxElement able to react to user actions.
 """
-
-
+import os.path
 from enum import Enum
 from typing import Union, Callable
 
@@ -27,8 +26,8 @@ class Button(BoxElement):
     size -- the size of the button following the format "(width, height)"
     position -- the position of the element on the screen
     title -- the text that should be displayed at the center of the element
-    sprite -- the pygame Surface corresponding to the sprite of the element
-    sprite_hover -- the pygame Surface corresponding to the sprite of the element
+    background_path -- the path to the image corresponding to the sprite of the element
+    background_hover_path -- the path to the image corresponding to the sprite of the element
     when it has the focus
     margin -- a tuple containing the margins of the box,
     should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
@@ -51,8 +50,8 @@ class Button(BoxElement):
         size: tuple[int, int] = BUTTON_SIZE,
         title: str = "",
         position: Position = pygame.Vector2(0, 0),
-        sprite: pygame.Surface = None,
-        sprite_hover: pygame.Surface = None,
+        background_path: str = None,
+        background_hover_path: str = None,
         margin: Margin = (10, 0, 10, 0),
         linked_object: any = None,
         disabled: bool = False,
@@ -66,10 +65,8 @@ class Button(BoxElement):
             font = fonts["DEFAULT_FONT"]
         title = font.render(title, True, WHITE)
 
-        raw_sprite = (
-            sprite
-            if sprite
-            else pygame.image.load(default_sprites["button_background"]["inactive"])
+        background_path = os.path.abspath(background_path) if background_path else default_sprites["button_background"]["inactive"]
+        raw_sprite = (pygame.image.load(background_path)
         )
         sprite = pygame.transform.scale(raw_sprite.convert_alpha(), size)
         sprite.blit(
@@ -79,11 +76,11 @@ class Button(BoxElement):
                 sprite.get_height() // 2 - title.get_height() // 2,
             ),
         )
-        raw_sprite_hover = (
-            sprite_hover
-            if sprite_hover
-            else pygame.image.load(default_sprites["button_background"]["active"])
-        )
+
+        background_hover_path = os.path.abspath(background_hover_path) if background_hover_path else \
+        default_sprites["button_background"]["active"]
+        raw_sprite_hover = (pygame.image.load(background_hover_path)
+                      )
         sprite_hover = pygame.transform.scale(raw_sprite_hover.convert_alpha(), size)
         sprite_hover.blit(
             title,

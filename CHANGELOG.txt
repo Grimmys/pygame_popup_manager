@@ -1,6 +1,11 @@
+-- VERSION 0.1.1 --
+
+* Specific sprite for components are now provided by giving the relative path to the ressource and not
+the actual pygame Surface
+
 -- VERSION 0.1.0 --
 
-* Added possibility to configure default sprites for dynamic button, button and info box.
+* Added possibility to configure default sprites for dynamic button, button and info box
 
 -- VERSION 0.0.2 --
 

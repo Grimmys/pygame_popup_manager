@@ -133,7 +133,7 @@ class InfoBox:
             self.title,
             width,
             pygame.Vector2(0, 0),
-            fonts["MENU_TITLE_FONT"],
+            fonts["info_box_title"],
             (20, 0, 20, 0),
             self.title_color,
         )

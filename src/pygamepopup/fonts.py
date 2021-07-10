@@ -6,33 +6,29 @@ after pygame initialization.
 
 import pygame
 
-fonts_description: dict[str, dict[str, any]] = {
-    "MENU_TITLE_FONT": {"default": True, "size": 40, "is_bold": True},
-    "DEFAULT_FONT": {"default": True, "size": 20, "is_bold": True},
-}
+from .configuration import default_fonts
 
 fonts: dict[str, pygame.font.Font] = {}
 
 
 def init() -> None:
     """
-    Load all fonts registered in fonts_description.
+    Load all fonts registered in default_fonts.
     System font will be load if the keyword 'default' is present in the description provided.
     These fonts will be available in all modules by importing the fonts dictionary.
     """
-    global fonts
-    for font in fonts_description:
-        if "default" in fonts_description[font]:
+    for font_name, font in default_fonts.items():
+        if font["is_system_font"]:
             # Use pygame's default font
             is_bold = (
-                fonts_description[font]["is_bold"]
-                if "is_bold" in fonts_description[font]
+                font["is_bold"]
+                if "is_bold" in font
                 else False
             )
-            fonts[font] = pygame.font.SysFont(
-                "arial", fonts_description[font]["size"], is_bold
+            fonts[font_name] = pygame.font.SysFont(
+                "arial", font["size"], is_bold
             )
         else:
-            fonts[font] = pygame.font.Font(
-                fonts_description[font]["name"], fonts_description[font]["size"]
+            fonts[font_name] = pygame.font.Font(
+                font["name"], font["size"]
             )

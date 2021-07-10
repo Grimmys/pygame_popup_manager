@@ -25,6 +25,12 @@ default_sprites = {
     ),
 }
 
+default_fonts = {
+    "button_title": {"is_system_font": True, "size": 20, "is_bold": True},
+    "dynamic_button_title": {"is_system_font": True, "size": 20, "is_bold": True},
+    "text_element_content": {"is_system_font": True, "size": 20, "is_bold": True},
+    "info_box_title": {"is_system_font": True, "size": 40, "is_bold": True}
+}
 
 def set_button_background(
     button_background_path: str, button_hovered_background_path: str
@@ -50,3 +56,4 @@ def set_dynamic_button_background(
 
 def set_info_box_background(info_box_background_path: str) -> None:
     default_sprites["info_box_background"] = os.path.abspath(info_box_background_path)
+

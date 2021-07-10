@@ -37,7 +37,7 @@ class TextElement(BoxElement):
         text_color: pygame.Color = WHITE,
     ) -> None:
         if not font:
-            font = fonts["DEFAULT_FONT"]
+            font = fonts["text_element_content"]
         initial_text: pygame.Surface = font.render(text, True, text_color)
         final_text: pygame.Surface = TextElement.verify_rendered_text_size(
             initial_text, text, container_width, font, text_color
@@ -69,11 +69,11 @@ class TextElement(BoxElement):
 
         if final_render.get_width() + 20 > container_width:
             first_part, second_part = TextElement.divide_text(text)
-            first_part_render = font.render(first_part, 1, text_color)
+            first_part_render = font.render(first_part, True, text_color)
             first_part_render = TextElement.verify_rendered_text_size(
                 first_part_render, first_part, container_width, font, text_color
             )
-            second_part_render = font.render(second_part, 1, text_color)
+            second_part_render = font.render(second_part, True, text_color)
             second_part_render = TextElement.verify_rendered_text_size(
                 second_part_render, second_part, container_width, font, text_color
             )

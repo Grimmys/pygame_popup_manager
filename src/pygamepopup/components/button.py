@@ -62,7 +62,7 @@ class Button(BoxElement):
         self.size: tuple[int, int] = size
 
         if not font:
-            font = fonts["DEFAULT_FONT"]
+            font = fonts["button_title"]
         title = font.render(title, True, WHITE)
 
         background_path = os.path.abspath(background_path) if background_path else default_sprites["button_background"]["inactive"]

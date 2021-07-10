@@ -83,7 +83,7 @@ class DynamicButton(Button):
         Update the render of the button to display the updated dynamic value.
         Should be called after the current value changed.
         """
-        rendered_name: pygame.Surface = fonts["DEFAULT_FONT"].render(
+        rendered_name: pygame.Surface = fonts["dynamic_button_title"].render(
             f'{self.base_title} {self.values[self.current_value_index]["label"]}',
             True,
             WHITE,

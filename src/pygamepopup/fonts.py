@@ -8,8 +8,6 @@ import pygame
 
 from .configuration import default_fonts
 
-fonts: dict[str, pygame.font.Font] = {}
-
 
 def init() -> None:
     """
@@ -25,10 +23,10 @@ def init() -> None:
                 if "is_bold" in font
                 else False
             )
-            fonts[font_name] = pygame.font.SysFont(
+            default_fonts[font_name] = pygame.font.SysFont(
                 "arial", font["size"], is_bold
             )
         else:
-            fonts[font_name] = pygame.font.Font(
+            default_fonts[font_name] = pygame.font.Font(
                 font["name"], font["size"]
             )

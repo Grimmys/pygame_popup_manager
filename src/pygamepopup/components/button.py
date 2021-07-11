@@ -7,10 +7,9 @@ from typing import Union, Callable
 
 import pygame
 
-from ..configuration import default_sprites
+from ..configuration import default_sprites, default_fonts
 from .box_element import BoxElement
 from ..constants import WHITE, BUTTON_SIZE
-from ..fonts import fonts
 from ..types import Position, Margin
 
 
@@ -62,7 +61,7 @@ class Button(BoxElement):
         self.size: tuple[int, int] = size
 
         if not font:
-            font = fonts["button_title"]
+            font = default_fonts["button_title"]
         title = font.render(title, True, WHITE)
 
         background_path = os.path.abspath(background_path) if background_path else default_sprites["button_background"]["inactive"]

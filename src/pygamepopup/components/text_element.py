@@ -6,9 +6,9 @@ be centered on an popup.
 import pygame
 from pygame.constants import SRCALPHA
 
+from ..configuration import default_fonts
 from ..constants import WHITE
 from .box_element import BoxElement
-from ..fonts import fonts
 from ..types import Position, Margin
 
 
@@ -37,7 +37,7 @@ class TextElement(BoxElement):
         text_color: pygame.Color = WHITE,
     ) -> None:
         if not font:
-            font = fonts["text_element_content"]
+            font = default_fonts["text_element_content"]
         initial_text: pygame.Surface = font.render(text, True, text_color)
         final_text: pygame.Surface = TextElement.verify_rendered_text_size(
             initial_text, text, container_width, font, text_color

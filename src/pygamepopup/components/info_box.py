@@ -6,7 +6,7 @@ from typing import Union, Sequence, List, Callable, Optional
 
 import pygame
 
-from ..configuration import default_sprites
+from ..configuration import default_sprites, default_fonts
 from ..constants import (
     WHITE,
     CLOSE_BUTTON_MARGIN_TOP,
@@ -17,7 +17,6 @@ from ..constants import (
     DEFAULT_POPUP_WIDTH,
 )
 from .box_element import BoxElement
-from ..fonts import fonts
 from .text_element import TextElement
 from .button import Button
 from ..types import Position
@@ -133,7 +132,7 @@ class InfoBox:
             self.title,
             width,
             pygame.Vector2(0, 0),
-            fonts["info_box_title"],
+            default_fonts["info_box_title"],
             (20, 0, 20, 0),
             self.title_color,
         )

@@ -6,7 +6,7 @@
 [![version](https://img.shields.io/pypi/v/pygame-popup)](https://pypi.org/project/pygame-popup/)
 
 
-Pygame Popup Manage is a very small engine permitting to easily build all kind of popup in a pygame project.
+Pygame Popup Manager is a very small engine permitting to easily build all kind of popup in a pygame project.
 
 Here is an example of basic menus that could be created with this manager:
 

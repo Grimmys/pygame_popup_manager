@@ -1,6 +1,6 @@
 -- VERSION 0.2.0 --
 
-* Specific sprite for components are now provided by giving the relative path to the ressource and not
+* Specific sprite for components are now provided by giving the relative path to the resource and not
 the actual pygame Surface
 * Added possibility to configure default fonts
 

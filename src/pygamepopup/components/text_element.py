@@ -19,7 +19,6 @@ class TextElement(BoxElement):
 
     Keyword arguments:
     text -- the text that should be rendered
-    container_width -- the width of the popup that will contained the text
     position -- the position of the text on the screen
     font -- the font that should be used to render the text
     margin -- a tuple containing the margins of the box,
@@ -30,7 +29,6 @@ class TextElement(BoxElement):
     def __init__(
         self,
         text: str,
-        container_width: int,
         position: Position = pygame.Vector2(0, 0),
         font: pygame.font.Font = None,
         margin: Margin = (10, 0, 10, 0),
@@ -38,20 +36,17 @@ class TextElement(BoxElement):
     ) -> None:
         if not font:
             font = default_fonts["text_element_content"]
-        initial_text: pygame.Surface = font.render(text, True, text_color)
-        final_text: pygame.Surface = TextElement.verify_rendered_text_size(
-            initial_text, text, container_width, font, text_color
-        )
+        self.font = font
+        self.text = text
+        self.text_color = text_color
+        rendered_text: pygame.Surface = font.render(text, True, text_color)
+        super().__init__(position, rendered_text, margin)
 
-        super().__init__(position, final_text, margin)
-
-    @staticmethod
     def verify_rendered_text_size(
+        self,
         rendered_text: pygame.Surface,
         text: str,
-        container_width: int,
-        font: pygame.font.Font,
-        text_color: pygame.Color,
+        container_width: int
     ) -> pygame.Surface:
         """
         Split a given text in multiple lines until it could fit properly in its container
@@ -62,20 +57,18 @@ class TextElement(BoxElement):
         rendered_text -- the current rendering of the text, to check if it fits in the container
         text -- the text that would be split if necessary
         container_width -- the width of the container
-        font -- the font that should be used to render the text
-        text_color -- the color that should be used to render the text
         """
         final_render = rendered_text
 
         if final_render.get_width() + 20 > container_width:
             first_part, second_part = TextElement.divide_text(text)
-            first_part_render = font.render(first_part, True, text_color)
-            first_part_render = TextElement.verify_rendered_text_size(
-                first_part_render, first_part, container_width, font, text_color
+            first_part_render = self.font.render(first_part, True, self.text_color)
+            first_part_render = self.verify_rendered_text_size(
+                first_part_render, first_part, container_width
             )
-            second_part_render = font.render(second_part, True, text_color)
-            second_part_render = TextElement.verify_rendered_text_size(
-                second_part_render, second_part, container_width, font, text_color
+            second_part_render = self.font.render(second_part, True, self.text_color)
+            second_part_render = self.verify_rendered_text_size(
+                second_part_render, second_part, container_width
             )
             final_render = pygame.Surface(
                 (

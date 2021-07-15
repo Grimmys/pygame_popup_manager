@@ -64,17 +64,17 @@ class InfoBox:
     """
 
     def __init__(
-        self,
-        title: str,
-        element_grid: List[List[BoxElement]],
-        width: int = DEFAULT_POPUP_WIDTH,
-        element_linked: pygame.Rect = None,
-        has_close_button: bool = True,
-        title_color: pygame.Color = WHITE,
-        background_path: str = None,
-        close_button_background_path: str = None,
-        close_button_background_hover_path: str = None,
-        visible_on_background: bool = True,
+            self,
+            title: str,
+            element_grid: List[List[BoxElement]],
+            width: int = DEFAULT_POPUP_WIDTH,
+            element_linked: pygame.Rect = None,
+            has_close_button: bool = True,
+            title_color: pygame.Color = WHITE,
+            background_path: str = None,
+            close_button_background_path: str = None,
+            close_button_background_hover_path: str = None,
+            visible_on_background: bool = True,
     ) -> None:
         self.title: str = title
         self.element_linked: pygame.Rect = element_linked
@@ -85,14 +85,15 @@ class InfoBox:
         self.buttons: Sequence[Button] = []
         self.__size: tuple[int, int] = (width, 0)
         self.__position: Position = pygame.Vector2(0, 0)
-        background_path = os.path.abspath(background_path) if background_path else default_sprites["info_box_background"]
+        background_path = os.path.abspath(background_path) if background_path else default_sprites[
+            "info_box_background"]
         self.sprite: pygame.Surface = pygame.image.load(background_path)
         self.close_button_background_path: str = close_button_background_path
         self.close_button_background_hover_path: str = close_button_background_hover_path
         self.visible_on_background: bool = visible_on_background
 
     def init_render(
-        self, screen: pygame.Surface, close_button_callback: Callable = None
+            self, screen: pygame.Surface, close_button_callback: Callable = None
     ) -> None:
         """
         Initialize the rendering of the popup.
@@ -104,6 +105,7 @@ class InfoBox:
         close_button_callback -- the callback that should be executed when clicking on
         the close button if there is any
         """
+        self.resize_elements()
         height: int = self.determine_height(close_button_callback)
         self.__size = (self.__size[0], height)
         self.__position = self.determine_position(screen)
@@ -130,7 +132,6 @@ class InfoBox:
             elements.append(element)
         title = TextElement(
             self.title,
-            width,
             pygame.Vector2(0, 0),
             default_fonts["info_box_title"],
             (20, 0, 20, 0),
@@ -161,9 +162,9 @@ class InfoBox:
             row.insert(0, max_height)
         if self.has_close_button:
             close_button_height: int = (
-                DEFAULT_CLOSE_BUTTON_SIZE[1]
-                + DEFAULT_MARGIN_TOP
-                + CLOSE_BUTTON_MARGIN_TOP
+                    DEFAULT_CLOSE_BUTTON_SIZE[1]
+                    + DEFAULT_MARGIN_TOP
+                    + CLOSE_BUTTON_MARGIN_TOP
             )
             height += close_button_height
 
@@ -181,6 +182,18 @@ class InfoBox:
                 ]
             )
         return height
+
+    def resize_elements(self) -> None:
+        """
+        Resize elements according to the current width of the infoBox
+        """
+        for row in self.__elements:
+            for element in row:
+                if isinstance(element, TextElement):
+                    element.content = element.verify_rendered_text_size(element.content,
+                                                                        element.text,
+                                                                        self.__size[0] - element.get_margin_left() - element.get_margin_right())
+                    element.size = (element.content.get_width(), element.content.get_height())
 
     def determine_position(self, screen: pygame.Surface) -> Optional[Position]:
         """

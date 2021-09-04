@@ -44,17 +44,20 @@ class Button(BoxElement):
     """
 
     def __init__(
-        self,
-        callback: Callable = lambda: None,
-        size: tuple[int, int] = BUTTON_SIZE,
-        title: str = "",
-        position: Position = pygame.Vector2(0, 0),
-        background_path: str = None,
-        background_hover_path: str = None,
-        margin: Margin = (10, 0, 10, 0),
-        linked_object: any = None,
-        disabled: bool = False,
-        font: pygame.font.Font = None,
+            self,
+            callback: Callable = lambda: None,
+            size: tuple[int, int] = BUTTON_SIZE,
+            title: str = "",
+            position: Position = pygame.Vector2(0, 0),
+            background_path: str = None,
+            background_hover_path: str = None,
+            margin: Margin = (10, 0, 10, 0),
+            linked_object: any = None,
+            disabled: bool = False,
+            font: pygame.font.Font = None,
+            text_color: tuple[int, int, int] = WHITE,
+            font_hover: pygame.font.Font = None,
+            text_hover_color: tuple[int, int, int] = WHITE
     ) -> None:
         super().__init__(position, None, margin)
         self.callback: Union[Enum, Callable] = callback
@@ -62,30 +65,33 @@ class Button(BoxElement):
 
         if not font:
             font = default_fonts["button_title"]
-        title = font.render(title, True, WHITE)
+        rendered_title = font.render(title, True, text_color)
 
-        background_path = os.path.abspath(background_path) if background_path else default_sprites["button_background"]["inactive"]
-        raw_sprite = (pygame.image.load(background_path)
-        )
+        if not font_hover:
+            font_hover = font
+        rendered_title_hover = font_hover.render(title, True, text_hover_color)
+
+        background_path = os.path.abspath(background_path) if background_path \
+            else default_sprites["button_background"]["inactive"]
+        raw_sprite = pygame.image.load(background_path)
         sprite = pygame.transform.scale(raw_sprite.convert_alpha(), size)
         sprite.blit(
-            title,
+            rendered_title,
             (
-                sprite.get_width() // 2 - title.get_width() // 2,
-                sprite.get_height() // 2 - title.get_height() // 2,
+                sprite.get_width() // 2 - rendered_title.get_width() // 2,
+                sprite.get_height() // 2 - rendered_title.get_height() // 2,
             ),
         )
 
         background_hover_path = os.path.abspath(background_hover_path) if background_hover_path else \
-        default_sprites["button_background"]["active"]
-        raw_sprite_hover = (pygame.image.load(background_hover_path)
-                      )
+            default_sprites["button_background"]["active"]
+        raw_sprite_hover = pygame.image.load(background_hover_path)
         sprite_hover = pygame.transform.scale(raw_sprite_hover.convert_alpha(), size)
         sprite_hover.blit(
-            title,
+            rendered_title_hover,
             (
-                sprite_hover.get_width() // 2 - title.get_width() // 2,
-                sprite_hover.get_height() // 2 - title.get_height() // 2,
+                sprite_hover.get_width() // 2 - rendered_title_hover.get_width() // 2,
+                sprite_hover.get_height() // 2 - rendered_title_hover.get_height() // 2,
             ),
         )
         self.sprite = sprite

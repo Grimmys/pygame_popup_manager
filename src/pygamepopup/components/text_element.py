@@ -43,10 +43,7 @@ class TextElement(BoxElement):
         super().__init__(position, rendered_text, margin)
 
     def verify_rendered_text_size(
-        self,
-        rendered_text: pygame.Surface,
-        text: str,
-        container_width: int
+        self, rendered_text: pygame.Surface, text: str, container_width: int
     ) -> pygame.Surface:
         """
         Split a given text in multiple lines until it could fit properly in its container

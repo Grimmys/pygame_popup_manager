@@ -25,13 +25,9 @@ class MainMenuScene:
                         callback=lambda: self.create_other_menu(),
                     )
                 ],
-                [
-                    Button(
-                        title="Exit",
-                        callback=lambda: self.exit())
-                ],
+                [Button(title="Exit", callback=lambda: self.exit())],
             ],
-            has_close_button=False
+            has_close_button=False,
         )
         self.menu_manager.open_menu(main_menu)
 
@@ -42,13 +38,13 @@ class MainMenuScene:
                 [
                     TextElement(
                         text="The text content of a menu is automatically splitted in multiple "
-                             "part "
-                             "to fit in the box. To add a new paragraph, just create another "
-                             "TextElement."
+                        "part "
+                        "to fit in the box. To add a new paragraph, just create another "
+                        "TextElement."
                     )
                 ]
             ],
-            width=300
+            width=300,
         )
         self.menu_manager.open_menu(other_menu)
 

@@ -59,7 +59,7 @@ class ImageButton(Button):
         text_color: tuple[int, int, int] = WHITE,
         font_hover: pygame.font.Font = None,
         text_hover_color: tuple[int, int, int] = MIDNIGHT_BLUE,
-        complementary_text_lines: Sequence[str] = None
+        complementary_text_lines: Sequence[str] = None,
     ) -> None:
         super().__init__(
             callback,
@@ -75,32 +75,46 @@ class ImageButton(Button):
             text_color,
             font_hover,
             text_hover_color,
-            complementary_text_lines
+            complementary_text_lines,
         )
 
         padding: int = size[1] // 10
         frame_position: Position = pygame.Vector2(padding, padding)
-        frame_size: tuple[int, int] = (self.size[1] - padding * 2, self.size[1] - padding * 2)
-        image = pygame.transform.scale(pygame.image.load(image_path),
-                                       (frame_size[0] - padding * 2, frame_size[1] - padding * 2))
+        frame_size: tuple[int, int] = (
+            self.size[1] - padding * 2,
+            self.size[1] - padding * 2,
+        )
+        image = pygame.transform.scale(
+            pygame.image.load(image_path),
+            (frame_size[0] - padding * 2, frame_size[1] - padding * 2),
+        )
 
-        frame_background_path = os.path.abspath(frame_background_path) \
-            if frame_background_path else default_sprites["button_background"]["inactive"]
+        frame_background_path = (
+            os.path.abspath(frame_background_path)
+            if frame_background_path
+            else default_sprites["button_background"]["inactive"]
+        )
         raw_frame = pygame.image.load(frame_background_path)
         frame = pygame.transform.scale(raw_frame.convert_alpha(), frame_size)
         frame.blit(image, (padding, padding))
 
-        frame_background_hover_path = os.path.abspath(frame_background_hover_path) \
-            if frame_background_hover_path else default_sprites["button_background"]["active"]
+        frame_background_hover_path = (
+            os.path.abspath(frame_background_hover_path)
+            if frame_background_hover_path
+            else default_sprites["button_background"]["active"]
+        )
         raw_frame_hover = pygame.image.load(frame_background_hover_path)
-        frame_hover = pygame.transform.scale(raw_frame_hover.convert_alpha(), frame_size)
+        frame_hover = pygame.transform.scale(
+            raw_frame_hover.convert_alpha(), frame_size
+        )
         frame_hover.blit(image, (padding, padding))
 
         self.sprite.blit(frame, frame_position)
         self.sprite_hover.blit(frame_hover, frame_position)
 
-    def render_sprite(self, background_path: str,
-                      rendered_text_lines: Sequence[pygame.Surface]) -> pygame.Surface:
+    def render_sprite(
+        self, background_path: str, rendered_text_lines: Sequence[pygame.Surface]
+    ) -> pygame.Surface:
         """
         Compute the rendering of the image button with the given background and text lines.
         Render the text lines next to the image frame.
@@ -123,7 +137,7 @@ class ImageButton(Button):
                 (
                     self.size[1],
                     (2 * index + 1) * sprite.get_height() // (2 * text_lines_count)
-                    - rendered_text_line.get_height() // 2
-                )
+                    - rendered_text_line.get_height() // 2,
+                ),
             )
         return sprite

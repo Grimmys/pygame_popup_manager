@@ -50,21 +50,21 @@ class Button(BoxElement):
     """
 
     def __init__(
-            self,
-            callback: Callable = lambda: None,
-            size: tuple[int, int] = BUTTON_SIZE,
-            title: str = "",
-            position: Position = pygame.Vector2(0, 0),
-            background_path: str = None,
-            background_hover_path: str = None,
-            margin: Margin = (10, 0, 10, 0),
-            linked_object: any = None,
-            disabled: bool = False,
-            font: pygame.font.Font = None,
-            text_color: tuple[int, int, int] = WHITE,
-            font_hover: pygame.font.Font = None,
-            text_hover_color: tuple[int, int, int] = WHITE,
-            complementary_text_lines: Sequence[str] = None
+        self,
+        callback: Callable = lambda: None,
+        size: tuple[int, int] = BUTTON_SIZE,
+        title: str = "",
+        position: Position = pygame.Vector2(0, 0),
+        background_path: str = None,
+        background_hover_path: str = None,
+        margin: Margin = (10, 0, 10, 0),
+        linked_object: any = None,
+        disabled: bool = False,
+        font: pygame.font.Font = None,
+        text_color: tuple[int, int, int] = WHITE,
+        font_hover: pygame.font.Font = None,
+        text_hover_color: tuple[int, int, int] = WHITE,
+        complementary_text_lines: Sequence[str] = None,
     ) -> None:
         super().__init__(position, None, margin)
         self.callback: Union[Enum, Callable] = callback
@@ -78,26 +78,38 @@ class Button(BoxElement):
             font = default_fonts["button_title"]
         rendered_text_lines = Button.render_text_lines(text_lines, text_color, font)
 
-        background_path = os.path.abspath(background_path) if background_path \
+        background_path = (
+            os.path.abspath(background_path)
+            if background_path
             else default_sprites["button_background"]["inactive"]
+        )
         self.sprite = self.render_sprite(background_path, rendered_text_lines)
 
         if not font_hover:
             font_hover = font
-        rendered_text_lines_hover = Button.render_text_lines(text_lines, text_hover_color,
-                                                             font_hover)
+        rendered_text_lines_hover = Button.render_text_lines(
+            text_lines, text_hover_color, font_hover
+        )
 
-        background_hover_path = os.path.abspath(background_hover_path) \
-            if background_hover_path else default_sprites["button_background"]["active"]
-        self.sprite_hover = self.render_sprite(background_hover_path, rendered_text_lines_hover)
+        background_hover_path = (
+            os.path.abspath(background_hover_path)
+            if background_hover_path
+            else default_sprites["button_background"]["active"]
+        )
+        self.sprite_hover = self.render_sprite(
+            background_hover_path, rendered_text_lines_hover
+        )
 
         self.content = self.sprite
         self.linked_object = linked_object
         self.disabled = disabled
 
     @staticmethod
-    def render_text_lines(text_lines: Sequence[str], text_color: tuple[int, int, int],
-                          font: pygame.font.Font) -> Sequence[pygame.Surface]:
+    def render_text_lines(
+        text_lines: Sequence[str],
+        text_color: tuple[int, int, int],
+        font: pygame.font.Font,
+    ) -> Sequence[pygame.Surface]:
         """
         Compute the rendering of the given text.
 
@@ -108,11 +120,11 @@ class Button(BoxElement):
         text_color -- the color of the text
         font -- the font that should be used to render the text
         """
-        return [font.render(text_line, True, text_color)
-                for text_line in text_lines]
+        return [font.render(text_line, True, text_color) for text_line in text_lines]
 
-    def render_sprite(self, background_path: str,
-                      rendered_text_lines: Sequence[pygame.Surface]) -> pygame.Surface:
+    def render_sprite(
+        self, background_path: str, rendered_text_lines: Sequence[pygame.Surface]
+    ) -> pygame.Surface:
         """
         Compute the rendering of the button with the given background and text lines.
 

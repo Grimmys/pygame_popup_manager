@@ -18,15 +18,9 @@ def init() -> None:
     for font_name, font in default_fonts.items():
         if font["is_system_font"]:
             # Use pygame's default font
-            is_bold = (
-                font["is_bold"]
-                if "is_bold" in font
-                else False
-            )
+            is_bold = font["is_bold"] if "is_bold" in font else False
             default_fonts[font_name] = pygame.font.SysFont(
                 "arial", font["size"], is_bold
             )
         else:
-            default_fonts[font_name] = pygame.font.Font(
-                font["name"], font["size"]
-            )
+            default_fonts[font_name] = pygame.font.Font(font["name"], font["size"])

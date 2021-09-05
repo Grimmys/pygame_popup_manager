@@ -23,8 +23,8 @@ class Button(BoxElement):
     Keyword arguments:
     callback -- the reference to the function that should be call after a click
     size -- the size of the button following the format "(width, height)"
-    position -- the position of the element on the screen
     title -- the text that should be displayed at the center of the element
+    position -- the position of the element on the screen
     background_path -- the path to the image corresponding to the sprite of the element
     background_hover_path -- the path to the image corresponding to the sprite of the element
     when it has the focus
@@ -72,12 +72,11 @@ class Button(BoxElement):
 
         if complementary_text_lines is None:
             complementary_text_lines = []
+        text_lines = [title] + complementary_text_lines
 
         if not font:
             font = default_fonts["button_title"]
-        rendered_title = font.render(title, True, text_color)
-        rendered_text_lines = [rendered_title] + [font.render(text_line, True, text_color)
-                                                  for text_line in complementary_text_lines]
+        rendered_text_lines = Button.render_text_lines(text_lines, text_color, font)
 
         background_path = os.path.abspath(background_path) if background_path \
             else default_sprites["button_background"]["inactive"]
@@ -85,10 +84,8 @@ class Button(BoxElement):
 
         if not font_hover:
             font_hover = font
-        rendered_title_hover = font_hover.render(title, True, text_hover_color)
-        rendered_text_lines_hover = [rendered_title_hover] + [
-            font_hover.render(text_line, True, text_hover_color)
-            for text_line in complementary_text_lines]
+        rendered_text_lines_hover = Button.render_text_lines(text_lines, text_hover_color,
+                                                             font_hover)
 
         background_hover_path = os.path.abspath(background_hover_path) \
             if background_hover_path else default_sprites["button_background"]["active"]
@@ -97,6 +94,22 @@ class Button(BoxElement):
         self.content = self.sprite
         self.linked_object = linked_object
         self.disabled = disabled
+
+    @staticmethod
+    def render_text_lines(text_lines: Sequence[str], text_color: tuple[int, int, int],
+                          font: pygame.font.Font) -> Sequence[pygame.Surface]:
+        """
+        Compute the rendering of the given text.
+
+        Return the rendered text lines.
+
+        Keyword arguments:
+        text_lines -- the sequence in order of text lines to be rendered
+        text_color -- the color of the text
+        font -- the font that should be used to render the text
+        """
+        return [font.render(text_line, True, text_color)
+                for text_line in text_lines]
 
     def render_sprite(self, background_path: str,
                       rendered_text_lines: Sequence[pygame.Surface]) -> pygame.Surface:

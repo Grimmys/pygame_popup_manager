@@ -9,6 +9,7 @@ import pygame
 # Colors
 WHITE = pygame.Color("white")
 BLACK = pygame.Color("black")
+MIDNIGHT_BLUE = pygame.Color("midnightblue")
 
 # Display parameters
 CLOSE_BUTTON_MARGIN_TOP = 20

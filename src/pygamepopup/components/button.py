@@ -3,7 +3,7 @@ Defines Button class, a BoxElement able to react to user actions.
 """
 import os.path
 from enum import Enum
-from typing import Union, Callable
+from typing import Union, Callable, Sequence
 
 import pygame
 
@@ -32,7 +32,13 @@ class Button(BoxElement):
     should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
     linked_object -- the game entity linked to the button if there is one
     disabled -- a boolean indicating if it is not possible to interact with the button
-    font -- the font that should be used to render the title
+    font -- the font that should be used to render the text content
+    text_color -- the color of the text content
+    font_hover -- the font that should be used to render the text content when the mouse is over
+    the button
+    text_hover_color -- the color of the text content when the mouse is over the button
+    complementary_text_lines -- the other text lines that should be displayed in addition of
+    the title
 
     Attributes:
     callback -- the reference to the function that should be call after a click
@@ -57,48 +63,67 @@ class Button(BoxElement):
             font: pygame.font.Font = None,
             text_color: tuple[int, int, int] = WHITE,
             font_hover: pygame.font.Font = None,
-            text_hover_color: tuple[int, int, int] = WHITE
+            text_hover_color: tuple[int, int, int] = WHITE,
+            complementary_text_lines: Sequence[str] = None
     ) -> None:
         super().__init__(position, None, margin)
         self.callback: Union[Enum, Callable] = callback
         self.size: tuple[int, int] = size
 
+        if complementary_text_lines is None:
+            complementary_text_lines = []
+
         if not font:
             font = default_fonts["button_title"]
         rendered_title = font.render(title, True, text_color)
+        rendered_text_lines = [rendered_title] + [font.render(text_line, True, text_color)
+                                                  for text_line in complementary_text_lines]
+
+        background_path = os.path.abspath(background_path) if background_path \
+            else default_sprites["button_background"]["inactive"]
+        self.sprite = self.render_sprite(background_path, rendered_text_lines)
 
         if not font_hover:
             font_hover = font
         rendered_title_hover = font_hover.render(title, True, text_hover_color)
+        rendered_text_lines_hover = [rendered_title_hover] + [
+            font_hover.render(text_line, True, text_hover_color)
+            for text_line in complementary_text_lines]
 
-        background_path = os.path.abspath(background_path) if background_path \
-            else default_sprites["button_background"]["inactive"]
-        raw_sprite = pygame.image.load(background_path)
-        sprite = pygame.transform.scale(raw_sprite.convert_alpha(), size)
-        sprite.blit(
-            rendered_title,
-            (
-                sprite.get_width() // 2 - rendered_title.get_width() // 2,
-                sprite.get_height() // 2 - rendered_title.get_height() // 2,
-            ),
-        )
+        background_hover_path = os.path.abspath(background_hover_path) \
+            if background_hover_path else default_sprites["button_background"]["active"]
+        self.sprite_hover = self.render_sprite(background_hover_path, rendered_text_lines_hover)
 
-        background_hover_path = os.path.abspath(background_hover_path) if background_hover_path else \
-            default_sprites["button_background"]["active"]
-        raw_sprite_hover = pygame.image.load(background_hover_path)
-        sprite_hover = pygame.transform.scale(raw_sprite_hover.convert_alpha(), size)
-        sprite_hover.blit(
-            rendered_title_hover,
-            (
-                sprite_hover.get_width() // 2 - rendered_title_hover.get_width() // 2,
-                sprite_hover.get_height() // 2 - rendered_title_hover.get_height() // 2,
-            ),
-        )
-        self.sprite = sprite
-        self.sprite_hover = sprite_hover
         self.content = self.sprite
         self.linked_object = linked_object
         self.disabled = disabled
+
+    def render_sprite(self, background_path: str,
+                      rendered_text_lines: Sequence[pygame.Surface]) -> pygame.Surface:
+        """
+        Compute the rendering of the button with the given background and text lines.
+
+        Return the generated pygame Surface.
+
+        Keyword arguments:
+        background_path -- the path to the image corresponding to the sprite of the button
+        rendered_text_lines -- the sequence of text lines in order that should be clipped
+        on the surface
+        """
+        raw_sprite = pygame.image.load(background_path)
+        sprite = pygame.transform.scale(raw_sprite.convert_alpha(), self.size)
+        text_lines_count = len(rendered_text_lines)
+
+        for index, rendered_text_line in enumerate(rendered_text_lines):
+            sprite.blit(
+                rendered_text_line,
+                (
+                    sprite.get_width() // 2 - rendered_text_line.get_width() // 2,
+                    (2 * index + 1) * sprite.get_height() // (2 * text_lines_count)
+                    - rendered_text_line.get_height() // 2,
+                ),
+            )
+        return sprite
 
     def set_hover(self, is_mouse_hover: bool) -> None:
         """

@@ -1,3 +1,8 @@
+-- VERSION 0.3.0 --
+
+* Removed unnecessary container_width argument for TextElement component
+* Added new component: ImageButton, a button with a specific image displayed in a frame on the left
+
 -- VERSION 0.2.0 --
 
 * Specific sprite for components are now provided by giving the relative path to the resource and not

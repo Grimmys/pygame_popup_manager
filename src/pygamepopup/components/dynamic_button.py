@@ -9,7 +9,7 @@ from typing import Sequence, Callable
 import pygame
 
 from ..configuration import default_fonts
-from ..constants import WHITE
+from ..constants import WHITE, BUTTON_SIZE
 from ..types import Position, Margin
 from .button import Button
 
@@ -49,10 +49,10 @@ class DynamicButton(Button):
     def __init__(
         self,
         callback: Callable,
-        size: tuple[int, int],
         values: Sequence[any],
         current_value_index: int,
         base_title: str,
+        size: tuple[int, int] = BUTTON_SIZE,
         position: Position = pygame.Vector2(0, 0),
         background_path: str = None,
         background_hover_path: str = None,

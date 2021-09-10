@@ -44,6 +44,8 @@ class InfoBox:
     close_button_sprite -- the path to the image corresponding to the sprite of the close button if there should be one
     close_button_sprite_hover -- the path to the image corresponding to the sprite of the close button when it is hovered if there should be one
     visible_on_background -- a boolean indicating whether the popup is visible on background or not
+    has_vertical_separator -- a boolean indicating if there should be a line splitting the infoBox in two
+    at middle width or not
 
     Attributes:
     title -- the title of the infoBox
@@ -52,11 +54,7 @@ class InfoBox:
     has_close_button -- whether the infoBox has a close button or not
     title_color -- the color of the title
     element_grid -- the grid containing the components that should be rendered by the infoBox
-    elements -- the 2D structure containing all the computed visual elements of the infoBox
     buttons -- the sequence of buttons of the infoBox, including the close button if present
-    size -- the size of the infoBox following the format (width, height)
-    position -- the position of the infoBox. Will be beside the linked element if present,
-    or only computed at display time otherwise
     sprite -- the pygame Surface corresponding to the sprite of the infoBox
     close_button_sprite -- the path to the image corresponding to the sprite of the close button if there should be one
     close_button_sprite_hover -- the path to the image corresponding to the sprite of the close button when it is hovered if there should be one
@@ -64,23 +62,29 @@ class InfoBox:
     """
 
     def __init__(
-        self,
-        title: str,
-        element_grid: List[List[BoxElement]],
-        width: int = DEFAULT_POPUP_WIDTH,
-        element_linked: pygame.Rect = None,
-        has_close_button: bool = True,
-        title_color: pygame.Color = WHITE,
-        background_path: str = None,
-        close_button_background_path: str = None,
-        close_button_background_hover_path: str = None,
-        visible_on_background: bool = True,
+            self,
+            title: str,
+            element_grid: List[List[BoxElement]],
+            width: int = DEFAULT_POPUP_WIDTH,
+            element_linked: pygame.Rect = None,
+            has_close_button: bool = True,
+            title_color: pygame.Color = WHITE,
+            background_path: str = None,
+            close_button_background_path: str = None,
+            close_button_background_hover_path: str = None,
+            visible_on_background: bool = True,
+            has_vertical_separator: bool = False,
     ) -> None:
         self.title: str = title
         self.element_linked: pygame.Rect = element_linked
         self.has_close_button: bool = has_close_button
         self.title_color: pygame.Color = title_color
         self.element_grid: List[List[BoxElement]] = element_grid
+        self.__separator: dict[str, Union[bool, int]] = {
+            "display": has_vertical_separator,
+            "vertical_position": 0,
+            "height": 0,
+        }
         self.__elements: List[List[Union[BoxElement, int]]] = self.init_elements(width)
         self.buttons: Sequence[Button] = []
         self.__size: tuple[int, int] = (width, 0)
@@ -98,7 +102,7 @@ class InfoBox:
         self.visible_on_background: bool = visible_on_background
 
     def init_render(
-        self, screen: pygame.Surface, close_button_callback: Callable = None
+            self, screen: pygame.Surface, close_button_callback: Callable = None
     ) -> None:
         """
         Initialize the rendering of the popup.
@@ -118,6 +122,7 @@ class InfoBox:
             self.determine_elements_position()
         self.buttons: Sequence[Button] = self.find_buttons()
         self.sprite = pygame.transform.scale(self.sprite.convert_alpha(), self.__size)
+        self.__separator["height"] += height
 
     def init_elements(self, width: int) -> List[List[BoxElement]]:
         """
@@ -142,6 +147,7 @@ class InfoBox:
             (20, 0, 20, 0),
             self.title_color,
         )
+        self.__separator["vertical_position"] += title.get_height()
         elements.insert(0, [title])
         return elements
 
@@ -157,6 +163,8 @@ class InfoBox:
         """
         # Margin to be add at begin and at end
         height: int = MARGIN_BOX * 2
+        self.__separator["height"] -= height
+        self.__separator["vertical_position"] += height
         for row in self.__elements:
             max_height: int = 0
             for element in row:
@@ -167,11 +175,12 @@ class InfoBox:
             row.insert(0, max_height)
         if self.has_close_button:
             close_button_height: int = (
-                DEFAULT_CLOSE_BUTTON_SIZE[1]
-                + DEFAULT_MARGIN_TOP
-                + CLOSE_BUTTON_MARGIN_TOP
+                    DEFAULT_CLOSE_BUTTON_SIZE[1]
+                    + DEFAULT_MARGIN_TOP
+                    + CLOSE_BUTTON_MARGIN_TOP
             )
             height += close_button_height
+            self.__separator["height"] -= close_button_height
 
             self.__elements.append(
                 [
@@ -288,6 +297,21 @@ class InfoBox:
         for row in self.__elements:
             for element in row[1:]:
                 element.display(screen)
+
+        if self.__separator["display"]:
+            pygame.draw.line(
+                screen,
+                WHITE,
+                (
+                    self.__position.x + self.__size[0] / 2,
+                    self.__position.y + self.__separator["vertical_position"],
+                ),
+                (
+                    self.__position.x + self.__size[0] / 2,
+                    self.__position.y + self.__separator["height"],
+                ),
+                2,
+            )
 
     def motion(self, position: Position) -> None:
         """

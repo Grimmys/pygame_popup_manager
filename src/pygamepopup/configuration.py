@@ -74,5 +74,5 @@ def set_text_element_font(font: pygame.font.Font) -> None:
     default_fonts["text_element_content"] = font
 
 
-def set_info_box_title(font: pygame.font.Font) -> None:
+def set_info_box_title_font(font: pygame.font.Font) -> None:
     default_fonts["info_box_title"] = font

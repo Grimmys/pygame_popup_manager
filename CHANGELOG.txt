@@ -1,3 +1,7 @@
+-- VERSION 0.3.1 --
+
+* Added flag to InfoBox element permitting to add a separator vertically splitting the menu in two parts
+
 -- VERSION 0.3.0 --
 
 * Removed unnecessary container_width argument for TextElement component

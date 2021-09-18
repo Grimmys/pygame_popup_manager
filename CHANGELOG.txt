@@ -1,6 +1,11 @@
+-- VERSION 0.3.3 --
+
+* Added new attribute to InfoBox: type, permitting to differentiate a menu between others if needed
+* Changed default Button's margin
+
 -- VERSION 0.3.2 --
 
-* Change name of "set_info_box_title" method in configuration to "set_info_box_title_font"
+* Changed name of "set_info_box_title" method in configuration to "set_info_box_title_font"
 * Added a default size for dynamic buttons
 
 -- VERSION 0.3.1 --

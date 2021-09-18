@@ -50,14 +50,11 @@ class InfoBox:
     Attributes:
     title -- the title of the infoBox
     element_linked -- the pygame Rect of the element linked to this infoBox if there is one
-    close_button -- the callback to run when pressing the close button if there should be one
     has_close_button -- whether the infoBox has a close button or not
     title_color -- the color of the title
     element_grid -- the grid containing the components that should be rendered by the infoBox
     buttons -- the sequence of buttons of the infoBox, including the close button if present
     sprite -- the pygame Surface corresponding to the sprite of the infoBox
-    close_button_sprite -- the path to the image corresponding to the sprite of the close button if there should be one
-    close_button_sprite_hover -- the path to the image corresponding to the sprite of the close button when it is hovered if there should be one
     visible_on_background -- whether the popup is visible on background or not
     """
 
@@ -74,6 +71,7 @@ class InfoBox:
             close_button_background_hover_path: str = None,
             visible_on_background: bool = True,
             has_vertical_separator: bool = False,
+            kind: str = ""
     ) -> None:
         self.title: str = title
         self.element_linked: pygame.Rect = element_linked
@@ -95,11 +93,12 @@ class InfoBox:
             else default_sprites["info_box_background"]
         )
         self.sprite: pygame.Surface = pygame.image.load(background_path)
-        self.close_button_background_path: str = close_button_background_path
-        self.close_button_background_hover_path: str = (
+        self.__close_button_background_path: str = close_button_background_path
+        self.__close_button_background_hover_path: str = (
             close_button_background_hover_path
         )
         self.visible_on_background: bool = visible_on_background
+        self.type: str = kind
 
     def init_render(
             self, screen: pygame.Surface, close_button_callback: Callable = None
@@ -189,8 +188,8 @@ class InfoBox:
                         close_button_action,
                         DEFAULT_CLOSE_BUTTON_SIZE,
                         "Close",
-                        background_path=self.close_button_background_path,
-                        background_hover_path=self.close_button_background_hover_path,
+                        background_path=self.__close_button_background_path,
+                        background_hover_path=self.__close_button_background_hover_path,
                         margin=(CLOSE_BUTTON_MARGIN_TOP, 0, 0, 0),
                     ),
                 ]

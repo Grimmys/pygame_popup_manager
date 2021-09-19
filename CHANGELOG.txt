@@ -1,3 +1,7 @@
+-- VERSION 0.3.4 --
+
+* Removed margin added by default to some components
+
 -- VERSION 0.3.3 --
 
 * Added new attribute to InfoBox: type, permitting to differentiate a menu between others if needed

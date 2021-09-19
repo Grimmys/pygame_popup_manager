@@ -46,6 +46,7 @@ class DynamicButton(Button):
     (it could be the name of the dynamic button in a way)
     """
 
+    # TODO: it should be possible to provide a specific font / font hover
     def __init__(
         self,
         callback: Callable,
@@ -56,10 +57,12 @@ class DynamicButton(Button):
         position: Position = pygame.Vector2(0, 0),
         background_path: str = None,
         background_hover_path: str = None,
-        margin: Margin = (10, 0, 10, 0),
+        margin: Margin = (0, 0, 0, 0),
         linked_object: any = None,
         disabled: bool = False,
     ) -> None:
+        # TODO: default background for dynamic button should be used instead of letting the ascendant init takes
+        #  the default one for generic button
         super().__init__(
             callback,
             size,

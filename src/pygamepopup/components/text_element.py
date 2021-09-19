@@ -31,7 +31,7 @@ class TextElement(BoxElement):
         text: str,
         position: Position = pygame.Vector2(0, 0),
         font: pygame.font.Font = None,
-        margin: Margin = (10, 0, 10, 0),
+        margin: Margin = (0, 0, 0, 0),
         text_color: pygame.Color = WHITE,
     ) -> None:
         if not font:

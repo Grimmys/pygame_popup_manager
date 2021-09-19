@@ -57,7 +57,7 @@ class Button(BoxElement):
         position: Position = pygame.Vector2(0, 0),
         background_path: str = None,
         background_hover_path: str = None,
-        margin: Margin = (0, 0, 10, 0),
+        margin: Margin = (0, 0, 0, 0),
         linked_object: any = None,
         disabled: bool = False,
         font: pygame.font.Font = None,

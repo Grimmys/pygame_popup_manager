@@ -60,6 +60,13 @@ class MenuManager:
             # Trigger an irrelevant motion event to refresh the hovering of buttons on the new menu
             self.active_menu.motion(pygame.Vector2(pygame.mouse.get_pos()))
 
+    def clear_menus(self) -> None:
+        """
+        Close all the menus (in foreground and in background)
+        """
+        self.active_menu = None
+        self.background_menus.clear()
+
     def reduce_active_menu(self) -> None:
         """
         Move the active menu to the background.

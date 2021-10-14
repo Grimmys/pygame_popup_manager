@@ -48,7 +48,7 @@ class MenuManager:
             self.background_menus.append(self.active_menu)
         self.active_menu = menu
 
-    def close_menu(self) -> None:
+    def close_active_menu(self) -> None:
         """
         Close the active menu by 'destroying' it.
         Take the next menu in the background to move it to foreground if there is any.

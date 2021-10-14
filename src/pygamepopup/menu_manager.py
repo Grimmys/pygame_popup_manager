@@ -43,7 +43,7 @@ class MenuManager:
         Keyword arguments:
         menu -- the popup that should be open
         """
-        menu.init_render(self.screen, close_button_callback=lambda: self.close_menu())
+        menu.init_render(self.screen, close_button_callback=lambda: self.close_active_menu())
         if self.active_menu:
             self.background_menus.append(self.active_menu)
         self.active_menu = menu
@@ -59,6 +59,14 @@ class MenuManager:
         if self.active_menu:
             # Trigger an irrelevant motion event to refresh the hovering of buttons on the new menu
             self.active_menu.motion(pygame.Vector2(pygame.mouse.get_pos()))
+
+    def reduce_active_menu(self) -> None:
+        """
+        Move the active menu to the background.
+        """
+        if self.active_menu:
+            self.background_menus.append(self.active_menu)
+            self.active_menu = None
 
     def display(self) -> None:
         """

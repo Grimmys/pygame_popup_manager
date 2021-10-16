@@ -68,6 +68,7 @@ class ImageButton(Button):
             position,
             background_path,
             background_path,
+            False,
             margin,
             linked_object,
             disabled,

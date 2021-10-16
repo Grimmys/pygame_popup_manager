@@ -1,3 +1,10 @@
+-- VERSION 0.4.0 --
+
+* Changed name of "close_menu" to "close_active_menu"
+* Add possibility to move the active menu to the background (i.e. reduce it)
+* Add possibility to directly close all menus
+* Add possibility to create buttons without background
+
 -- VERSION 0.3.4 --
 
 * Removed margin added by default to some components

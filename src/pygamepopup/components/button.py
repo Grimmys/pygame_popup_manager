@@ -57,6 +57,7 @@ class Button(BoxElement):
         position: Position = pygame.Vector2(0, 0),
         background_path: str = None,
         background_hover_path: str = None,
+        no_background: bool = False,
         margin: Margin = (0, 0, 0, 0),
         linked_object: any = None,
         disabled: bool = False,
@@ -78,11 +79,12 @@ class Button(BoxElement):
             font = default_fonts["button_title"]
         rendered_text_lines = Button.render_text_lines(text_lines, text_color, font)
 
-        background_path = (
-            os.path.abspath(background_path)
-            if background_path
-            else default_sprites["button_background"]["inactive"]
-        )
+        if no_background:
+            background_path = None
+        elif background_path:
+            background_path = os.path.abspath(background_path)
+        else:
+            background_path = default_sprites["button_background"]["inactive"]
         self.sprite = self.render_sprite(background_path, rendered_text_lines)
 
         if not font_hover:
@@ -91,11 +93,12 @@ class Button(BoxElement):
             text_lines, text_hover_color, font_hover
         )
 
-        background_hover_path = (
-            os.path.abspath(background_hover_path)
-            if background_hover_path
-            else default_sprites["button_background"]["active"]
-        )
+        if no_background:
+            background_hover_path = None
+        elif background_hover_path:
+            background_hover_path = os.path.abspath(background_hover_path)
+        else:
+            background_hover_path = default_sprites["button_background"]["active"]
         self.sprite_hover = self.render_sprite(
             background_hover_path, rendered_text_lines_hover
         )
@@ -135,7 +138,7 @@ class Button(BoxElement):
         rendered_text_lines -- the sequence of text lines in order that should be clipped
         on the surface
         """
-        raw_sprite = pygame.image.load(background_path)
+        raw_sprite = pygame.image.load(background_path) if background_path else pygame.Surface((0, 0))
         sprite = pygame.transform.scale(raw_sprite.convert_alpha(), self.size)
         text_lines_count = len(rendered_text_lines)
 

@@ -1,3 +1,7 @@
+-- VERSION 0.4.1 --
+
+* Adapt size of a button according to the rendered text provided when there is no background
+
 -- VERSION 0.4.0 --
 
 * Changed name of "close_menu" to "close_active_menu"

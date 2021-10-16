@@ -78,6 +78,8 @@ class Button(BoxElement):
         if not font:
             font = default_fonts["button_title"]
         rendered_text_lines = Button.render_text_lines(text_lines, text_color, font)
+        if no_background:
+            self.size = (rendered_text_lines[0].get_width(), rendered_text_lines[0].get_height() * len(rendered_text_lines))
 
         if no_background:
             background_path = None
@@ -130,6 +132,7 @@ class Button(BoxElement):
     ) -> pygame.Surface:
         """
         Compute the rendering of the button with the given background and text lines.
+        If no background is provided, render the text on an empty surface.
 
         Return the generated pygame Surface.
 

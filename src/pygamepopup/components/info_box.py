@@ -12,7 +12,7 @@ from ..constants import (
     CLOSE_BUTTON_MARGIN_TOP,
     MARGIN_BOX,
     DEFAULT_MARGIN_TOP,
-    DEFAULT_CLOSE_BUTTON_SIZE,
+    CLOSE_BUTTON_SIZE,
     MARGIN_LINKED_ELEMENT,
     DEFAULT_POPUP_WIDTH,
 )
@@ -174,7 +174,7 @@ class InfoBox:
             row.insert(0, max_height)
         if self.has_close_button:
             close_button_height: int = (
-                    DEFAULT_CLOSE_BUTTON_SIZE[1]
+                    CLOSE_BUTTON_SIZE[1]
                     + DEFAULT_MARGIN_TOP
                     + CLOSE_BUTTON_MARGIN_TOP
             )
@@ -186,7 +186,7 @@ class InfoBox:
                     close_button_height,
                     Button(
                         close_button_action,
-                        DEFAULT_CLOSE_BUTTON_SIZE,
+                        CLOSE_BUTTON_SIZE,
                         "Close",
                         background_path=self.__close_button_background_path,
                         background_hover_path=self.__close_button_background_hover_path,

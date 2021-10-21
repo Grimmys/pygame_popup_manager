@@ -10,7 +10,7 @@ import pygame
 
 from .button import Button
 from ..configuration import default_sprites
-from ..constants import WHITE, MIDNIGHT_BLUE
+from ..constants import WHITE, MIDNIGHT_BLUE, IMAGE_BUTTON_SIZE
 from ..types import Position, Margin
 
 
@@ -44,9 +44,9 @@ class ImageButton(Button):
 
     def __init__(
         self,
-        callback: Callable,
-        size: tuple[int, int],
         image_path: str,
+        callback: Callable = lambda: None,
+        size: tuple[int, int] = IMAGE_BUTTON_SIZE,
         title: str = "",
         position: Position = pygame.Vector2(0, 0),
         background_path: str = None,

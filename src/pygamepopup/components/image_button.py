@@ -31,7 +31,6 @@ class ImageButton(Button):
     frame_background_hover_path -- the path to the background for the frame when the mouse is over
     margin -- a tuple containing the margins of the box,
     should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
-    linked_object -- the game entity linked to the button if there is one
     disabled -- a boolean indicating if it is not possible to interact with the button
     font -- the font that should be used to render the text content
     text_color -- the color of the text content
@@ -53,7 +52,6 @@ class ImageButton(Button):
         frame_background_path: str = None,
         frame_background_hover_path: str = None,
         margin: Margin = (0, 0, 0, 0),
-        linked_object: any = None,
         disabled: bool = False,
         font: pygame.font.Font = None,
         text_color: tuple[int, int, int] = WHITE,
@@ -70,7 +68,6 @@ class ImageButton(Button):
             background_path,
             False,
             margin,
-            linked_object,
             disabled,
             font,
             text_color,

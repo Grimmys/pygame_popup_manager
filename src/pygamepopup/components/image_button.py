@@ -43,7 +43,7 @@ class ImageButton(Button):
 
     def __init__(
         self,
-        image_path: str,
+        image_path: str = None,
         callback: Callable = lambda: None,
         size: tuple[int, int] = IMAGE_BUTTON_SIZE,
         title: str = "",
@@ -82,10 +82,6 @@ class ImageButton(Button):
             self.size[1] - padding * 2,
             self.size[1] - padding * 2,
         )
-        image = pygame.transform.scale(
-            pygame.image.load(image_path),
-            (frame_size[0] - padding * 2, frame_size[1] - padding * 2),
-        )
 
         frame_background_path = (
             os.path.abspath(frame_background_path)
@@ -94,7 +90,6 @@ class ImageButton(Button):
         )
         raw_frame = pygame.image.load(frame_background_path)
         frame = pygame.transform.scale(raw_frame.convert_alpha(), frame_size)
-        frame.blit(image, (padding, padding))
 
         frame_background_hover_path = (
             os.path.abspath(frame_background_hover_path)
@@ -105,7 +100,14 @@ class ImageButton(Button):
         frame_hover = pygame.transform.scale(
             raw_frame_hover.convert_alpha(), frame_size
         )
-        frame_hover.blit(image, (padding, padding))
+
+        if image_path:
+            image = pygame.transform.scale(
+                pygame.image.load(image_path),
+                (frame_size[0] - padding * 2, frame_size[1] - padding * 2),
+            )
+            frame.blit(image, (padding, padding))
+            frame_hover.blit(image, (padding, padding))
 
         self.sprite.blit(frame, frame_position)
         self.sprite_hover.blit(frame_hover, frame_position)

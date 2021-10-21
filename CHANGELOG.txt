@@ -1,3 +1,9 @@
+-- VERSION 0.4.2 --
+
+* Default value for width and callback arguments of an ImageButton
+* Removed linked_object attribute of Button
+* Add possibility to not provide an image for an ImageButton
+
 -- VERSION 0.4.1 --
 
 * Adapt size of a button according to the rendered text provided when there is no background

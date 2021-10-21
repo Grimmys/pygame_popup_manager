@@ -1,3 +1,7 @@
+-- VERSION 0.4.3 --
+
+* Fixed broken initialization of DynamicButton element
+
 -- VERSION 0.4.2 --
 
 * Default value for width and callback arguments of an ImageButton

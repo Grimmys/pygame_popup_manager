@@ -30,7 +30,6 @@ class Button(BoxElement):
     when it has the focus
     margin -- a tuple containing the margins of the box,
     should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
-    linked_object -- the game entity linked to the button if there is one
     disabled -- a boolean indicating if it is not possible to interact with the button
     font -- the font that should be used to render the text content
     text_color -- the color of the text content
@@ -45,8 +44,6 @@ class Button(BoxElement):
     sprite -- the pygame Surface corresponding to the sprite of the element
     sprite_hover -- the pygame Surface corresponding to the sprite of the element
     when it has the focus
-    linked_object -- the game entity linked to the button if there is one,
-    would be returned on click
     """
 
     def __init__(
@@ -59,7 +56,6 @@ class Button(BoxElement):
         background_hover_path: str = None,
         no_background: bool = False,
         margin: Margin = (0, 0, 0, 0),
-        linked_object: any = None,
         disabled: bool = False,
         font: pygame.font.Font = None,
         text_color: tuple[int, int, int] = WHITE,
@@ -106,7 +102,6 @@ class Button(BoxElement):
         )
 
         self.content = self.sprite
-        self.linked_object = linked_object
         self.disabled = disabled
 
     @staticmethod

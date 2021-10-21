@@ -34,9 +34,9 @@ class DynamicButton(Button):
     background_path -- the path to the image corresponding to the sprite of the element
     background_hover_path -- the path to the image corresponding to the sprite of the element
     when it has the focus
+    no_background -- specify whether a background should be present or not
     margin -- a tuple containing the margins of the box,
     should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
-    linked_object -- the game entity linked to the button if there is one
     disabled -- a boolean indicating if it is not possible to interact with the button
 
     Attributes:
@@ -57,8 +57,8 @@ class DynamicButton(Button):
         position: Position = pygame.Vector2(0, 0),
         background_path: str = None,
         background_hover_path: str = None,
+        no_background: bool = False,
         margin: Margin = (0, 0, 0, 0),
-        linked_object: any = None,
         disabled: bool = False,
     ) -> None:
         # TODO: default background for dynamic button should be used instead of letting the ascendant init takes
@@ -70,8 +70,8 @@ class DynamicButton(Button):
             position,
             background_path,
             background_hover_path,
+            no_background,
             margin,
-            linked_object,
             disabled,
         )
         self.values: Sequence[any] = values

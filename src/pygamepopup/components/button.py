@@ -28,6 +28,7 @@ class Button(BoxElement):
     background_path -- the path to the image corresponding to the sprite of the element
     background_hover_path -- the path to the image corresponding to the sprite of the element
     when it has the focus
+    no_background -- specify whether a background should be present or not
     margin -- a tuple containing the margins of the box,
     should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
     disabled -- a boolean indicating if it is not possible to interact with the button

@@ -22,6 +22,12 @@ from .button import Button
 from ..types import Position
 
 
+class _Row:
+    def __init__(self, elements: List[BoxElement], height: int = 0):
+        self.elements = elements
+        self.height = height
+
+
 class InfoBox:
     """
     This class is defining any kind of popup that can be found in the app.
@@ -83,10 +89,6 @@ class InfoBox:
             "vertical_position": 0,
             "height": 0,
         }
-        self.__elements: List[List[Union[BoxElement, int]]] = self.init_elements(width)
-        self.buttons: Sequence[Button] = []
-        self.__size: tuple[int, int] = (width, 0)
-        self.__position: Position = pygame.Vector2(0, 0)
         background_path = (
             os.path.abspath(background_path)
             if background_path
@@ -97,6 +99,10 @@ class InfoBox:
         self.__close_button_background_hover_path: str = (
             close_button_background_hover_path
         )
+        self.__elements: List[_Row] = self.init_elements(width)
+        self.buttons: Sequence[Button] = []
+        self.__size: tuple[int, int] = (width, 0)
+        self.__position: Position = pygame.Vector2(0, 0)
         self.visible_on_background: bool = visible_on_background
         self.type: str = kind
 
@@ -113,8 +119,10 @@ class InfoBox:
         close_button_callback -- the callback that should be executed when clicking on
         the close button if there is any
         """
+        if self.has_close_button:
+            self.__elements[-1].elements[0].callback = close_button_callback
         self.__resize_elements()
-        height: int = self.__determine_height(close_button_callback)
+        height: int = self.__determine_height()
         self.__size = (self.__size[0], height)
         self.__position = self.determine_position(screen)
         if self.__position:
@@ -123,7 +131,7 @@ class InfoBox:
         self.sprite = pygame.transform.scale(self.sprite.convert_alpha(), self.__size)
         self.__separator["height"] += height
 
-    def init_elements(self, width: int) -> List[List[BoxElement]]:
+    def init_elements(self, width: int) -> List[_Row]:
         """
         Initialize the graphical elements associated to the formal data that the infoBox should
         represent.
@@ -133,12 +141,7 @@ class InfoBox:
         Keyword arguments:
         width -- the width of the infoBox
         """
-        elements: List[List[BoxElement]] = []
-        for row in self.element_grid:
-            element: List[BoxElement] = []
-            for entry in row:
-                element.append(entry)
-            elements.append(element)
+        elements: List[_Row] = [_Row(element_line) for element_line in self.element_grid]
         title = TextElement(
             self.title,
             pygame.Vector2(0, 0),
@@ -147,10 +150,23 @@ class InfoBox:
             self.title_color,
         )
         self.__separator["vertical_position"] += title.get_height()
-        elements.insert(0, [title])
+        elements.insert(0, _Row([title]))
+        if self.has_close_button:
+            elements.append(
+                _Row([
+                        Button(
+                            size=CLOSE_BUTTON_SIZE,
+                            title="Close",
+                            background_path=self.__close_button_background_path,
+                            background_hover_path=self.__close_button_background_hover_path,
+                            margin=(CLOSE_BUTTON_MARGIN_TOP, 0, 0, 0),
+                        )
+                    ]
+                )
+            )
         return elements
 
-    def __determine_height(self, close_button_action: Callable) -> int:
+    def __determine_height(self) -> int:
         """
         Compute the total height of the infoBox, defined according
         to the height of each element in it.
@@ -164,36 +180,19 @@ class InfoBox:
         height: int = MARGIN_BOX * 2
         self.__separator["height"] -= height
         self.__separator["vertical_position"] += height
+
         for row in self.__elements:
             max_height: int = 0
-            for element in row:
+            for element in row.elements:
                 el_height = element.get_height() + DEFAULT_MARGIN_TOP
                 if el_height > max_height:
                     max_height = el_height
             height += max_height
-            row.insert(0, max_height)
-        if self.has_close_button:
-            close_button_height: int = (
-                    CLOSE_BUTTON_SIZE[1]
-                    + DEFAULT_MARGIN_TOP
-                    + CLOSE_BUTTON_MARGIN_TOP
-            )
-            height += close_button_height
-            self.__separator["height"] -= close_button_height
+            row.height = max_height
 
-            self.__elements.append(
-                [
-                    close_button_height,
-                    Button(
-                        close_button_action,
-                        CLOSE_BUTTON_SIZE,
-                        "Close",
-                        background_path=self.__close_button_background_path,
-                        background_hover_path=self.__close_button_background_hover_path,
-                        margin=(CLOSE_BUTTON_MARGIN_TOP, 0, 0, 0),
-                    ),
-                ]
-            )
+        if self.has_close_button:
+            self.__separator["height"] -= self.__elements[-1].height
+
         return height
 
     def __resize_elements(self) -> None:
@@ -201,7 +200,7 @@ class InfoBox:
         Resize elements according to the current width of the infoBox
         """
         for row in self.__elements:
-            for element in row:
+            for element in row.elements:
                 if isinstance(element, TextElement):
                     element.content = element.verify_rendered_text_size(
                         element.content,
@@ -244,7 +243,7 @@ class InfoBox:
         """
         buttons: List[Button] = []
         for row in self.__elements:
-            for element in row[1:]:
+            for element in row.elements:
                 if isinstance(element, Button):
                     buttons.append(element)
         return buttons
@@ -258,9 +257,9 @@ class InfoBox:
         mouse_pos = pygame.mouse.get_pos()
         # A row begins by a value identifying its height, followed by its elements
         for row in self.__elements:
-            nb_elements = len(row) - 1
+            nb_elements = len(row.elements)
             i = 1
-            for element in row[1:]:
+            for element in row.elements:
                 base_x = self.__position.x + (self.__size[0] // (2 * nb_elements)) * i
                 x_coordinate = base_x - element.get_width() // 2
                 element.position = pygame.Vector2(
@@ -270,7 +269,7 @@ class InfoBox:
                 if isinstance(element, Button):
                     element.set_hover(element.get_rect().collidepoint(mouse_pos))
                 i += 2
-            y_coordinate += row[0]
+            y_coordinate += row.height
 
     def display(self, screen: pygame.Surface) -> None:
         """
@@ -291,7 +290,7 @@ class InfoBox:
             self.determine_elements_position()
 
         for row in self.__elements:
-            for element in row[1:]:
+            for element in row.elements:
                 element.display(screen)
 
         if self.__separator["display"]:

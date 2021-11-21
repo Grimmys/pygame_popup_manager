@@ -23,7 +23,10 @@ class TestInfoBox:
         assert sample_menu.has_close_button
         assert sample_menu.visible_on_background
 
-    @pytest.mark.skip(reason="not implemented yet")
     def test_can_be_rendered_multiple_times(self, sample_menu, screen):
         sample_menu.init_render(screen)
         sample_menu.init_render(screen)
+
+    def test_display_on_screen(self, sample_menu, screen):
+        sample_menu.init_render(screen)
+        sample_menu.display(screen)

@@ -113,8 +113,8 @@ class InfoBox:
         close_button_callback -- the callback that should be executed when clicking on
         the close button if there is any
         """
-        self.resize_elements()
-        height: int = self.determine_height(close_button_callback)
+        self.__resize_elements()
+        height: int = self.__determine_height(close_button_callback)
         self.__size = (self.__size[0], height)
         self.__position = self.determine_position(screen)
         if self.__position:
@@ -150,7 +150,7 @@ class InfoBox:
         elements.insert(0, [title])
         return elements
 
-    def determine_height(self, close_button_action: Callable) -> int:
+    def __determine_height(self, close_button_action: Callable) -> int:
         """
         Compute the total height of the infoBox, defined according
         to the height of each element in it.
@@ -196,7 +196,7 @@ class InfoBox:
             )
         return height
 
-    def resize_elements(self) -> None:
+    def __resize_elements(self) -> None:
         """
         Resize elements according to the current width of the infoBox
         """
@@ -210,10 +210,7 @@ class InfoBox:
                         - element.get_margin_left()
                         - element.get_margin_right(),
                     )
-                    element.size = (
-                        element.content.get_width(),
-                        element.content.get_height(),
-                    )
+                    element.size = element.content.get_size()
 
     def determine_position(self, screen: pygame.Surface) -> Optional[Position]:
         """

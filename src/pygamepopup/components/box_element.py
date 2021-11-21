@@ -3,7 +3,7 @@ Defines BoxElement class, useful for drawing elements.
 All other components that should be drawn on a popup inherit from this class.
 """
 
-from typing import Union
+from typing import Optional
 
 import pygame
 
@@ -31,7 +31,7 @@ class BoxElement:
     def __init__(
         self,
         position: Position,
-        content: Union[pygame.Surface, None],
+        content: Optional[pygame.Surface],
         margin: Margin = (0, 0, 0, 0),
     ) -> None:
         self.position: Position = position

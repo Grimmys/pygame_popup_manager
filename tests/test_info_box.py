@@ -1,10 +1,9 @@
 import pytest
 
-from pygamepopup.components import InfoBox, Button
-from tests.pygamepopup_test_setup import PygamepopupTestSetup
+from src.pygamepopup.components import InfoBox, Button
 
 
-class TestInfoBox(PygamepopupTestSetup):
+class TestInfoBox:
     @pytest.fixture
     def sample_menu(self):
         return InfoBox(
@@ -16,7 +15,7 @@ class TestInfoBox(PygamepopupTestSetup):
     def test_minimal_infobox_init(self, sample_menu):
         title = "My Test Menu"
         row = [
-                Button(title="A sample button", callback=lambda: None)
+            Button(title="A sample button", callback=lambda: None)
         ]
         element_grid = [row]
         assert title == sample_menu.title

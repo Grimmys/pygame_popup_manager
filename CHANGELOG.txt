@@ -1,3 +1,7 @@
+-- VERSION 0.4.4 --
+
+* Add possibility to render the same menu twice
+
 -- VERSION 0.4.3 --
 
 * Fixed broken initialization of DynamicButton element

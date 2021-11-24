@@ -43,7 +43,7 @@ def test_menu_manager_init(screen, sample_menu_manager):
     assert not sample_menu_manager.background_menus
 
 
-@pytest.skip
+@pytest.mark.skip(reason="not implemented yet")
 def test_replace_existing_menu(sample_menu_manager, sample_menu, other_menu, menu_with_identifier):
     sample_menu_manager.background_menus = [sample_menu, sample_menu, menu_with_identifier, sample_menu]
     assert sample_menu_manager.background_menus[2] == menu_with_identifier
@@ -52,7 +52,7 @@ def test_replace_existing_menu(sample_menu_manager, sample_menu, other_menu, men
     assert sample_menu_manager.background_menus[2] == other_menu
 
 
-@pytest.skip
+@pytest.mark.skip(reason="not implemented yet")
 def test_dont_replace_missing_menu(sample_menu_manager, sample_menu, other_menu):
     sample_menu_manager.background_menus = [sample_menu, sample_menu, sample_menu, sample_menu]
     assert sample_menu_manager.background_menus[2] == sample_menu
@@ -61,7 +61,7 @@ def test_dont_replace_missing_menu(sample_menu_manager, sample_menu, other_menu)
     assert sample_menu_manager.background_menus[2] == sample_menu
 
 
-@pytest.skip
+@pytest.mark.skip(reason="not implemented yet")
 def test_replace_first_occurrence_if_existing_menu_is_present_twice(sample_menu_manager, sample_menu, other_menu,
                                                                     menu_with_identifier):
     sample_menu_manager.background_menus = [sample_menu, menu_with_identifier, menu_with_identifier, sample_menu]

@@ -52,6 +52,7 @@ class InfoBox:
     visible_on_background -- a boolean indicating whether the popup is visible on background or not
     has_vertical_separator -- a boolean indicating if there should be a line splitting the infoBox in two
     at middle width or not
+    identifier -- a string permitting to identify the menu among others if needed
 
     Attributes:
     title -- the title of the infoBox
@@ -62,6 +63,7 @@ class InfoBox:
     buttons -- the sequence of buttons of the infoBox, including the close button if present
     sprite -- the pygame Surface corresponding to the sprite of the infoBox
     visible_on_background -- whether the popup is visible on background or not
+    identifier -- a string permitting to identify the menu among others if needed
     """
 
     def __init__(
@@ -77,7 +79,7 @@ class InfoBox:
             close_button_background_hover_path: str = None,
             visible_on_background: bool = True,
             has_vertical_separator: bool = False,
-            kind: str = ""
+            identifier: str = ""
     ) -> None:
         self.title: str = title
         self.element_linked: pygame.Rect = element_linked
@@ -104,7 +106,7 @@ class InfoBox:
         self.__size: tuple[int, int] = (width, 0)
         self.__position: Position = pygame.Vector2(0, 0)
         self.visible_on_background: bool = visible_on_background
-        self.type: str = kind
+        self.identifier: str = identifier
 
     def init_render(
             self, screen: pygame.Surface, close_button_callback: Callable = None

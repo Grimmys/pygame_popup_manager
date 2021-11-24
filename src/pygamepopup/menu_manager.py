@@ -48,6 +48,20 @@ class MenuManager:
             self.background_menus.append(self.active_menu)
         self.active_menu = menu
 
+    def replace_given_menu(self, menu_identifier: str, new_menu: InfoBox) -> bool:
+        """
+        Replace a menu by a new one according to its identifier.
+        In case of conflict (two menus having the given identifier), only first occurrence
+        is replaced.
+
+        Keyword arguments:
+        menu_identifier -- the identifier of the menu to be replaced
+        new_menu -- the menu that should replace the given one
+
+        Returns whether the replacement has succeeded or not
+        """
+        pass
+
     def close_active_menu(self) -> None:
         """
         Close the active menu by 'destroying' it.

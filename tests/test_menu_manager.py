@@ -43,31 +43,33 @@ def test_menu_manager_init(screen, sample_menu_manager):
     assert not sample_menu_manager.background_menus
 
 
-@pytest.mark.skip(reason="not implemented yet")
 def test_replace_existing_menu(sample_menu_manager, sample_menu, other_menu, menu_with_identifier):
     sample_menu_manager.background_menus = [sample_menu, sample_menu, menu_with_identifier, sample_menu]
-    assert sample_menu_manager.background_menus[2] == menu_with_identifier
     has_replacement_been_done = sample_menu_manager.replace_given_menu("UnicMenuIdentifier", other_menu)
     assert has_replacement_been_done
-    assert sample_menu_manager.background_menus[2] == other_menu
+    assert sample_menu_manager.background_menus == [sample_menu, sample_menu, other_menu, sample_menu]
 
 
-@pytest.mark.skip(reason="not implemented yet")
-def test_dont_replace_missing_menu(sample_menu_manager, sample_menu, other_menu):
-    sample_menu_manager.background_menus = [sample_menu, sample_menu, sample_menu, sample_menu]
-    assert sample_menu_manager.background_menus[2] == sample_menu
+def test_replacement_is_for_active_menu(sample_menu_manager, sample_menu, other_menu, menu_with_identifier):
+    sample_menu_manager.active_menu = menu_with_identifier
+    sample_menu_manager.background_menus = [sample_menu, sample_menu, sample_menu]
+    has_replacement_been_done = sample_menu_manager.replace_given_menu("UnicMenuIdentifier", other_menu)
+    assert has_replacement_been_done
+    assert sample_menu_manager.active_menu == other_menu
+    assert sample_menu_manager.background_menus == [sample_menu, sample_menu, sample_menu]
+
+
+def test_does_not_replace_missing_menu(sample_menu_manager, sample_menu, other_menu):
+    sample_menu_manager.background_menus = [sample_menu, sample_menu, sample_menu]
     has_replacement_been_done = sample_menu_manager.replace_given_menu("UnicMenuIdentifier", other_menu)
     assert not has_replacement_been_done
-    assert sample_menu_manager.background_menus[2] == sample_menu
+    assert sample_menu_manager.background_menus == [sample_menu, sample_menu, sample_menu]
 
 
-@pytest.mark.skip(reason="not implemented yet")
 def test_replace_first_occurrence_if_existing_menu_is_present_twice(sample_menu_manager, sample_menu, other_menu,
                                                                     menu_with_identifier):
     sample_menu_manager.background_menus = [sample_menu, menu_with_identifier, menu_with_identifier, sample_menu]
-    assert sample_menu_manager.background_menus[1] == menu_with_identifier
-    assert sample_menu_manager.background_menus[2] == menu_with_identifier
     has_replacement_been_done = sample_menu_manager.replace_given_menu("UnicMenuIdentifier", other_menu)
     assert has_replacement_been_done
-    assert sample_menu_manager.background_menus[1] == other_menu
-    assert sample_menu_manager.background_menus[2] == menu_with_identifier
+    assert sample_menu_manager.background_menus == [sample_menu, other_menu, menu_with_identifier,
+                                                    sample_menu]

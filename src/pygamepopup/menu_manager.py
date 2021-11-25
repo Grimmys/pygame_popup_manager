@@ -43,7 +43,7 @@ class MenuManager:
         Keyword arguments:
         menu -- the popup that should be open
         """
-        menu.init_render(self.screen, close_button_callback=lambda: self.close_active_menu())
+        self.prepare_menu(menu)
         if self.active_menu:
             self.background_menus.append(self.active_menu)
         self.active_menu = menu
@@ -60,7 +60,16 @@ class MenuManager:
 
         Returns whether the replacement has succeeded or not
         """
-        pass
+        if self.active_menu and self.active_menu.identifier == menu_identifier:
+            self.prepare_menu(new_menu)
+            self.active_menu = new_menu
+            return True
+        for index, menu in enumerate(self.background_menus):
+            if menu.identifier == menu_identifier:
+                self.prepare_menu(new_menu)
+                self.background_menus[index] = new_menu
+                return True
+        return False
 
     def close_active_menu(self) -> None:
         """
@@ -123,3 +132,12 @@ class MenuManager:
         """
         if self.active_menu:
             self.active_menu.motion(position)
+
+    def prepare_menu(self, menu: InfoBox) -> None:
+        """
+        Prepare the given menu to be rendered according to the current setup.
+
+        Keyword arguments:
+        menu -- the menu to be initialized
+        """
+        menu.init_render(self.screen, close_button_callback=lambda: self.close_active_menu())

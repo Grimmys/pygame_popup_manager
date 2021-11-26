@@ -3,7 +3,7 @@ Defines MenuManager class, the main class to handle the displaying of all menus 
 handle the triggering of user events on the elements of the active menu
 """
 
-from typing import Optional, List
+from typing import Optional, List, Sequence
 
 import pygame
 
@@ -89,6 +89,30 @@ class MenuManager:
             # Trigger an irrelevant motion event to refresh the hovering of buttons on the new menu
             self.active_menu.motion(pygame.Vector2(pygame.mouse.get_pos()))
 
+    def close_given_menu(self, menu_identifier: str, all_occurrences: bool = False) -> bool:
+        """
+        Close menu corresponding to the given identifier.
+        By default, only first occurrence
+        is closed if many menus in the manager have the given identifier.
+
+        Keyword arguments:
+        menu_identifier -- the identifier of the menu to be closed
+        all_occurrences -- whether all found occurrences should be closed or only the first one
+
+        Returns whether at least one menu has been closed or not
+        """
+        if self.active_menu and self.active_menu.identifier == menu_identifier:
+            self.active_menu = None
+            if not all_occurrences:
+                return True
+            
+        matching_menus_in_background = self._get_given_menus_from_background(menu_identifier)
+        for menu in matching_menus_in_background:
+            self.background_menus.remove(menu)
+            if not all_occurrences:
+                break
+        return len(matching_menus_in_background) > 0
+
     def clear_menus(self) -> None:
         """
         Close all the menus (in foreground and in background)
@@ -147,3 +171,12 @@ class MenuManager:
         menu -- the menu to be initialized
         """
         menu.init_render(self.screen, close_button_callback=lambda: self.close_active_menu())
+
+    def _get_given_menus_from_background(self, menu_identifier: str) -> Sequence[InfoBox]:
+        """
+        Return all the menus in background matching the given identifier
+
+        Keyword arguments:
+        menu_identifier -- the identifier to look for
+        """
+        return [menu for menu in self.background_menus if menu.identifier == menu_identifier]

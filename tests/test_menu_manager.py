@@ -87,8 +87,59 @@ def test_replace_all_occurrences(sample_menu_manager, sample_menu, other_menu,
                                  menu_with_identifier):
     sample_menu_manager.background_menus = [sample_menu, menu_with_identifier, menu_with_identifier, sample_menu]
 
-    has_replacement_been_done = sample_menu_manager.replace_given_menu("UnicMenuIdentifier", other_menu, all_occurrences=True)
+    has_replacement_been_done = sample_menu_manager.replace_given_menu("UnicMenuIdentifier", other_menu,
+                                                                       all_occurrences=True)
 
     assert has_replacement_been_done
     assert sample_menu_manager.background_menus == [sample_menu, other_menu, other_menu,
                                                     sample_menu]
+
+
+def test_close_existing_menu(sample_menu_manager, sample_menu, menu_with_identifier):
+    sample_menu_manager.background_menus = [sample_menu, sample_menu, menu_with_identifier, sample_menu]
+
+    has_closing_been_done = sample_menu_manager.close_given_menu("UnicMenuIdentifier")
+
+    assert has_closing_been_done
+    assert sample_menu_manager.background_menus == [sample_menu, sample_menu, sample_menu]
+
+
+def test_closing_is_for_active_menu(sample_menu_manager, sample_menu, menu_with_identifier):
+    sample_menu_manager.active_menu = menu_with_identifier
+    sample_menu_manager.background_menus = [sample_menu, sample_menu, sample_menu]
+
+    has_closing_been_done = sample_menu_manager.close_given_menu("UnicMenuIdentifier")
+
+    assert has_closing_been_done
+    assert not sample_menu_manager.active_menu
+    assert sample_menu_manager.background_menus == [sample_menu, sample_menu, sample_menu]
+
+
+def test_does_not_close_missing_menu(sample_menu_manager, sample_menu):
+    sample_menu_manager.background_menus = [sample_menu, sample_menu, sample_menu]
+
+    has_closing_been_done = sample_menu_manager.close_given_menu("UnicMenuIdentifier")
+
+    assert not has_closing_been_done
+    assert sample_menu_manager.background_menus == [sample_menu, sample_menu, sample_menu]
+
+
+def test_close_first_occurrence_if_existing_menu_is_present_twice(sample_menu_manager, sample_menu,
+                                                                  menu_with_identifier):
+    sample_menu_manager.background_menus = [sample_menu, menu_with_identifier, menu_with_identifier, sample_menu]
+
+    has_closing_been_done = sample_menu_manager.close_given_menu("UnicMenuIdentifier")
+
+    assert has_closing_been_done
+    assert sample_menu_manager.background_menus == [sample_menu, menu_with_identifier,
+                                                    sample_menu]
+
+
+def test_close_all_occurrences(sample_menu_manager, sample_menu, menu_with_identifier):
+    sample_menu_manager.background_menus = [sample_menu, menu_with_identifier, menu_with_identifier, sample_menu]
+
+    has_closing_been_done = sample_menu_manager.close_given_menu("UnicMenuIdentifier",
+                                                                 all_occurrences=True)
+
+    assert has_closing_been_done
+    assert sample_menu_manager.background_menus == [sample_menu, sample_menu]

@@ -43,7 +43,7 @@ class MenuManager:
         Keyword arguments:
         menu -- the popup that should be open
         """
-        self.prepare_menu(menu)
+        self._prepare_menu(menu)
         if self.active_menu:
             self.background_menus.append(self.active_menu)
         self.active_menu = menu
@@ -61,15 +61,39 @@ class MenuManager:
         Returns whether the replacement has succeeded or not
         """
         if self.active_menu and self.active_menu.identifier == menu_identifier:
-            self.prepare_menu(new_menu)
+            self._prepare_menu(new_menu)
             self.active_menu = new_menu
             return True
         for index, menu in enumerate(self.background_menus):
             if menu.identifier == menu_identifier:
-                self.prepare_menu(new_menu)
+                self._prepare_menu(new_menu)
                 self.background_menus[index] = new_menu
                 return True
         return False
+
+    def replace_all_given_menu(self, menu_identifier: str, new_menu: InfoBox) -> bool:
+        """
+        Replace a menu by a new one according to its identifier.
+        In case of conflict (multiple menus having the given identifier), all occurrences
+        are replaced.
+
+        Keyword arguments:
+        menu_identifier -- the identifier of the menu to be replaced
+        new_menu -- the menu that should replace the given one
+
+        Returns whether the replacement has succeeded or not
+        """
+        has_replacement_been_done = False
+        if self.active_menu and self.active_menu.identifier == menu_identifier:
+            self._prepare_menu(new_menu)
+            self.active_menu = new_menu
+            has_replacement_been_done = True
+        for index, menu in enumerate(self.background_menus):
+            if menu.identifier == menu_identifier:
+                self._prepare_menu(new_menu)
+                self.background_menus[index] = new_menu
+                has_replacement_been_done = True
+        return has_replacement_been_done
 
     def close_active_menu(self) -> None:
         """
@@ -133,7 +157,7 @@ class MenuManager:
         if self.active_menu:
             self.active_menu.motion(position)
 
-    def prepare_menu(self, menu: InfoBox) -> None:
+    def _prepare_menu(self, menu: InfoBox) -> None:
         """
         Prepare the given menu to be rendered according to the current setup.
 

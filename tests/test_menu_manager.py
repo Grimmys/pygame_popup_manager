@@ -87,7 +87,7 @@ def test_replace_all_occurrences(sample_menu_manager, sample_menu, other_menu,
                                  menu_with_identifier):
     sample_menu_manager.background_menus = [sample_menu, menu_with_identifier, menu_with_identifier, sample_menu]
 
-    has_replacement_been_done = sample_menu_manager.replace_all_given_menu("UnicMenuIdentifier", other_menu)
+    has_replacement_been_done = sample_menu_manager.replace_given_menu("UnicMenuIdentifier", other_menu, all_occurrences=True)
 
     assert has_replacement_been_done
     assert sample_menu_manager.background_menus == [sample_menu, other_menu, other_menu,

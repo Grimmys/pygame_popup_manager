@@ -48,38 +48,16 @@ class MenuManager:
             self.background_menus.append(self.active_menu)
         self.active_menu = menu
 
-    def replace_given_menu(self, menu_identifier: str, new_menu: InfoBox) -> bool:
+    def replace_given_menu(self, menu_identifier: str, new_menu: InfoBox, all_occurrences: bool = False) -> bool:
         """
         Replace a menu by a new one according to its identifier.
-        In case of conflict (two menus having the given identifier), only first occurrence
-        is replaced.
+        By default, only first occurrence
+        is replaced if many menus in the manager have the given identifier.
 
         Keyword arguments:
         menu_identifier -- the identifier of the menu to be replaced
         new_menu -- the menu that should replace the given one
-
-        Returns whether the replacement has succeeded or not
-        """
-        if self.active_menu and self.active_menu.identifier == menu_identifier:
-            self._prepare_menu(new_menu)
-            self.active_menu = new_menu
-            return True
-        for index, menu in enumerate(self.background_menus):
-            if menu.identifier == menu_identifier:
-                self._prepare_menu(new_menu)
-                self.background_menus[index] = new_menu
-                return True
-        return False
-
-    def replace_all_given_menu(self, menu_identifier: str, new_menu: InfoBox) -> bool:
-        """
-        Replace a menu by a new one according to its identifier.
-        In case of conflict (multiple menus having the given identifier), all occurrences
-        are replaced.
-
-        Keyword arguments:
-        menu_identifier -- the identifier of the menu to be replaced
-        new_menu -- the menu that should replace the given one
+        all_occurrences -- whether all found occurrences should be replaced or only the first one
 
         Returns whether the replacement has succeeded or not
         """
@@ -87,11 +65,15 @@ class MenuManager:
         if self.active_menu and self.active_menu.identifier == menu_identifier:
             self._prepare_menu(new_menu)
             self.active_menu = new_menu
+            if not all_occurrences:
+                return True
             has_replacement_been_done = True
         for index, menu in enumerate(self.background_menus):
             if menu.identifier == menu_identifier:
                 self._prepare_menu(new_menu)
                 self.background_menus[index] = new_menu
+                if not all_occurrences:
+                    return True
                 has_replacement_been_done = True
         return has_replacement_been_done
 

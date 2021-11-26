@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pygame-popup",
-    version="0.4.4",
+    version="0.5.0",
     author="Grimmys",
     author_email="grimmys.programming@gmail.com",
     description="A popup manager for pygame",

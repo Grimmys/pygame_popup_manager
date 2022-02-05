@@ -76,7 +76,8 @@ class Button(BoxElement):
             font = default_fonts["button_title"]
         rendered_text_lines = Button.render_text_lines(text_lines, text_color, font)
         if no_background:
-            self.size = (rendered_text_lines[0].get_width(), rendered_text_lines[0].get_height() * len(rendered_text_lines))
+            self.size = (rendered_text_lines[0].get_width(),
+                         rendered_text_lines[0].get_height() * len(rendered_text_lines))
 
         if no_background:
             background_path = None
@@ -137,7 +138,8 @@ class Button(BoxElement):
         rendered_text_lines -- the sequence of text lines in order that should be clipped
         on the surface
         """
-        raw_sprite = pygame.image.load(background_path) if background_path else pygame.Surface((0, 0))
+        raw_sprite = pygame.image.load(background_path) if background_path \
+            else pygame.Surface((0, 0))
         sprite = pygame.transform.scale(raw_sprite.convert_alpha(), self.size)
         text_lines_count = len(rendered_text_lines)
 

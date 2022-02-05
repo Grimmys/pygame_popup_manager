@@ -48,7 +48,8 @@ class MenuManager:
             self.background_menus.append(self.active_menu)
         self.active_menu = menu
 
-    def replace_given_menu(self, menu_identifier: str, new_menu: InfoBox, all_occurrences: bool = False) -> bool:
+    def replace_given_menu(self, menu_identifier: str, new_menu: InfoBox,
+                           all_occurrences: bool = False) -> bool:
         """
         Replace a menu by a new one according to its identifier.
         By default, only first occurrence
@@ -170,7 +171,7 @@ class MenuManager:
         Keyword arguments:
         menu -- the menu to be initialized
         """
-        menu.init_render(self.screen, close_button_callback=lambda: self.close_active_menu())
+        menu.init_render(self.screen, close_button_callback=self.close_active_menu)
 
     def _get_given_menus_from_background(self, menu_identifier: str) -> Sequence[InfoBox]:
         """

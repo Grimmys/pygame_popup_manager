@@ -61,8 +61,8 @@ class DynamicButton(Button):
         margin: Margin = (0, 0, 0, 0),
         disabled: bool = False,
     ) -> None:
-        # TODO: default background for dynamic button should be used instead of letting the ascendant init takes
-        #  the default one for generic button
+        # TODO: default background for dynamic button should be used instead of
+        #  letting the ascendant init takes the default one for generic button
         super().__init__(
             callback,
             size,

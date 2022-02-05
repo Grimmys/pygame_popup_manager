@@ -47,11 +47,13 @@ class InfoBox:
     title_color -- the color of the title
     background_path -- the path corresponding to the image that will be the sprite of
     the infoBox
-    close_button_sprite -- the path to the image corresponding to the sprite of the close button if there should be one
-    close_button_sprite_hover -- the path to the image corresponding to the sprite of the close button when it is hovered if there should be one
+    close_button_sprite -- the path to the image corresponding to the sprite of
+    the close button if there should be one
+    close_button_sprite_hover -- the path to the image corresponding to the sprite of
+    the close button when it is hovered if there should be one
     visible_on_background -- a boolean indicating whether the popup is visible on background or not
-    has_vertical_separator -- a boolean indicating if there should be a line splitting the infoBox in two
-    at middle width or not
+    has_vertical_separator -- a boolean indicating if there should be a line
+    splitting the infoBox in two at middle width or not
     identifier -- a string permitting to identify the menu among others if needed
 
     Attributes:
@@ -101,7 +103,7 @@ class InfoBox:
         self.__close_button_background_hover_path: str = (
             close_button_background_hover_path
         )
-        self.__elements: List[_Row] = self.init_elements(width)
+        self.__elements: List[_Row] = self.init_elements()
         self.buttons: Sequence[Button] = []
         self.__size: tuple[int, int] = (width, 0)
         self.__position: Position = pygame.Vector2(0, 0)
@@ -133,15 +135,12 @@ class InfoBox:
         self.sprite = pygame.transform.scale(self.sprite.convert_alpha(), self.__size)
         self.__separator["height"] += height
 
-    def init_elements(self, width: int) -> List[_Row]:
+    def init_elements(self) -> List[_Row]:
         """
         Initialize the graphical elements associated to the formal data that the infoBox should
         represent.
 
         Return the elements in a 2D structure to know the relative position of each element.
-
-        Keyword arguments:
-        width -- the width of the infoBox
         """
         elements: List[_Row] = [_Row(element_line) for element_line in self.element_grid]
         title = TextElement(

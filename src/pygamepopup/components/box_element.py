@@ -3,6 +3,8 @@ Defines BoxElement class, useful for drawing elements.
 All other components that should be drawn on a popup inherit from this class.
 """
 
+from __future__ import annotations
+
 from typing import Optional
 
 import pygame

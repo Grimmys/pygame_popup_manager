@@ -3,7 +3,9 @@ Defines MenuManager class, the main class to handle the displaying of all menus 
 handle the triggering of user events on the elements of the active menu
 """
 
-from typing import Optional, List, Sequence
+from __future__ import annotations
+
+from typing import Optional, Sequence
 
 import pygame
 
@@ -32,7 +34,7 @@ class MenuManager:
     def __init__(self, screen: pygame.Surface) -> None:
         self.screen: pygame.Surface = screen
         self.active_menu: Optional[InfoBox] = None
-        self.background_menus: List[InfoBox] = []
+        self.background_menus: list[InfoBox] = []
 
     def open_menu(self, menu: InfoBox) -> None:
         """

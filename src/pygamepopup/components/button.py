@@ -1,6 +1,9 @@
 """
 Defines Button class, a BoxElement able to react to user actions.
 """
+
+from __future__ import annotations
+
 import os.path
 from enum import Enum
 from typing import Union, Callable, Sequence

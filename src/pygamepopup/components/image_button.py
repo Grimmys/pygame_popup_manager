@@ -3,6 +3,8 @@ Defines ImageButton class, a special Button that includes an image in a frame
 and eventually some text next to it.
 """
 
+from __future__ import annotations
+
 import os
 from typing import Callable, Sequence
 

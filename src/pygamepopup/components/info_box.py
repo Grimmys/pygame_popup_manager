@@ -1,8 +1,11 @@
 """
 Defines InfoBox class, an helper to draw any kind of popup (menu or informative message).
 """
+
+from __future__ import annotations
+
 import os.path
-from typing import Union, Sequence, List, Callable, Optional
+from typing import Union, Sequence, Callable, Optional
 
 import pygame
 
@@ -23,7 +26,7 @@ from ..types import Position
 
 
 class _Row:
-    def __init__(self, elements: List[BoxElement], height: int = 0):
+    def __init__(self, elements: list[BoxElement], height: int = 0):
         self.elements = elements
         self.height = height
 
@@ -71,7 +74,7 @@ class InfoBox:
     def __init__(
             self,
             title: str,
-            element_grid: List[List[BoxElement]],
+            element_grid: list[list[BoxElement]],
             width: int = DEFAULT_POPUP_WIDTH,
             element_linked: pygame.Rect = None,
             has_close_button: bool = True,
@@ -87,7 +90,7 @@ class InfoBox:
         self.element_linked: pygame.Rect = element_linked
         self.has_close_button: bool = has_close_button
         self.title_color: pygame.Color = title_color
-        self.element_grid: List[List[BoxElement]] = element_grid
+        self.element_grid: list[list[BoxElement]] = element_grid
         self.__separator: dict[str, Union[bool, int]] = {
             "display": has_vertical_separator,
             "vertical_position": 0,
@@ -103,7 +106,7 @@ class InfoBox:
         self.__close_button_background_hover_path: str = (
             close_button_background_hover_path
         )
-        self.__elements: List[_Row] = self.init_elements()
+        self.__elements: list[_Row] = self.init_elements()
         self.buttons: Sequence[Button] = []
         self.__size: tuple[int, int] = (width, 0)
         self.__position: Position = pygame.Vector2(0, 0)
@@ -135,14 +138,14 @@ class InfoBox:
         self.sprite = pygame.transform.scale(self.sprite.convert_alpha(), self.__size)
         self.__separator["height"] += height
 
-    def init_elements(self) -> List[_Row]:
+    def init_elements(self) -> list[_Row]:
         """
         Initialize the graphical elements associated to the formal data that the infoBox should
         represent.
 
         Return the elements in a 2D structure to know the relative position of each element.
         """
-        elements: List[_Row] = [_Row(element_line) for element_line in self.element_grid]
+        elements: list[_Row] = [_Row(element_line) for element_line in self.element_grid]
         title = TextElement(
             self.title,
             pygame.Vector2(0, 0),
@@ -242,7 +245,7 @@ class InfoBox:
         Search in all elements for buttons.
         Return the sequence of buttons.
         """
-        buttons: List[Button] = []
+        buttons: list[Button] = []
         for row in self.__elements:
             for element in row.elements:
                 if isinstance(element, Button):

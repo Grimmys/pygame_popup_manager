@@ -3,6 +3,8 @@ Defines TextElement class, a BoxElement permitting to easily draw text and let i
 be centered on an popup.
 """
 
+from __future__ import annotations
+
 import pygame
 from pygame.constants import SRCALPHA
 

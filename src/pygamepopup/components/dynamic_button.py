@@ -4,6 +4,8 @@ on each click.
 Generally use as a parameter button.
 """
 
+from __future__ import annotations
+
 from typing import Sequence, Callable
 
 import pygame

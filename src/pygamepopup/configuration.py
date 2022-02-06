@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-from typing import Union
 
 import pkg_resources
 import pygame
@@ -30,12 +29,14 @@ default_sprites = {
     ),
 }
 
-default_fonts: dict[str, Union[dict[str, any], pygame.font.Font]] = {
+_default_fonts_description: dict[str, dict[str, any]] = {
     "button_title": {"is_system_font": True, "size": 20, "is_bold": True},
     "dynamic_button_title": {"is_system_font": True, "size": 20, "is_bold": True},
     "text_element_content": {"is_system_font": True, "size": 20, "is_bold": True},
     "info_box_title": {"is_system_font": True, "size": 40, "is_bold": True},
 }
+
+_default_fonts: dict[str, pygame.font.Font] = {}
 
 
 def set_button_background(
@@ -65,16 +66,16 @@ def set_info_box_background(info_box_background_path: str) -> None:
 
 
 def set_button_title_font(font: pygame.font.Font) -> None:
-    default_fonts["button_title"] = font
+    _default_fonts["button_title"] = font
 
 
 def set_dynamic_button_title_font(font: pygame.font.Font) -> None:
-    default_fonts["dynamic_button_title"] = font
+    _default_fonts["dynamic_button_title"] = font
 
 
 def set_text_element_font(font: pygame.font.Font) -> None:
-    default_fonts["text_element_content"] = font
+    _default_fonts["text_element_content"] = font
 
 
 def set_info_box_title_font(font: pygame.font.Font) -> None:
-    default_fonts["info_box_title"] = font
+    _default_fonts["info_box_title"] = font

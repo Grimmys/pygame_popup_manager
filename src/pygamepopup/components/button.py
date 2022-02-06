@@ -10,7 +10,7 @@ from typing import Union, Callable, Sequence
 
 import pygame
 
-from ..configuration import default_sprites, default_fonts
+from ..configuration import default_sprites, _default_fonts
 from .box_element import BoxElement
 from ..constants import WHITE, BUTTON_SIZE
 from ..types import Position, Margin
@@ -76,7 +76,7 @@ class Button(BoxElement):
         text_lines = [title] + complementary_text_lines
 
         if not font:
-            font = default_fonts["button_title"]
+            font = _default_fonts["button_title"]
         rendered_text_lines = Button.render_text_lines(text_lines, text_color, font)
         if no_background:
             self.size = (rendered_text_lines[0].get_width(),

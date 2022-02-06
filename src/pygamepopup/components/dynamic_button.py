@@ -10,7 +10,7 @@ from typing import Sequence, Callable
 
 import pygame
 
-from ..configuration import default_fonts
+from ..configuration import _default_fonts
 from ..constants import WHITE, BUTTON_SIZE
 from ..types import Position, Margin
 from .button import Button
@@ -88,7 +88,7 @@ class DynamicButton(Button):
         Update the render of the button to display the updated dynamic value.
         Should be called after the current value changed.
         """
-        rendered_name: pygame.Surface = default_fonts["dynamic_button_title"].render(
+        rendered_name: pygame.Surface = _default_fonts["dynamic_button_title"].render(
             f'{self.base_title} {self.values[self.current_value_index]["label"]}',
             True,
             WHITE,

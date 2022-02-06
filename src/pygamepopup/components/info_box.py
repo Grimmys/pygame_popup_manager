@@ -9,7 +9,7 @@ from typing import Union, Sequence, Callable, Optional
 
 import pygame
 
-from ..configuration import default_sprites, default_fonts
+from ..configuration import default_sprites, _default_fonts
 from ..constants import (
     WHITE,
     CLOSE_BUTTON_MARGIN_TOP,
@@ -149,7 +149,7 @@ class InfoBox:
         title = TextElement(
             self.title,
             pygame.Vector2(0, 0),
-            default_fonts["info_box_title"],
+            _default_fonts["info_box_title"],
             (20, 0, 20, 0),
             self.title_color,
         )

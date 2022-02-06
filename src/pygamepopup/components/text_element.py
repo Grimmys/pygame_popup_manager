@@ -8,7 +8,7 @@ from __future__ import annotations
 import pygame
 from pygame.constants import SRCALPHA
 
-from ..configuration import default_fonts
+from ..configuration import _default_fonts
 from ..constants import WHITE
 from .box_element import BoxElement
 from ..types import Position, Margin
@@ -37,7 +37,7 @@ class TextElement(BoxElement):
         text_color: pygame.Color = WHITE,
     ) -> None:
         if not font:
-            font = default_fonts["text_element_content"]
+            font = _default_fonts["text_element_content"]
         self.font = font
         self.text = text
         self.text_color = text_color

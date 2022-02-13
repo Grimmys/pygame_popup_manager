@@ -1,8 +1,3 @@
-.. Pygame Popup Manager documentation master file, created by
-   sphinx-quickstart on Sun Feb 13 15:51:25 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to Pygame Popup Manager's documentation!
 ================================================
 
@@ -10,9 +5,13 @@ Welcome to Pygame Popup Manager's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. note::
+
+   This project is under active development and open to any contribution.
+   Also, don't hesitate to report any typo or unclear statement present in this documentation.
 
 
-Indices and tables
+Contents
 ==================
 
 * :ref:`genindex`

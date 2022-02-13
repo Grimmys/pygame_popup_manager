@@ -24,6 +24,9 @@ author = 'Grimmys'
 # The full version, including alpha/beta/rc tags
 release = '0.6.0'
 
+# The major version only
+version = '0.6'
+
 
 # -- General configuration ---------------------------------------------------
 

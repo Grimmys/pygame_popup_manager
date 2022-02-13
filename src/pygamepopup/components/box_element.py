@@ -100,5 +100,5 @@ class BoxElement:
         screen -- the screen on which the content of the box should be drawn
         """
         screen.blit(
-            self.content, (self.position[0] + self.margin["LEFT"], self.position[1])
+            self.content, (self.position[0] + self.margin["LEFT"], self.position[1] + self.margin["TOP"])
         )

@@ -1,9 +1,10 @@
 """
 Defines typing for abstract structures
 """
-from typing import Tuple
+
+from __future__ import annotations
 
 import pygame
 
 Position = pygame.Vector2
-Margin = Tuple[int, int, int, int]
+Margin = tuple[int, int, int, int]

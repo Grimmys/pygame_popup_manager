@@ -3,7 +3,8 @@ Welcome to Pygame Popup Manager's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+
+   usage
 
 .. note::
 

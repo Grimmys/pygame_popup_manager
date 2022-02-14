@@ -13,7 +13,7 @@ Here is an example of basic menus that could be created with this manager:
 ![Main menu with side menu](https://github.com/Grimmys/pygame_popup_manager/blob/main/screenshots/main_menu_with_side_menu.png)
 # Installation
 
-The most easy way to install this package is to do it with `pip`:
+The easiest way to install this package is to do it with `pip`:
 
 `pip install pygame-popup`
 

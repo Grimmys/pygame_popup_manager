@@ -10,11 +10,3 @@ Welcome to Pygame Popup Manager's documentation!
 
    This project is under active development and open to any contribution.
    Also, don't hesitate to report any typo or unclear statement present in this documentation.
-
-
-Contents
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

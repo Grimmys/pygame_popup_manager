@@ -14,4 +14,4 @@ Configuration
 -------------
 
 `pygamepopup.init` function should be call right after
-calling `pygame.init` function in your code and before any usage of members of Pygame Popup Manager.
+`pygame.init` function in your code and before any further usage of stuff coming from Pygame Popup Manager.

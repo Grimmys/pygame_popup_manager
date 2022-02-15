@@ -13,5 +13,5 @@ The easiest way to install this package is to do it with pip:
 Configuration
 -------------
 
-:func:`initialization.init` function should be call right after
-`pygame.init` function in your code and before any further usage of stuff coming from Pygame Popup Manager.
+:func:`init <initialization.init>` function should be call right after
+:func:`pygame.init` function in your code and before any further usage of stuff coming from Pygame Popup Manager.

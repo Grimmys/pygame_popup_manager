@@ -16,7 +16,9 @@ from .types import Position
 class MenuManager:
     """
     This class represents a manager for the interfaces of a screen.
-    Display all menu currently registered in the manager.
+
+    It display all the menus currently registered in the manager.
+
     Handle the opening of a new menu and the closing of the active one.
     Handle the triggering of user motion events and user click events on the active menu.
 

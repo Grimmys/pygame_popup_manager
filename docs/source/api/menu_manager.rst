@@ -1,4 +1,4 @@
-Menu Manager
+MenuManager
 ==============
 
 .. py:module:: menu_manager
@@ -12,8 +12,8 @@ Menu Manager
     Handle the opening of a new menu and the closing of the active one.
     Handle the triggering of user motion events and user click events on the active menu.
 
-    :param pygame.Surface screen: The screen on which the menus should be displayed and on which the user events should be handle
-    :ivar pygame.Surface screen: The screen on which the menus should be displayed and on which the user events should be handled
+    :param pygame.Surface screen: The screen on which the menus should be displayed and on which the user events should be handled.
+    :ivar pygame.Surface screen: The screen on which the menus should be displayed and on which the user events should be handled.
     :ivar Optional[InfoBox] active_menu: The current menu in the foreground, the only one that will react to user events.
     :ivar list[InfoBox] background_menus: The ordered sequence of menus that are in the background.
 

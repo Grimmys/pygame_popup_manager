@@ -34,6 +34,7 @@ class _Row:
 class InfoBox:
     """
     This class is defining any kind of popup that can be found in the app.
+
     It can be used to represent the interface of a menu, or a simple text message.
     Some elements can be buttons, that will react to user clicks (see the button component
     for more information).
@@ -45,18 +46,17 @@ class InfoBox:
     width -- the width of the infoBox, DEFAULT_POPUP_WIDTH will be assigned if none is given
     element_linked -- the pygame Rect of the element linked to this infoBox if any,
     the infoBox will be displayed beside the element if provided
-    has_close_button -- a boolean indicating whether a close button should be added
+    has_close_button -- whether a close button should be added
     at the bottom or not
     title_color -- the color of the title
-    background_path -- the path corresponding to the image that will be the sprite of
+    background_path -- the path corresponding to the image that should be the sprite of
     the infoBox
     close_button_sprite -- the path to the image corresponding to the sprite of
     the close button if there should be one
     close_button_sprite_hover -- the path to the image corresponding to the sprite of
     the close button when it is hovered if there should be one
-    visible_on_background -- a boolean indicating whether the popup is visible on background or not
-    has_vertical_separator -- a boolean indicating if there should be a line
-    splitting the infoBox in two at middle width or not
+    visible_on_background -- whether the popup is visible on background or not
+    has_vertical_separator -- whether there should be a line splitting the infoBox in two at middle width or not
     identifier -- a string permitting to identify the menu among others if needed
 
     Attributes:
@@ -118,6 +118,7 @@ class InfoBox:
     ) -> None:
         """
         Initialize the rendering of the popup.
+
         Compute it size and its position according to the given screen.
         Determine the position of each component.
 
@@ -143,7 +144,7 @@ class InfoBox:
         Initialize the graphical elements associated to the formal data that the infoBox should
         represent.
 
-        Return the elements in a 2D structure to know the relative position of each element.
+        Return the elements in a 2D structure corresponding to the relative position of each element.
         """
         elements: list[_Row] = [_Row(element_line) for element_line in self.element_grid]
         title = TextElement(
@@ -174,6 +175,7 @@ class InfoBox:
         """
         Compute the total height of the infoBox, defined according
         to the height of each element in it.
+
         Return the computed height.
 
         Keyword arguments:
@@ -218,9 +220,14 @@ class InfoBox:
     def determine_position(self, screen: pygame.Surface) -> Optional[Position]:
         """
         Compute the position of the infoBox to be beside the linked element.
+
         If no element is linked to the infoBox, the position will be determine at display time
         according to the screen.
+
         Return the computed position.
+
+        Keyword arguments:
+        screen -- The screen on which the infoBox is rendered.
         """
         if self.element_linked:
             position: Position = pygame.Vector2(
@@ -243,6 +250,7 @@ class InfoBox:
     def find_buttons(self) -> Sequence[Button]:
         """
         Search in all elements for buttons.
+
         Return the sequence of buttons.
         """
         buttons: list[Button] = []
@@ -252,7 +260,7 @@ class InfoBox:
                     buttons.append(element)
         return buttons
 
-    def determine_elements_position(self):
+    def determine_elements_position(self) -> None:
         """
         Compute the position of each element and update it if needed.
         """
@@ -312,23 +320,12 @@ class InfoBox:
                 2,
             )
 
-    def motion(self, position: Position) -> None:
-        """
-        Handle the triggering of a motion event.
-        Test if the mouse entered in a button or quited one.
-
-        Keyword arguments:
-        position -- the position of the mouse
-        """
-        for button in self.buttons:
-            mouse_is_on_button: bool = button.get_rect().collidepoint(position)
-            button.set_hover(mouse_is_on_button and not button.disabled)
-
-    def click(self, position: Position) -> Callable:
+    def click(self, position: Position) -> Optional[Callable]:
         """
         Handle the triggering of a click event.
-        Return the data corresponding of the action that should be done if the click was done
-        on a button, else False.
+
+        Return the data corresponding to the action that should be done if the click was done
+        on a button, else None.
 
         Keyword arguments:
         position -- the position of the mouse
@@ -338,3 +335,15 @@ class InfoBox:
                 return button.action_triggered()
         # Return a " do nothing " callable when clicking on empty space
         return lambda: None
+
+    def motion(self, position: Position) -> None:
+        """
+        Handle the triggering of a motion event.
+        Test if the mouse entered in a button or left one.
+
+        Keyword arguments:
+        position -- the position of the mouse
+        """
+        for button in self.buttons:
+            mouse_is_on_button: bool = button.get_rect().collidepoint(position)
+            button.set_hover(mouse_is_on_button and not button.disabled)

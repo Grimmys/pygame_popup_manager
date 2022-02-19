@@ -18,16 +18,16 @@ class BoxElement:
     In fact, it adds a margin to any border of an element to have a cleaner interface.
 
     Keyword arguments:
-    position -- the position of the box on the screen
-    content -- a pygame surface that will be wrapped by the box
-    margin -- a tuple containing the margins of the box,
-    should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
+        position (Position): the position of the box on the screen
+        content (Optional[pygame.Surface]): a surface that will be wrapped by the box
+        margin (Margin): a tuple containing the margins of the box, should be in the form
+            "(top_margin, right_margin, bottom_margin, left_margin), defaults to (0, 0, 0, 0)"
 
     Attributes:
-    position -- the position of the box on the screen
-    content -- the element wrapped in the box
-    size -- the size of the content following the format "(width, height)"
-    margin -- a dict containing all the values for margins TOP, BOTTOM, LEFT and RIGHT
+        position (Position): the position of the box on the screen
+        content (Optional[pygame.Surface]): the element wrapped in the box
+        size (tuple[int, int]): the size of the content following the format "(width, height)"
+        margin (dict[str, int]): a dict containing all the values for margins TOP, BOTTOM, LEFT and RIGHT
     """
 
     def __init__(
@@ -50,43 +50,50 @@ class BoxElement:
 
     def get_width(self) -> int:
         """
-        Return the width of the content more the left and right margins
+        Returns:
+             int: the width of the content more the left and right margins
         """
         return self.margin["LEFT"] + self.size[0] + self.margin["RIGHT"]
 
     def get_height(self) -> int:
         """
-        Return the height of the content more the top and bottom margins
+        Returns:
+             int: the height of the content more the top and bottom margins
         """
         return self.margin["TOP"] + self.size[1] + self.margin["BOTTOM"]
 
     def get_margin_top(self) -> int:
         """
-        Return top margin
+        Returns:
+             int: top margin
         """
         return self.margin["TOP"]
 
     def get_margin_bottom(self) -> int:
         """
-        Return bottom margin
+        Returns:
+             int: bottom margin
         """
         return self.margin["BOTTOM"]
 
     def get_margin_left(self) -> int:
         """
-        Return left margin
+        Returns:
+             int: left margin
         """
         return self.margin["LEFT"]
 
     def get_margin_right(self) -> int:
         """
-        Return right margin
+        Returns:
+             int: right margin
         """
         return self.margin["RIGHT"]
 
     def get_rect(self) -> pygame.Rect:
         """
-        Return a pygame rect containing the position of the element and its size
+        Returns:
+             pygame.Rect: a pygame rect containing the position of the element and its size
         """
         return pygame.Rect(
             self.position[0], self.position[1], self.size[0], self.size[1]
@@ -97,7 +104,7 @@ class BoxElement:
         Display the content of the box, following the margins that should be added around it.
 
         Keyword arguments:
-        screen -- the screen on which the content of the box should be drawn
+            screen (pygame.Surface): the screen on which the content of the box should be drawn
         """
         screen.blit(
             self.content, (self.position[0] + self.margin["LEFT"], self.position[1] + self.margin["TOP"])

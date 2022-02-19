@@ -17,20 +17,20 @@ class MenuManager:
     """
     This class represents a manager for the interfaces of a screen.
 
-    It display all the menus currently registered in the manager.
+    It displays all the menus currently registered in the manager.
 
     Handle the opening of a new menu and the closing of the active one.
     Handle the triggering of user motion events and user click events on the active menu.
 
     Keyword arguments:
-    screen -- the screen on which the menus should be displayed and on which the
-    user events should be handled
+        screen (pygame.Surface): the screen on which the menus should be displayed and on which the
+            user events should be handled
 
     Attributes:
-    screen -- the screen on which the menus should be displayed and on which the
-    user events should be handled
-    active_menu -- the current menu in the foreground, the only one that will react to user events
-    background_menus -- the ordered sequence of menus that are in the background
+        screen (pygame.Surface): the screen on which the menus should be displayed and on which the
+            user events should be handled
+        active_menu (Optional[InfoBox]): the current menu in the foreground, the only one that will react to user events
+        background_menus (list[InfoBox]): the ordered sequence of menus that are in the background
     """
 
     def __init__(self, screen: pygame.Surface) -> None:
@@ -42,10 +42,11 @@ class MenuManager:
         """
         Open the given menu.
         Initialize the rendering of the menu, and set it as the new active menu.
+
         Previous active menu is sent to the background.
 
         Keyword arguments:
-        menu -- the popup that should be open
+            menu (InfoBox): the popup that should be open
         """
         self._prepare_menu(menu)
         if self.active_menu:
@@ -56,15 +57,16 @@ class MenuManager:
                            all_occurrences: bool = False) -> bool:
         """
         Replace a menu by a new one according to its identifier.
-        By default, only first occurrence
-        is replaced if many menus in the manager have the given identifier.
+
+        By default, only first occurrence is replaced if many menus in the manager have the given identifier.
 
         Keyword arguments:
-        menu_identifier -- the identifier of the menu to be replaced
-        new_menu -- the menu that should replace the given one
-        all_occurrences -- whether all found occurrences should be replaced or only the first one
+            menu_identifier (str): the identifier of the menu to be replaced
+            new_menu (InfoBox): the menu that should replace the given one
+            all_occurrences (bool): whether all found occurrences should be replaced or only the first one
 
-        Returns whether the replacement has succeeded or not
+        Returns:
+             bool: whether the replacement has succeeded or not
         """
         has_replacement_been_done = False
         if self.active_menu and self.active_menu.identifier == menu_identifier:
@@ -85,6 +87,7 @@ class MenuManager:
     def close_active_menu(self) -> None:
         """
         Close the active menu by 'destroying' it.
+
         Take the next menu in the background to move it to foreground if there is any.
         """
         self.active_menu = (
@@ -97,14 +100,16 @@ class MenuManager:
     def close_given_menu(self, menu_identifier: str, all_occurrences: bool = False) -> bool:
         """
         Close menu corresponding to the given identifier.
-        By default, only first occurrence
-        is closed if many menus in the manager have the given identifier.
+
+        By default, only first occurrence is closed if many menus in the manager have the given identifier.
 
         Keyword arguments:
-        menu_identifier -- the identifier of the menu to be closed
-        all_occurrences -- whether all found occurrences should be closed or only the first one
+            menu_identifier (str): the identifier of the menu to be closed
+            all_occurrences (bool): whether all found occurrences should be closed or only the first one,
+                defaults to False
 
-        Returns whether at least one menu has been closed or not
+        Returns:
+             bool: whether at least one menu has been closed or not
         """
         if self.active_menu and self.active_menu.identifier == menu_identifier:
             self.active_menu = None
@@ -149,9 +154,9 @@ class MenuManager:
         Delegate this event to the active menu if there is any and if it's a left click.
 
         Keyword arguments:
-        button -- an integer value representing which mouse button has been pressed
-        (1 for left button, 2 for middle button, 3 for right button)
-        position -- the position of the mouse
+            button (int): a value representing which mouse button has been pressed
+                (1 for left button, 2 for middle button, 3 for right button)
+            position (Position): the position of the mouse
         """
         if button == 1:
             if self.active_menu:
@@ -163,7 +168,7 @@ class MenuManager:
         Delegate this event to the active menu if there is any.
 
         Keyword arguments:
-        position -- the position of the mouse
+            position (Position): the position of the mouse
         """
         if self.active_menu:
             self.active_menu.motion(position)
@@ -173,15 +178,16 @@ class MenuManager:
         Prepare the given menu to be rendered according to the current setup.
 
         Keyword arguments:
-        menu -- the menu to be initialized
+            menu (InfoBox): the menu to be initialized
         """
         menu.init_render(self.screen, close_button_callback=self.close_active_menu)
 
     def _get_given_menus_from_background(self, menu_identifier: str) -> Sequence[InfoBox]:
         """
-        Return all the menus in background matching the given identifier
+        Returns:
+             Sequence[InfoBox]: all the menus in background matching the given identifier
 
         Keyword arguments:
-        menu_identifier -- the identifier to look for
+            menu_identifier (str): the identifier to look for
         """
         return [menu for menu in self.background_menus if menu.identifier == menu_identifier]

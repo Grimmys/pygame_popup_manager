@@ -41,34 +41,33 @@ class InfoBox:
 
 
     Keyword arguments:
-    title -- the title of the infoBox
-    element_grid -- a grid containing the components that should be rendered by the infoBox
-    width -- the width of the infoBox, DEFAULT_POPUP_WIDTH will be assigned if none is given
-    element_linked -- the pygame Rect of the element linked to this infoBox if any,
-    the infoBox will be displayed beside the element if provided
-    has_close_button -- whether a close button should be added
-    at the bottom or not
-    title_color -- the color of the title
-    background_path -- the path corresponding to the image that should be the sprite of
-    the infoBox
-    close_button_sprite -- the path to the image corresponding to the sprite of
-    the close button if there should be one
-    close_button_sprite_hover -- the path to the image corresponding to the sprite of
-    the close button when it is hovered if there should be one
-    visible_on_background -- whether the popup is visible on background or not
-    has_vertical_separator -- whether there should be a line splitting the infoBox in two at middle width or not
-    identifier -- a string permitting to identify the menu among others if needed
+        title (str): the title of the infoBox
+        element_grid (list[list[BoxElement]]): a grid containing the components that should be rendered by the infoBox
+        width (int): the width of the infoBox, defaults to DEFAULT_POPUP_WIDTH
+        element_linked (pygame.Rect): the pygame Rect of the element linked to this infoBox,
+            the infoBox will be displayed beside the element if provided
+        has_close_button (bool): whether a close button should be added at the bottom or not, defaults to True
+        title_color (pygame.Color): the color of the title
+        background_path (str): the path corresponding to the image that should be the sprite of the infoBox
+        close_button_background_path (str): the path to the image corresponding to the sprite of the close button
+            if there should be one
+        close_button_background_hover_path (str): the path to the image corresponding to the sprite of
+            the close button when it is hovered if there should be one
+        visible_on_background (bool): whether the popup is visible on background or not, defaults to True
+        has_vertical_separator (bool): whether there should be a line splitting the infoBox in two at middle width or
+            not, defaults to False
+        identifier (str): a string permitting to identify the menu among others if needed
 
     Attributes:
-    title -- the title of the infoBox
-    element_linked -- the pygame Rect of the element linked to this infoBox if there is one
-    has_close_button -- whether the infoBox has a close button or not
-    title_color -- the color of the title
-    element_grid -- the grid containing the components that should be rendered by the infoBox
-    buttons -- the sequence of buttons of the infoBox, including the close button if present
-    sprite -- the pygame Surface corresponding to the sprite of the infoBox
-    visible_on_background -- whether the popup is visible on background or not
-    identifier -- a string permitting to identify the menu among others if needed
+        title (str): the title of the infoBox
+        element_linked (pygame.Rect): the pygame Rect of the element linked to this infoBox if there is one
+        has_close_button (bool): whether the infoBox has a close button or not
+        title_color (pygame.Color): the color of the title
+        element_grid (list[list[BoxElement]): the grid containing the components that should be rendered by the infoBox
+        buttons (Sequence[Button]): the sequence of buttons of the infoBox, including the close button if present
+        sprite (pygame.Surface): the pygame Surface corresponding to the sprite of the infoBox
+        visible_on_background (bool): whether the popup is visible on background or not
+        identifier (str): a string permitting to identify the menu among others if needed
     """
 
     def __init__(
@@ -123,9 +122,9 @@ class InfoBox:
         Determine the position of each component.
 
         Keyword arguments:
-        screen -- the screen on which the popup is
-        close_button_callback -- the callback that should be executed when clicking on
-        the close button if there is any
+            screen (pygame.Surface): the screen on which the popup is
+            close_button_callback (Callable): the callback that should be executed when clicking on
+                the close button if there is any
         """
         if self.has_close_button:
             self.__elements[-1].elements[0].callback = close_button_callback
@@ -144,7 +143,8 @@ class InfoBox:
         Initialize the graphical elements associated to the formal data that the infoBox should
         represent.
 
-        Return the elements in a 2D structure corresponding to the relative position of each element.
+        Returns:
+             the elements in a 2D structure corresponding to the relative position of each element.
         """
         elements: list[_Row] = [_Row(element_line) for element_line in self.element_grid]
         title = TextElement(
@@ -176,11 +176,8 @@ class InfoBox:
         Compute the total height of the infoBox, defined according
         to the height of each element in it.
 
-        Return the computed height.
-
-        Keyword arguments:
-        close_button_action -- the callback to run when pressing the close button
-        if there should be one
+        Returns:
+             int: the computed height.
         """
         # Margin to be add at begin and at end
         height: int = MARGIN_BOX * 2
@@ -224,10 +221,11 @@ class InfoBox:
         If no element is linked to the infoBox, the position will be determine at display time
         according to the screen.
 
-        Return the computed position.
+        Returns:
+             Optional[Position]: the computed position.
 
         Keyword arguments:
-        screen -- The screen on which the infoBox is rendered.
+            screen (pygame.Surface): The screen on which the infoBox is rendered.
         """
         if self.element_linked:
             position: Position = pygame.Vector2(
@@ -251,7 +249,8 @@ class InfoBox:
         """
         Search in all elements for buttons.
 
-        Return the sequence of buttons.
+        Returns:
+             Sequence[Button]: the sequence of buttons.
         """
         buttons: list[Button] = []
         for row in self.__elements:
@@ -288,7 +287,7 @@ class InfoBox:
         Display the infoBox and all its elements.
 
         Keyword arguments:
-        screen -- the screen on which the displaying should be done
+            screen (pygame.Surface): the screen on which the displaying should be done
         """
         if self.__position:
             screen.blit(self.sprite, self.__position)
@@ -324,11 +323,12 @@ class InfoBox:
         """
         Handle the triggering of a click event.
 
-        Return the data corresponding to the action that should be done if the click was done
-        on a button, else None.
+        Returns:
+            Optional[Callable]: the data corresponding to the action that should be done if the click was done
+                on a button, else None.
 
         Keyword arguments:
-        position -- the position of the mouse
+            position (Position): the position of the mouse
         """
         for button in self.buttons:
             if button.get_rect().collidepoint(position):
@@ -342,7 +342,7 @@ class InfoBox:
         Test if the mouse entered in a button or left one.
 
         Keyword arguments:
-        position -- the position of the mouse
+            position (Position): the position of the mouse
         """
         for button in self.buttons:
             mouse_is_on_button: bool = button.get_rect().collidepoint(position)

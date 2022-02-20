@@ -20,12 +20,12 @@ class TextElement(BoxElement):
     centered according to its position.
 
     Keyword arguments:
-    text -- the text that should be rendered
-    position -- the position of the text on the screen
-    font -- the font that should be used to render the text
-    margin -- a tuple containing the margins of the box,
-    should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
-    text_color -- the color of the rendered text
+        text (str): the text that should be rendered.
+        position (Position): the position of the text on the screen.
+        font (pygame.font.Font): the font that should be used to render the text.
+        margin (Margin): a tuple containing the margins of the box,
+            should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
+        text_color (pygame.Color): the color of the rendered text, defaults to WHITE.
     """
 
     def __init__(
@@ -38,35 +38,36 @@ class TextElement(BoxElement):
     ) -> None:
         if not font:
             font = _default_fonts["text_element_content"]
-        self.font = font
-        self.text = text
-        self.text_color = text_color
+        self.__font = font
+        self.__text = text
+        self.__text_color = text_color
         rendered_text: pygame.Surface = font.render(text, True, text_color)
         super().__init__(position, rendered_text, margin)
 
-    def verify_rendered_text_size(
+    def __verify_rendered_text_size(
         self, rendered_text: pygame.Surface, text: str, container_width: int
     ) -> pygame.Surface:
         """
-        Split a given text in multiple lines until it could fit properly in its container
+        Split a given text in multiple lines until it could fit properly in its container.
 
-        Return the final rendered text
+        Returns:
+             pygame.Surface: the final rendered text
 
         Keyword arguments:
-        rendered_text -- the current rendering of the text, to check if it fits in the container
-        text -- the text that would be split if necessary
-        container_width -- the width of the container
+            rendered_text (pygame.Surface): the current rendering of the text, to check if it fits in the container.
+            text (str): the text that would be split if necessary.
+            container_width (int): the width of the container.
         """
         final_render = rendered_text
 
         if final_render.get_width() + 20 > container_width:
-            first_part, second_part = TextElement.divide_text(text)
-            first_part_render = self.font.render(first_part, True, self.text_color)
-            first_part_render = self.verify_rendered_text_size(
+            first_part, second_part = TextElement.__divide_text(text)
+            first_part_render = self.__font.render(first_part, True, self.__text_color)
+            first_part_render = self.__verify_rendered_text_size(
                 first_part_render, first_part, container_width
             )
-            second_part_render = self.font.render(second_part, True, self.text_color)
-            second_part_render = self.verify_rendered_text_size(
+            second_part_render = self.__font.render(second_part, True, self.__text_color)
+            second_part_render = self.__verify_rendered_text_size(
                 second_part_render, second_part, container_width
             )
             final_render = pygame.Surface(
@@ -89,27 +90,28 @@ class TextElement(BoxElement):
         return final_render
 
     @staticmethod
-    def divide_text(text: str) -> tuple[str, str]:
+    def __divide_text(text: str) -> tuple[str, str]:
         """
         Divide a text in two parts of a similar size, avoiding to cut a word in two.
 
-        Return the split text in two different strings.
+        Returns:
+             tuple[str, str]: the split text in two different strings.
 
         Keyword argument:
-        text -- the text that should be divided
+            text (str): the text that should be divided.
         """
-        separation_index: int = TextElement.get_middle_text(text)
+        separation_index: int = TextElement.__get_middle_text(text)
         return text[:separation_index], text[separation_index:]
 
     @staticmethod
-    def get_middle_text(text: str) -> int:
+    def __get_middle_text(text: str) -> int:
         """
-        Returns the index of the first whitespace character that is after the middle of the provided
-        string.
-        If there is no whitespace character after the middle of the string, -1 is returned.
+        Returns:
+             int: the index of the first whitespace character that is after the middle of the provided
+            string. If there is no whitespace character after the middle of the string, -1 is returned.
 
         Keyword attributes:
-        text -- the string that should be used to make the computation
+            text (str): the string that should be used to make the computation.
         """
         absolute_middle = len(text) // 2
         for i in range(absolute_middle, len(text)):

@@ -205,9 +205,9 @@ class InfoBox:
         for row in self.__elements:
             for element in row.elements:
                 if isinstance(element, TextElement):
-                    element.content = element.verify_rendered_text_size(
+                    element.content = element.__verify_rendered_text_size(
                         element.content,
-                        element.text,
+                        element.__text,
                         self.__size[0]
                         - element.get_margin_left()
                         - element.get_margin_right(),

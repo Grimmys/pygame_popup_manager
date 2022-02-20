@@ -19,35 +19,38 @@ from ..types import Position, Margin
 class Button(BoxElement):
     """
     This class is representing any kind of button that could be seen on an interface.
+
     A button is receptive to user clicks and returns an id corresponding to a method,
     it may have specific arguments too.
+
     Mouse motion is also handled: the button appearance can change according to current focus.
 
     Keyword arguments:
-    callback -- the reference to the function that should be call after a click
-    size -- the size of the button following the format "(width, height)"
-    title -- the text that should be displayed at the center of the element
-    position -- the position of the element on the screen
-    background_path -- the path to the image corresponding to the sprite of the element
-    background_hover_path -- the path to the image corresponding to the sprite of the element
-    when it has the focus
-    no_background -- specify whether a background should be present or not
-    margin -- a tuple containing the margins of the box,
-    should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
-    disabled -- a boolean indicating if it is not possible to interact with the button
-    font -- the font that should be used to render the text content
-    text_color -- the color of the text content
-    font_hover -- the font that should be used to render the text content when the mouse is over
-    the button
-    text_hover_color -- the color of the text content when the mouse is over the button
-    complementary_text_lines -- the other text lines that should be displayed in addition of
-    the title
+        callback (Callable): the reference to the function that should be call after a click.
+        size (tuple[int, int]): the size of the button following the format "(width, height)", defaults to BUTTON_SIZE.
+        title (str): the text that should be displayed at the center of the element.
+        position (Position): the position of the element on the screen.
+        background_path (str): the path to the image corresponding to the sprite of the element.
+        background_hover_path (str): the path to the image corresponding to the sprite of the element
+            when it has the focus.
+        no_background (bool): specify whether a background should be present or not, defaults to False.
+        margin (Margin): a tuple containing the margins of the box,
+            should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
+        disabled (bool): a boolean indicating if it is not possible to interact with the button, defaults to False.
+        font (pygame.font.Font): the font that should be used to render the text content.
+        text_color (pygame.Color): the color of the text content, defautls to WHITE.
+        font_hover (pygame.font.Font): the font that should be used to render the text content when the mouse is over
+            the button.
+        text_hover_color (pygame.Color): the color of the text content when the mouse is over the button,
+            defaults to WHITE.
+        complementary_text_lines (str): the other text lines that should be displayed in addition of
+            the title.
 
     Attributes:
-    callback -- the reference to the function that should be call after a click
-    sprite -- the pygame Surface corresponding to the sprite of the element
-    sprite_hover -- the pygame Surface corresponding to the sprite of the element
-    when it has the focus
+        callback (Callable): the reference to the function that should be call after a click.
+        sprite (pygame.Surface): the pygame Surface corresponding to the sprite of the element.
+        sprite_hover (pygame.Surface): the pygame Surface corresponding to the sprite of the element
+            when it has the focus.
     """
 
     def __init__(
@@ -62,9 +65,9 @@ class Button(BoxElement):
         margin: Margin = (0, 0, 0, 0),
         disabled: bool = False,
         font: pygame.font.Font = None,
-        text_color: tuple[int, int, int] = WHITE,
+        text_color: pygame.Color = WHITE,
         font_hover: pygame.font.Font = None,
-        text_hover_color: tuple[int, int, int] = WHITE,
+        text_hover_color: pygame.Color = WHITE,
         complementary_text_lines: Sequence[str] = None,
     ) -> None:
         super().__init__(position, None, margin)
@@ -112,18 +115,19 @@ class Button(BoxElement):
     @staticmethod
     def render_text_lines(
         text_lines: Sequence[str],
-        text_color: tuple[int, int, int],
+        text_color: pygame.Color,
         font: pygame.font.Font,
     ) -> Sequence[pygame.Surface]:
         """
         Compute the rendering of the given text.
 
-        Return the rendered text lines.
+        Returns:
+            Sequence[pygame.Surface]: the rendered text lines.
 
         Keyword arguments:
-        text_lines -- the sequence in order of text lines to be rendered
-        text_color -- the color of the text
-        font -- the font that should be used to render the text
+            text_lines (Sequence[str]): the sequence in order of text lines to be rendered.
+            text_color (pygame.Color): the color of the text.
+            font (pygame.font.Font): the font that should be used to render the text.
         """
         return [font.render(text_line, True, text_color) for text_line in text_lines]
 
@@ -134,12 +138,13 @@ class Button(BoxElement):
         Compute the rendering of the button with the given background and text lines.
         If no background is provided, render the text on an empty surface.
 
-        Return the generated pygame Surface.
+        Returns:
+             pygame.Surface: the generated surface.
 
         Keyword arguments:
-        background_path -- the path to the image corresponding to the sprite of the button
-        rendered_text_lines -- the sequence of text lines in order that should be clipped
-        on the surface
+            background_path (str): the path to the image corresponding to the sprite of the button.
+            rendered_text_lines (Sequence[pygame.Surface]): the sequence of text lines in order that should be clipped
+                on the surface.
         """
         raw_sprite = pygame.image.load(background_path) if background_path \
             else pygame.Surface((0, 0))
@@ -163,7 +168,7 @@ class Button(BoxElement):
         depending on whether the mouse is over the element or not.
 
         Keyword arguments:
-        is_mouse_hover -- a boolean value indicating if the mouse is over the element or not
+            is_mouse_hover (bool): a boolean value indicating if the mouse is over the element or not
         """
         self.content = self.sprite_hover if is_mouse_hover else self.sprite
 
@@ -171,8 +176,9 @@ class Button(BoxElement):
         """
         Method that should be called after a click.
 
-        Return the callback that should be executed.
-        Return a callback doing nothing if the button is disabled.
+        Returns:
+             Callable: the callback that should be executed, a callback doing nothing would be returned
+             if the button is disabled.
         """
         if self.disabled:
             return lambda: None

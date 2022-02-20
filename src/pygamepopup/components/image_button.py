@@ -20,47 +20,39 @@ class ImageButton(Button):
     """
     This component is a Button having an image displayed
     at the left of its content and that is considered as part of the button.
+
     The image is displayed in a dedicated square frame.
 
     Keyword arguments:
-    callback -- the reference to the function that should be call after a click
-    size -- the size of the button following the format "(width, height)"
-    image_path -- the relative path to the image that should be displayed on the left
-    title -- the text that should be displayed at the center of the element
-    position -- the position of the element on the screen
-    background_path -- the path to the image corresponding to the sprite of the element
-    frame_background_path -- the path to the background for the frame
-    frame_background_hover_path -- the path to the background for the frame when the mouse is over
-    margin -- a tuple containing the margins of the box,
-    should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
-    disabled -- a boolean indicating if it is not possible to interact with the button
-    font -- the font that should be used to render the text content
-    text_color -- the color of the text content
-    font_hover -- the font that should be used to render the text content when the mouse is over
-    the button
-    text_hover_color -- the color of the text content when the mouse is over the button
-    complementary_text_lines -- the other text lines that should be displayed in addition of
-    the title
+        callback (Callable): the reference to the function that should be call after a click.
+        size (tuple[int, int]): the size of the button following the format "(width, height)",
+            defaults to IMAGE_BUTTON_SIZE.
+        title (str): the text that should be displayed at the center of the element.
+        position (Position): the position of the element on the screen.
+        background_path (str): the path to the image corresponding to the sprite of the element.
+        frame_background_path (str): the path to the background for the frame.
+        frame_background_hover_path (str): the path to the background for the frame when the mouse is over.
+        margin (Margin): a tuple containing the margins of the box,
+            should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
+        disabled (bool): a boolean indicating if it is not possible to interact with the button, defaults to False.
+        font (pygame.font.Font): the font that should be used to render the text content.
+        text_color (pygame.Color): the color of the text content, defautls to WHITE.
+        font_hover (pygame.font.Font): the font that should be used to render the text content when the mouse is over
+            the button.
+        text_hover_color (pygame.Color): the color of the text content when the mouse is over the button,
+            defaults to MIDNIGHT_BLUE.
+        complementary_text_lines (str): the other text lines that should be displayed in addition of
+            the title.
+        image_path (str): the relative path to the image that should be displayed on the left (inside of the frame).
     """
 
-    def __init__(
-        self,
-        image_path: str = None,
-        callback: Callable = lambda: None,
-        size: tuple[int, int] = IMAGE_BUTTON_SIZE,
-        title: str = "",
-        position: Position = pygame.Vector2(0, 0),
-        background_path: str = None,
-        frame_background_path: str = None,
-        frame_background_hover_path: str = None,
-        margin: Margin = (0, 0, 0, 0),
-        disabled: bool = False,
-        font: pygame.font.Font = None,
-        text_color: tuple[int, int, int] = WHITE,
-        font_hover: pygame.font.Font = None,
-        text_hover_color: tuple[int, int, int] = MIDNIGHT_BLUE,
-        complementary_text_lines: Sequence[str] = None,
-    ) -> None:
+    def __init__(self, callback: Callable = lambda: None, size: tuple[int, int] = IMAGE_BUTTON_SIZE, title: str = "",
+                 position: Position = pygame.Vector2(0, 0), background_path: str = None,
+                 frame_background_path: str = None, frame_background_hover_path: str = None,
+                 margin: Margin = (0, 0, 0, 0), disabled: bool = False, font: pygame.font.Font = None,
+                 text_color: pygame.Color = WHITE, font_hover: pygame.font.Font = None,
+                 text_hover_color: pygame.Color = MIDNIGHT_BLUE, complementary_text_lines: Sequence[str] = None,
+                 image_path: str = None) -> None:
         super().__init__(
             callback,
             size,
@@ -119,14 +111,16 @@ class ImageButton(Button):
     ) -> pygame.Surface:
         """
         Compute the rendering of the image button with the given background and text lines.
+
         Render the text lines next to the image frame.
 
-        Return the generated pygame Surface.
+        Returns:
+            pygame.Surface: the generated surface.
 
         Keyword arguments:
-        background_path -- the path to the image corresponding to the sprite of the button
-        rendered_text_lines -- the sequence of text lines in order that should be clipped
-        on the surface
+            background_path (str): the path to the image corresponding to the sprite of the button
+            rendered_text_lines (Sequence[pygame.Surface]): the sequence of text lines in order that should be clipped
+                on the surface
         """
         raw_sprite = pygame.image.load(background_path)
         sprite = pygame.transform.scale(raw_sprite.convert_alpha(), self.size)

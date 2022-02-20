@@ -19,33 +19,36 @@ from .button import Button
 class DynamicButton(Button):
     """
     This class is representing a special button with an inner value changing after each click.
+
     A DynamicButton has a sequence of values given at initialization, and a initial value.
+
     The sequence will be iterated to determine the next inner value after a click.
+
     This fluctuating value is the one that will be send has the first argument of
     the method called on click, and a different label will be displayed on the button for
     each different value of the sequence.
 
     Keyword arguments:
-    callback -- the reference to the function that should be call after a click
-    size -- the size of the button following the format "(width, height)"
-    values -- the sequence of values that will be iterated to determine the next inner value
-    current_value_index -- the index of the initial value of the button
-    base_title -- the common prefix of all the different labels
-    (it could be the name of the dynamic button in a way)
-    position -- the position of the element on the screen
-    background_path -- the path to the image corresponding to the sprite of the element
-    background_hover_path -- the path to the image corresponding to the sprite of the element
-    when it has the focus
-    no_background -- specify whether a background should be present or not
-    margin -- a tuple containing the margins of the box,
-    should be in the form "(top_margin, right_margin, bottom_margin, left_margin)"
-    disabled -- a boolean indicating if it is not possible to interact with the button
+        callback (Callable): the reference to the function that should be call after a click.
+        values (Sequence[any]): the sequence of values that will be iterated to determine the next inner value.
+        current_value_index (int): the index of the initial value of the button.
+        base_title (str): the common prefix of all the different labels
+            (it could be the name of the dynamic button in a way).
+        size (str): the size of the button following the format "(width, height)", defaults to BUTTON_SIZE.
+        position (Position): the position of the element on the screen.
+        background_path (str): the path to the image corresponding to the sprite of the element.
+        background_hover_path (str): the path to the image corresponding to the sprite of the element
+            when it has the focus.
+        no_background (bool): specify whether a background should be present or not, defaults to False.
+        margin (Margin): a tuple containing the margins of the box,
+            should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
+        disabled (bool): a boolean indicating if it is not possible to interact with the button, defaults to False.
 
     Attributes:
-    values -- the sequence of values that will be iterated to determine the next inner value
-    current_value_index -- the index of the current value of the button
-    base_title -- the common prefix of all the different labels
-    (it could be the name of the dynamic button in a way)
+        values (Sequence[any]): the sequence of values that will be iterated to determine the next inner value.
+        current_value_index (int): the index of the current value of the button.
+        base_title (str): the common prefix of all the different labels
+            (it could be the name of the dynamic button in a way).
     """
 
     # TODO: it should be possible to provide a specific font / font hover
@@ -86,6 +89,7 @@ class DynamicButton(Button):
     def __update_sprite(self) -> None:
         """
         Update the render of the button to display the updated dynamic value.
+
         Should be called after the current value changed.
         """
         rendered_name: pygame.Surface = _default_fonts["dynamic_button_title"].render(
@@ -122,11 +126,13 @@ class DynamicButton(Button):
     def action_triggered(self) -> Callable:
         """
         Method that should be called after a click.
+
         Change the current value of the button to the next one in the sequence of values.
         If the end of the sequence is reach, the iteration restarts at the first value.
 
-        Return a lambda containing the function that should be called with the current value of the
-        dynamic button as an argument.
+        Returns:
+             Callable: a lambda containing the function that should be called with the current value of the
+             dynamic button as an argument.
         """
         # Search for next value
         self.current_value_index += 1

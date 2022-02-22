@@ -37,7 +37,7 @@ menu_manager = MenuManager(screen)
 The `display`, `motion` and `click` methods of this class should be called in the application main loop 
 in order to notify the manager of any pygame event.
 
-To open a new popup menu, you should first create it by instanciate the `InfoBox` class.
+To open a new popup menu, you should first create it by instantiate the `InfoBox` class.
 The components that should be in the menu should be provided.
 Next, don't forget to call the `open_menu` method of the menu manager to notify it about the new menu.
 
@@ -56,9 +56,9 @@ my_custom_menu = InfoBox(
     ]
 )
 
-menu_manager.open(my_custom_menu)
+menu_manager.open_menu(my_custom_menu)
 ```
-If you want more code illustrations, check the `examples/minimal_main_menu.py` module
+If you want more code illustrations, check the `examples/minimal_main_menu.py` module.
 
 # Customization
 

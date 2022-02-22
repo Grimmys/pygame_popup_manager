@@ -9,7 +9,7 @@ import pygame
 from .configuration import _default_fonts_description, _default_fonts
 
 
-def init() -> None:
+def _init() -> None:
     """
     Load all fonts registered in default_fonts.
     System font will be load if the keyword 'default' is present in the description provided.

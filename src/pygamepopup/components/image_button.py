@@ -11,7 +11,7 @@ from typing import Callable, Sequence
 import pygame
 
 from .button import Button
-from ..configuration import default_sprites
+from ..configuration import _default_sprites
 from ..constants import WHITE, MIDNIGHT_BLUE, IMAGE_BUTTON_SIZE
 from ..types import Position, Margin
 
@@ -80,7 +80,7 @@ class ImageButton(Button):
         frame_background_path = (
             os.path.abspath(frame_background_path)
             if frame_background_path
-            else default_sprites["button_background"]["inactive"]
+            else _default_sprites["button_background"]["inactive"]
         )
         raw_frame = pygame.image.load(frame_background_path)
         frame = pygame.transform.scale(raw_frame.convert_alpha(), frame_size)
@@ -88,7 +88,7 @@ class ImageButton(Button):
         frame_background_hover_path = (
             os.path.abspath(frame_background_hover_path)
             if frame_background_hover_path
-            else default_sprites["button_background"]["active"]
+            else _default_sprites["button_background"]["active"]
         )
         raw_frame_hover = pygame.image.load(frame_background_hover_path)
         frame_hover = pygame.transform.scale(

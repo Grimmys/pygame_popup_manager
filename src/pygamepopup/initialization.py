@@ -11,4 +11,4 @@ def init() -> None:
 
     Must be called before all other calls and after the initialization of pygame.
     """
-    fonts.init()
+    fonts._init()

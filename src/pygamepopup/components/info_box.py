@@ -9,7 +9,7 @@ from typing import Union, Sequence, Callable, Optional
 
 import pygame
 
-from ..configuration import default_sprites, _default_fonts
+from ..configuration import _default_sprites, _default_fonts
 from ..constants import (
     WHITE,
     CLOSE_BUTTON_MARGIN_TOP,
@@ -98,7 +98,7 @@ class InfoBox:
         background_path = (
             os.path.abspath(background_path)
             if background_path
-            else default_sprites["info_box_background"]
+            else _default_sprites["info_box_background"]
         )
         self.sprite: pygame.Surface = pygame.image.load(background_path)
         self.__close_button_background_path: str = close_button_background_path

@@ -10,7 +10,7 @@ from typing import Union, Callable, Sequence
 
 import pygame
 
-from ..configuration import default_sprites, _default_fonts
+from ..configuration import _default_sprites, _default_fonts
 from .box_element import BoxElement
 from ..constants import WHITE, BUTTON_SIZE
 from ..types import Position, Margin
@@ -90,7 +90,7 @@ class Button(BoxElement):
         elif background_path:
             background_path = os.path.abspath(background_path)
         else:
-            background_path = default_sprites["button_background"]["inactive"]
+            background_path = _default_sprites["button_background"]["inactive"]
         self.sprite = self.render_sprite(background_path, rendered_text_lines)
 
         if not font_hover:
@@ -104,7 +104,7 @@ class Button(BoxElement):
         elif background_hover_path:
             background_hover_path = os.path.abspath(background_hover_path)
         else:
-            background_hover_path = default_sprites["button_background"]["active"]
+            background_hover_path = _default_sprites["button_background"]["active"]
         self.sprite_hover = self.render_sprite(
             background_hover_path, rendered_text_lines_hover
         )

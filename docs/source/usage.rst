@@ -53,4 +53,4 @@ For example, the following code will open a popup with a "do-nothing" button and
 
     menu_manager.open_menu(my_custom_menu)
 
-If you want more code illustrations, go check out the examples.
+If you want more code illustrations, go check out the :doc:`examples`.

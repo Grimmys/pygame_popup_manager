@@ -11,4 +11,5 @@ Welcome to Pygame Popup Manager's documentation!
    :glob:
 
    usage
+   examples
    module_content

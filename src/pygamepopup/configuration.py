@@ -1,3 +1,7 @@
+"""
+Defines utility functions to configure the default values used across the library.
+"""
+
 from __future__ import annotations
 
 import os

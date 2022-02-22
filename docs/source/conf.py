@@ -42,6 +42,8 @@ intersphinx_mapping = {'pygame': ('https://www.pygame.org/docs/', None)}
 
 # Autodoc settings
 autodoc_typehints = 'none'
+autodoc_type_aliases = {'Position': 'pygame.Vector2',
+                        'Margin': 'tuple[int, int, int, int]'}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

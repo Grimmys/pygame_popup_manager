@@ -13,3 +13,4 @@ Welcome to Pygame Popup Manager's documentation!
    usage
    examples
    module_content
+   links

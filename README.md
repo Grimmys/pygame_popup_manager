@@ -5,6 +5,7 @@
 [![license](https://img.shields.io/github/license/grimmys/pygame_popup_manager)](https://github.com/Grimmys/pygame_popup_manager/blob/main/LICENSE)
 [![version](https://img.shields.io/pypi/v/pygame-popup)](https://pypi.org/project/pygame-popup/)
 
+Docs are now available at: https://pygame-popup-manager.readthedocs.io/en/latest/
 
 Pygame Popup Manager is a very small engine permitting to easily build all kind of popup in a pygame project.
 

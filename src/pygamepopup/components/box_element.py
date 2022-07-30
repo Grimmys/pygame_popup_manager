@@ -9,6 +9,8 @@ from typing import Optional
 
 import pygame
 
+from .. import initialization
+from .._exceptions.uninitialized_exception import UnintializedException
 from ..types import Position, Margin
 
 
@@ -29,6 +31,11 @@ class BoxElement:
         size (tuple[int, int]): the size of the content following the format "(width, height)"
         margin (dict[str, int]): a dict containing all the values for margins TOP, BOTTOM, LEFT and RIGHT
     """
+
+    def __new__(cls, *args, **kwargs):
+        if not initialization._is_initialized:
+            raise UnintializedException()
+        return super().__new__(cls)
 
     def __init__(
         self,

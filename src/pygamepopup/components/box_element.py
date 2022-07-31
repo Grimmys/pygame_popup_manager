@@ -10,7 +10,7 @@ from typing import Optional
 import pygame
 
 from .. import initialization
-from .._exceptions.uninitialized_exception import UnintializedException
+from .._exceptions.wrong_initialization_exception import WrongInitializationException
 from ..types import Position, Margin
 
 
@@ -34,7 +34,8 @@ class BoxElement:
 
     def __new__(cls, *args, **kwargs):
         if not initialization._is_initialized:
-            raise UnintializedException()
+            raise WrongInitializationException("pygamepopup.init() has to be called before any other interaction with "
+                                               "pygamepopup")
         return super().__new__(cls)
 
     def __init__(

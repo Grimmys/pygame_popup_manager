@@ -24,5 +24,5 @@ setuptools.setup(
     packages=setuptools.find_packages(where="src"),
     package_data={"": ["images/*.png"]},
     python_requires=">=3.7",
-    install_requires=["pygame~=2.0.0"],
+    install_requires=["pygame>=2.0.0"],
 )

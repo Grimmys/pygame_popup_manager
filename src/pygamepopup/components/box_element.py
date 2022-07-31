@@ -104,7 +104,7 @@ class BoxElement:
              pygame.Rect: a pygame rect containing the position of the element and its size
         """
         return pygame.Rect(
-            self.position[0], self.position[1], self.size[0], self.size[1]
+            self.position[0] + self.margin["LEFT"], self.position[1] + self.margin["TOP"], self.size[0], self.size[1]
         )
 
     def display(self, screen: pygame.Surface) -> None:

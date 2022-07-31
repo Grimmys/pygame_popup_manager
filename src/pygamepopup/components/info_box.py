@@ -112,6 +112,9 @@ class InfoBox:
         self.visible_on_background: bool = visible_on_background
         self.identifier: str = identifier
 
+    def __repr__(self):
+        return f"InfoBox with identifier '{self.identifier}'"
+
     def init_render(
             self, screen: pygame.Surface, close_button_callback: Callable = None
     ) -> None:

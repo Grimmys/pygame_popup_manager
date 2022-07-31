@@ -1,9 +1,9 @@
 import pygame
 import pytest
 
-import pygamepopup
-from pygamepopup._exceptions.uninitialized_exception import UnintializedException
-from pygamepopup.components import TextElement
+import src.pygamepopup as pygamepopup
+from src.pygamepopup._exceptions.uninitialized_exception import UnintializedException
+from src.pygamepopup.components import TextElement
 
 
 def test_init_twice_prints_warning():

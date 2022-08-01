@@ -76,6 +76,7 @@ class InfoBox:
         element_grid: list[list[BoxElement]],
         width: int = DEFAULT_POPUP_WIDTH,
         element_linked: pygame.Rect = None,
+        position: Position = (0, 0),
         has_close_button: bool = True,
         title_color: pygame.Color = WHITE,
         background_path: str = None,
@@ -108,7 +109,8 @@ class InfoBox:
         self.__elements: list[_Row] = self.init_elements()
         self.buttons: Sequence[Button] = []
         self.__size: tuple[int, int] = (width, 0)
-        self.__position: Position = pygame.Vector2(0, 0)
+        self.position: Position = pygame.Vector2(position)
+        self.__is_position_static: bool = self.position != pygame.Vector2(0, 0)
         self.visible_on_background: bool = visible_on_background
         self.identifier: str = identifier
 
@@ -134,10 +136,11 @@ class InfoBox:
         self.__resize_elements()
         height: int = self.__determine_height()
         self.__size = (self.__size[0], height)
-        self.__position = self.determine_position(screen)
-        if self.__position:
+        if not self.__is_position_static:
+            self.position = self.determine_position(screen)
+        if self.position:
             self.determine_elements_position()
-        self.buttons: Sequence[Button] = self.find_buttons()
+        self.buttons = self.find_buttons()
         self.sprite = pygame.transform.scale(self.sprite.convert_alpha(), self.__size)
         self.__separator["height"] += height
 
@@ -224,7 +227,7 @@ class InfoBox:
         """
         Compute the position of the infoBox to be beside the linked element.
 
-        If no element is linked to the infoBox, the position will be determine at display time
+        If no element is linked to the infoBox, the position will be determined at display time
         according to the screen.
 
         Returns:
@@ -269,7 +272,7 @@ class InfoBox:
         """
         Compute the position of each element and update it if needed.
         """
-        y_coordinate: int = self.__position[1] + MARGIN_BOX
+        y_coordinate: int = self.position[1] + MARGIN_BOX
         # Memorize mouse position in case it is over a button
         mouse_pos = pygame.mouse.get_pos()
         # A row begins by a value identifying its height, followed by its elements
@@ -277,7 +280,7 @@ class InfoBox:
             nb_elements = len(row.elements)
             i = 1
             for element in row.elements:
-                base_x = self.__position.x + (self.__size[0] // (2 * nb_elements)) * i
+                base_x = self.position.x + (self.__size[0] // (2 * nb_elements)) * i
                 x_coordinate = base_x - element.get_width() // 2
                 element.position = pygame.Vector2(
                     x_coordinate,
@@ -295,15 +298,15 @@ class InfoBox:
         Keyword arguments:
             screen (pygame.Surface): the screen on which the displaying should be done
         """
-        if self.__position:
-            screen.blit(self.sprite, self.__position)
+        if self.position:
+            screen.blit(self.sprite, self.position)
         else:
             win_size = screen.get_size()
-            self.__position = pygame.Vector2(
+            self.position = pygame.Vector2(
                 win_size[0] // 2 - self.__size[0] // 2,
                 win_size[1] // 2 - self.__size[1] // 2,
             )
-            screen.blit(self.sprite, self.__position)
+            screen.blit(self.sprite, self.position)
             self.determine_elements_position()
 
         for row in self.__elements:
@@ -315,12 +318,12 @@ class InfoBox:
                 screen,
                 WHITE,
                 (
-                    self.__position.x + self.__size[0] / 2,
-                    self.__position.y + self.__separator["vertical_position"],
+                    self.position.x + self.__size[0] / 2,
+                    self.position.y + self.__separator["vertical_position"],
                 ),
                 (
-                    self.__position.x + self.__size[0] / 2,
-                    self.__position.y + self.__separator["height"],
+                    self.position.x + self.__size[0] / 2,
+                    self.position.y + self.__separator["height"],
                 ),
                 2,
             )

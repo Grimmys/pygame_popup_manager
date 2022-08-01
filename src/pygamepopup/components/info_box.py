@@ -71,19 +71,19 @@ class InfoBox:
     """
 
     def __init__(
-            self,
-            title: str,
-            element_grid: list[list[BoxElement]],
-            width: int = DEFAULT_POPUP_WIDTH,
-            element_linked: pygame.Rect = None,
-            has_close_button: bool = True,
-            title_color: pygame.Color = WHITE,
-            background_path: str = None,
-            close_button_background_path: str = None,
-            close_button_background_hover_path: str = None,
-            visible_on_background: bool = True,
-            has_vertical_separator: bool = False,
-            identifier: str = ""
+        self,
+        title: str,
+        element_grid: list[list[BoxElement]],
+        width: int = DEFAULT_POPUP_WIDTH,
+        element_linked: pygame.Rect = None,
+        has_close_button: bool = True,
+        title_color: pygame.Color = WHITE,
+        background_path: str = None,
+        close_button_background_path: str = None,
+        close_button_background_hover_path: str = None,
+        visible_on_background: bool = True,
+        has_vertical_separator: bool = False,
+        identifier: str = "",
     ) -> None:
         self.title: str = title
         self.element_linked: pygame.Rect = element_linked
@@ -116,7 +116,7 @@ class InfoBox:
         return f"InfoBox with identifier '{self.identifier}'"
 
     def init_render(
-            self, screen: pygame.Surface, close_button_callback: Callable = None
+        self, screen: pygame.Surface, close_button_callback: Callable = None
     ) -> None:
         """
         Initialize the rendering of the popup.
@@ -149,7 +149,9 @@ class InfoBox:
         Returns:
              the elements in a 2D structure corresponding to the relative position of each element.
         """
-        elements: list[_Row] = [_Row(element_line) for element_line in self.element_grid]
+        elements: list[_Row] = [
+            _Row(element_line) for element_line in self.element_grid
+        ]
         title = TextElement(
             self.title,
             pygame.Vector2(0, 0),
@@ -161,7 +163,8 @@ class InfoBox:
         elements.insert(0, _Row([title]))
         if self.has_close_button:
             elements.append(
-                _Row([
+                _Row(
+                    [
                         Button(
                             size=CLOSE_BUTTON_SIZE,
                             title="Close",

@@ -46,13 +46,24 @@ class ImageButton(Button):
         image_path (str): the relative path to the image that should be displayed on the left (inside of the frame).
     """
 
-    def __init__(self, callback: Callable = lambda: None, size: tuple[int, int] = IMAGE_BUTTON_SIZE, title: str = "",
-                 position: Position = pygame.Vector2(0, 0), background_path: str = None,
-                 frame_background_path: str = None, frame_background_hover_path: str = None,
-                 margin: Margin = (0, 0, 0, 0), disabled: bool = False, font: pygame.font.Font = None,
-                 text_color: pygame.Color = WHITE, font_hover: pygame.font.Font = None,
-                 text_hover_color: pygame.Color = MIDNIGHT_BLUE, complementary_text_lines: Sequence[str] = None,
-                 image_path: str = None) -> None:
+    def __init__(
+        self,
+        callback: Callable = lambda: None,
+        size: tuple[int, int] = IMAGE_BUTTON_SIZE,
+        title: str = "",
+        position: Position = pygame.Vector2(0, 0),
+        background_path: str = None,
+        frame_background_path: str = None,
+        frame_background_hover_path: str = None,
+        margin: Margin = (0, 0, 0, 0),
+        disabled: bool = False,
+        font: pygame.font.Font = None,
+        text_color: pygame.Color = WHITE,
+        font_hover: pygame.font.Font = None,
+        text_hover_color: pygame.Color = MIDNIGHT_BLUE,
+        complementary_text_lines: Sequence[str] = None,
+        image_path: str = None,
+    ) -> None:
         super().__init__(
             callback,
             size,

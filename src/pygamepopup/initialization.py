@@ -23,7 +23,9 @@ def init() -> None:
         return
 
     if not pygame.get_init():
-        raise WrongInitializationException("pygamepopup.init() has to be called only after pygame.init()")
+        raise WrongInitializationException(
+            "pygamepopup.init() has to be called only after pygame.init()"
+        )
 
     fonts._init()
     _is_initialized = True

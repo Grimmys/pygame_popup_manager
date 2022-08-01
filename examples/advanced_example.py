@@ -6,8 +6,8 @@ from pygamepopup.components import Button, InfoBox, TextElement
 from pygamepopup.constants import BUTTON_SIZE
 from pygamepopup.menu_manager import MenuManager
 
-SIDE_MENU_ID = 'side_menu'
-MAIN_MENU_ID = 'main_menu'
+SIDE_MENU_ID = "side_menu"
+MAIN_MENU_ID = "main_menu"
 
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
@@ -37,32 +37,27 @@ main_menu = InfoBox(
             Button(
                 title="Open other menu",
                 callback=lambda: menu_manager.open_menu(side_menu),
-                size=(320, BUTTON_SIZE[1])
+                size=(320, BUTTON_SIZE[1]),
             )
         ],
         [
             Button(
                 title="Open other menu again",
                 callback=lambda: menu_manager.open_menu(side_menu),
-                size=(320, BUTTON_SIZE[1])
+                size=(320, BUTTON_SIZE[1]),
             )
         ],
         [
             Button(
                 title="Open other menu again again",
                 callback=lambda: menu_manager.open_menu(side_menu),
-                size=(320, BUTTON_SIZE[1])
+                size=(320, BUTTON_SIZE[1]),
             )
         ],
-        [
-            Button(
-                title="Exit App",
-                callback=lambda: exit(),
-                size=(320, BUTTON_SIZE[1]))
-        ],
+        [Button(title="Exit App", callback=lambda: exit(), size=(320, BUTTON_SIZE[1]))],
     ],
     width=420,
-    identifier=MAIN_MENU_ID
+    identifier=MAIN_MENU_ID,
 )
 
 # define a second popup, which has a default close button
@@ -72,15 +67,15 @@ side_menu = InfoBox(
         [
             TextElement(
                 text="The text content of a menu is automatically split in multiple "
-                     "parts "
-                     "to fit in the box. To add a new paragraph, just create another "
-                     "TextElement."
+                "parts "
+                "to fit in the box. To add a new paragraph, just create another "
+                "TextElement."
             )
         ]
     ],
     element_linked=pygame.Rect(0, WINDOW_HEIGHT // 2, 1, 1),
     width=310,
-    identifier=SIDE_MENU_ID
+    identifier=SIDE_MENU_ID,
 )
 
 
@@ -88,7 +83,9 @@ def display_main_screen():
     global x_pos, y_pos, x_velocity, y_velocity
     screen.fill(pygame.Color("tan"))
     font = pygame.font.Font(None, 36)
-    text = font.render("Type M to open Main Menu or S to open Side Menu", True, (100, 100, 20))
+    text = font.render(
+        "Type M to open Main Menu or S to open Side Menu", True, (100, 100, 20)
+    )
     screen.blit(text, (screen.get_width() // 2 - text.get_width() // 2, 40))
 
     # Draw animated Ball
@@ -125,7 +122,9 @@ def main():
                 if event.key == pygame.K_m:
                     show_menu(main_menu)
                 if event.key == pygame.K_b:
-                    print(f"Menus in the background stack: {menu_manager.background_menus}")
+                    print(
+                        f"Menus in the background stack: {menu_manager.background_menus}"
+                    )
                 if event.key == pygame.K_a:
                     print(f"Active menu: {menu_manager.active_menu}")
             elif event.type == pygame.MOUSEMOTION:

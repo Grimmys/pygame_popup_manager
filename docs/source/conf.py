@@ -12,19 +12,20 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../src/'))
+
+sys.path.insert(0, os.path.abspath("../../src/"))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Pygame Popup Manager'
-copyright = '2022, Grimmys'
-author = 'Grimmys'
+project = "Pygame Popup Manager"
+copyright = "2022, Grimmys"
+author = "Grimmys"
 
 # The full version, including alpha/beta/rc tags
-release = '0.6.0'
+release = "0.6.0"
 
 # The major version only
-version = '0.6'
+version = "0.6"
 
 
 # -- General configuration ---------------------------------------------------
@@ -32,21 +33,19 @@ version = '0.6'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon'
-]
+extensions = ["sphinx.ext.intersphinx", "sphinx.ext.autodoc", "sphinx.ext.napoleon"]
 
-intersphinx_mapping = {'pygame': ('https://www.pygame.org/docs/', None)}
+intersphinx_mapping = {"pygame": ("https://www.pygame.org/docs/", None)}
 
 # Autodoc settings
-autodoc_typehints = 'none'
-autodoc_type_aliases = {'Position': 'pygame.Vector2',
-                        'Margin': 'tuple[int, int, int, int]'}
+autodoc_typehints = "none"
+autodoc_type_aliases = {
+    "Position": "pygame.Vector2",
+    "Margin": "tuple[int, int, int, int]",
+}
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -59,9 +58,9 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = "sphinx_rtd_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]

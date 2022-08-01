@@ -34,8 +34,10 @@ class BoxElement:
 
     def __new__(cls, *args, **kwargs):
         if not initialization._is_initialized:
-            raise WrongInitializationException("pygamepopup.init() has to be called before any other interaction with "
-                                               "pygamepopup")
+            raise WrongInitializationException(
+                "pygamepopup.init() has to be called before any other interaction with "
+                "pygamepopup"
+            )
         return super().__new__(cls)
 
     def __init__(
@@ -104,7 +106,10 @@ class BoxElement:
              pygame.Rect: a pygame rect containing the position of the element and its size
         """
         return pygame.Rect(
-            self.position[0] + self.margin["LEFT"], self.position[1] + self.margin["TOP"], self.size[0], self.size[1]
+            self.position[0] + self.margin["LEFT"],
+            self.position[1] + self.margin["TOP"],
+            self.size[0],
+            self.size[1],
         )
 
     def display(self, screen: pygame.Surface) -> None:
@@ -115,5 +120,9 @@ class BoxElement:
             screen (pygame.Surface): the screen on which the content of the box should be drawn
         """
         screen.blit(
-            self.content, (self.position[0] + self.margin["LEFT"], self.position[1] + self.margin["TOP"])
+            self.content,
+            (
+                self.position[0] + self.margin["LEFT"],
+                self.position[1] + self.margin["TOP"],
+            ),
         )

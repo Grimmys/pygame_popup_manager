@@ -53,8 +53,9 @@ class MenuManager:
             self.background_menus.append(self.active_menu)
         self.active_menu = menu
 
-    def replace_given_menu(self, menu_identifier: str, new_menu: InfoBox,
-                           all_occurrences: bool = False) -> bool:
+    def replace_given_menu(
+        self, menu_identifier: str, new_menu: InfoBox, all_occurrences: bool = False
+    ) -> bool:
         """
         Replace a menu by a new one according to its identifier.
 
@@ -97,7 +98,9 @@ class MenuManager:
             # Trigger an irrelevant motion event to refresh the hovering of buttons on the new menu
             self.active_menu.motion(pygame.Vector2(pygame.mouse.get_pos()))
 
-    def close_given_menu(self, menu_identifier: str, all_occurrences: bool = False) -> bool:
+    def close_given_menu(
+        self, menu_identifier: str, all_occurrences: bool = False
+    ) -> bool:
         """
         Close menu corresponding to the given identifier.
 
@@ -115,8 +118,10 @@ class MenuManager:
             self.active_menu = None
             if not all_occurrences:
                 return True
-            
-        matching_menus_in_background = self._get_given_menus_from_background(menu_identifier)
+
+        matching_menus_in_background = self._get_given_menus_from_background(
+            menu_identifier
+        )
         for menu in matching_menus_in_background:
             self.background_menus.remove(menu)
             if not all_occurrences:
@@ -182,7 +187,9 @@ class MenuManager:
         """
         menu.init_render(self.screen, close_button_callback=self.close_active_menu)
 
-    def _get_given_menus_from_background(self, menu_identifier: str) -> Sequence[InfoBox]:
+    def _get_given_menus_from_background(
+        self, menu_identifier: str
+    ) -> Sequence[InfoBox]:
         """
         Returns:
              Sequence[InfoBox]: all the menus in background matching the given identifier
@@ -190,4 +197,6 @@ class MenuManager:
         Keyword arguments:
             menu_identifier (str): the identifier to look for
         """
-        return [menu for menu in self.background_menus if menu.identifier == menu_identifier]
+        return [
+            menu for menu in self.background_menus if menu.identifier == menu_identifier
+        ]

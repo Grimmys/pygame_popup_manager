@@ -1,4 +1,9 @@
--- VERSION 0.6.1
+-- VERSION 0.7.0 --
+
+* Add possibility to specify position for InfoBox
+* Fix margin not being reflected on actual rect position for BoxElement
+
+-- VERSION 0.6.1 --
 
 * Improve user feedback when not initializing module correctly
 * More flexibility on pygame version required

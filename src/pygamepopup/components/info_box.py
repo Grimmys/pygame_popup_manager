@@ -104,7 +104,7 @@ class InfoBox:
             else _default_sprites["info_box_background"]
         )
         self.sprite: pygame.Surface = pygame.image.load(background_path)
-        self.__close_button_text: str = close_button_text
+        self.close_button_text: str = close_button_text
         self.__close_button_background_path: str = close_button_background_path
         self.__close_button_background_hover_path: str = (
             close_button_background_hover_path
@@ -173,7 +173,7 @@ class InfoBox:
                     [
                         Button(
                             size=CLOSE_BUTTON_SIZE,
-                            title=self.__close_button_text,
+                            title=self.close_button_text,
                             background_path=self.__close_button_background_path,
                             background_hover_path=self.__close_button_background_hover_path,
                             margin=(CLOSE_BUTTON_MARGIN_TOP, 0, 0, 0),

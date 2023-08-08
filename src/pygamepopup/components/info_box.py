@@ -49,6 +49,7 @@ class InfoBox:
         has_close_button (bool): whether a close button should be added at the bottom or not, defaults to True
         title_color (pygame.Color): the color of the title
         background_path (str): the path corresponding to the image that should be the sprite of the infoBox
+        close_button_text (str): the text that will be shown on close button
         close_button_background_path (str): the path to the image corresponding to the sprite of the close button
             if there should be one
         close_button_background_hover_path (str): the path to the image corresponding to the sprite of
@@ -80,6 +81,7 @@ class InfoBox:
         has_close_button: bool = True,
         title_color: pygame.Color = WHITE,
         background_path: str = None,
+        close_button_text: str = "Close",
         close_button_background_path: str = None,
         close_button_background_hover_path: str = None,
         visible_on_background: bool = True,
@@ -102,6 +104,7 @@ class InfoBox:
             else _default_sprites["info_box_background"]
         )
         self.sprite: pygame.Surface = pygame.image.load(background_path)
+        self.__close_button_text: str = close_button_text
         self.__close_button_background_path: str = close_button_background_path
         self.__close_button_background_hover_path: str = (
             close_button_background_hover_path
@@ -170,7 +173,7 @@ class InfoBox:
                     [
                         Button(
                             size=CLOSE_BUTTON_SIZE,
-                            title="Close",
+                            title=self.__close_button_text,
                             background_path=self.__close_button_background_path,
                             background_hover_path=self.__close_button_background_hover_path,
                             margin=(CLOSE_BUTTON_MARGIN_TOP, 0, 0, 0),

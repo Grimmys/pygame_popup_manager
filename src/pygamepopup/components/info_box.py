@@ -46,6 +46,8 @@ class InfoBox:
         width (int): the width of the infoBox, defaults to DEFAULT_POPUP_WIDTH
         element_linked (pygame.Rect): the pygame Rect of the element linked to this infoBox,
             the infoBox will be displayed beside the element if provided
+        position (Position): the static position of the infoBox, if not provided position would be computed basing on
+        element linked or screen
         has_close_button (bool): whether a close button should be added at the bottom or not, defaults to True
         title_color (pygame.Color): the color of the title
         background_path (str): the path corresponding to the image that should be the sprite of the infoBox
@@ -331,7 +333,7 @@ class InfoBox:
                 2,
             )
 
-    def click(self, position: Position) -> Optional[Callable]:
+    def click(self, position: Position) -> Callable:
         """
         Handle the triggering of a click event.
 
@@ -345,13 +347,13 @@ class InfoBox:
         for button in self.buttons:
             if button.get_rect().collidepoint(position):
                 return button.action_triggered()
-        # Return a " do nothing " callable when clicking on empty space
+        # Return a "do nothing" callable when clicking on empty space
         return lambda: None
 
     def motion(self, position: Position) -> None:
         """
         Handle the triggering of a motion event.
-        Test if the mouse entered in a button or left one.
+        Test if the mouse entered a button or left one.
 
         Keyword arguments:
             position (Position): the position of the mouse

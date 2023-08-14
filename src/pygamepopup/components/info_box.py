@@ -78,8 +78,8 @@ class InfoBox:
         title: str,
         element_grid: list[list[BoxElement]],
         width: int = DEFAULT_POPUP_WIDTH,
-        element_linked: pygame.Rect = None,
-        position: Position = (0, 0),
+        element_linked: Optional[pygame.Rect] = None,
+        position: Optional[Position] = None,
         has_close_button: bool = True,
         title_color: pygame.Color = WHITE,
         background_path: str = None,
@@ -114,8 +114,11 @@ class InfoBox:
         self.__elements: list[_Row] = self.init_elements()
         self.buttons: Sequence[Button] = []
         self.__size: tuple[int, int] = (width, 0)
-        self.position: Position = pygame.Vector2(position)
-        self.__is_position_static: bool = self.position != pygame.Vector2(0, 0)
+        self.__is_position_static: bool = position is not None
+        if self.__is_position_static:
+            self.position: Optional[Position] = pygame.Vector2(position)
+        else:
+            self.position = None
         self.visible_on_background: bool = visible_on_background
         self.identifier: str = identifier
 
@@ -143,7 +146,7 @@ class InfoBox:
         self.__size = (self.__size[0], height)
         if not self.__is_position_static:
             self.position = self.determine_position(screen)
-        if self.position:
+        if self.position is not None:
             self.determine_elements_position()
         self.buttons = self.find_buttons()
         self.sprite = pygame.transform.scale(self.sprite.convert_alpha(), self.__size)
@@ -303,7 +306,7 @@ class InfoBox:
         Keyword arguments:
             screen (pygame.Surface): the screen on which the displaying should be done
         """
-        if self.position:
+        if self.position is not None:
             screen.blit(self.sprite, self.position)
         else:
             win_size = screen.get_size()

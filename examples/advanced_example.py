@@ -6,8 +6,10 @@ from pygamepopup.components import Button, InfoBox, TextElement
 from pygamepopup.constants import BUTTON_SIZE
 from pygamepopup.menu_manager import MenuManager
 
-SIDE_MENU_ID = "side_menu"
 MAIN_MENU_ID = "main_menu"
+CLOSABLE_MENU_ID = "closable_menu"
+CUSTOMIZED_MENU_ID = "customized_menu"
+SIDE_MENU_ID = "side_menu"
 
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
@@ -29,28 +31,28 @@ screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygamepopup.init()
 menu_manager = MenuManager(screen)
 
-# Define a first popup with 4 buttons and a close button
+# Define a main menu popup, with 4 buttons and a close button
 main_menu = InfoBox(
     "Main Menu",
     [
         [
             Button(
-                title="Open other menu",
+                title="Open side menu",
                 callback=lambda: menu_manager.open_menu(side_menu),
                 size=(320, BUTTON_SIZE[1]),
             )
         ],
         [
             Button(
-                title="Open other menu again",
-                callback=lambda: menu_manager.open_menu(side_menu),
+                title="Open closable menu",
+                callback=lambda: menu_manager.open_menu(closable_menu),
                 size=(320, BUTTON_SIZE[1]),
             )
         ],
         [
             Button(
-                title="Open other menu again again",
-                callback=lambda: menu_manager.open_menu(side_menu),
+                title="Open customized menu",
+                callback=lambda: menu_manager.open_menu(customized_menu),
                 size=(320, BUTTON_SIZE[1]),
             )
         ],
@@ -60,7 +62,36 @@ main_menu = InfoBox(
     identifier=MAIN_MENU_ID,
 )
 
-# define a second popup, which has a default close button
+# Define submenu that can be closed by clicking outside
+closable_menu = InfoBox(
+    "Closable menu",
+    [
+        [
+            TextElement(
+                text="This menu can be close by clicking on the \"Close\" button but also by clicking outside of it."
+            )
+        ]
+    ],
+    width=350,
+    identifier=CLOSABLE_MENU_ID,
+)
+
+customized_menu = InfoBox(
+    "Customized menu",
+    [
+        [
+            TextElement(
+                text="This menu has customized content, such as close button with different label"
+            )
+        ]
+    ],
+    width=400,
+    identifier=CUSTOMIZED_MENU_ID,
+    title_color=pygame.Color("red"),
+    close_button_text="Shutdown!"
+)
+
+# Define a side menu, with relative positioning and close button
 side_menu = InfoBox(
     "Smaller menu",
     [
@@ -131,6 +162,9 @@ def main():
                 menu_manager.motion(event.pos)  # Highlight buttons upon hover
             elif event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1 or event.button == 3:
+                    if menu_manager.active_menu.identifier == CLOSABLE_MENU_ID:
+                        if not menu_manager.active_menu.is_position_inside(event.pos):
+                            menu_manager.close_active_menu()
                     menu_manager.click(event.button, event.pos)
         display_main_screen()
         menu_manager.display()

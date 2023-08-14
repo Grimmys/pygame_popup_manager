@@ -83,7 +83,7 @@ class InfoBox:
         has_close_button: bool = True,
         title_color: pygame.Color = WHITE,
         background_path: str = None,
-        close_button_text: str = _default_texts["close_button"],
+        close_button_text: Optional[str] = None,
         close_button_background_path: str = None,
         close_button_background_hover_path: str = None,
         visible_on_background: bool = True,
@@ -106,7 +106,8 @@ class InfoBox:
             else _default_sprites["info_box_background"]
         )
         self.sprite: pygame.Surface = pygame.image.load(background_path)
-        self.close_button_text: str = close_button_text
+        self.close_button_text: str = close_button_text if close_button_text is not None \
+            else _default_texts["close_button"]
         self.__close_button_background_path: str = close_button_background_path
         self.__close_button_background_hover_path: str = (
             close_button_background_hover_path

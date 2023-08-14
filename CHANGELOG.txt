@@ -1,3 +1,12 @@
+-- VERSION 0.9.0 --
+
+* Add method to check if a given position is inside or outside a InfoBox
+* Add method to configure the default title of close buttons
+
+-- VERSION 0.8.0 --
+
+* Add possibility to specify title for close button on InfoBox
+
 -- VERSION 0.7.0 --
 
 * Add possibility to specify position for InfoBox

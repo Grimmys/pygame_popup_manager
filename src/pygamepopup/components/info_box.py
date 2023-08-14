@@ -9,7 +9,7 @@ from typing import Union, Sequence, Callable, Optional
 
 import pygame
 
-from ..configuration import _default_sprites, _default_fonts
+from ..configuration import _default_sprites, _default_fonts, _default_texts
 from ..constants import (
     WHITE,
     CLOSE_BUTTON_MARGIN_TOP,
@@ -83,7 +83,7 @@ class InfoBox:
         has_close_button: bool = True,
         title_color: pygame.Color = WHITE,
         background_path: str = None,
-        close_button_text: str = "Close",
+        close_button_text: str = _default_texts["close_button"],
         close_button_background_path: str = None,
         close_button_background_hover_path: str = None,
         visible_on_background: bool = True,

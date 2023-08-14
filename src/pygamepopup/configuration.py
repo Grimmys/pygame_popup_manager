@@ -11,7 +11,7 @@ import pygame
 
 resource_package = __name__
 
-_default_sprites = {
+_default_sprites: dict[str, dict[str, str]] = {
     "button_background": {
         "inactive": pkg_resources.resource_filename(
             resource_package, "/".join(("images", "default_box.png"))
@@ -41,6 +41,10 @@ _default_fonts_description: dict[str, dict[str, any]] = {
 }
 
 _default_fonts: dict[str, pygame.font.Font] = {}
+
+_default_texts: dict[str, str] = {
+    "close_button": "Close"
+}
 
 
 def set_button_background(
@@ -121,9 +125,19 @@ def set_text_element_font(font: pygame.font.Font) -> None:
 
 def set_info_box_title_font(font: pygame.font.Font) -> None:
     """
-    Set the default font for the title of the infoboxes.
+    Set the default font for the title of InfoBox.
 
     Keyword Args:
         font (pygame.font.Font): the loaded font to be set.
     """
     _default_fonts["info_box_title"] = font
+
+
+def set_close_button_text(text: str) -> None:
+    """
+    Set the default text for the close button of InfoBox.
+
+    Keyword Args:
+        text (str): the default text to be set.
+    """
+    _default_texts["close_button"] = text

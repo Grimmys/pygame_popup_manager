@@ -34,6 +34,7 @@ def test_minimal_infobox_init(sample_menu):
         sample_menu.element_grid[0]
     ) == len(row)
     assert sample_menu.has_close_button
+    assert sample_menu.close_button_text == "Close"
     assert sample_menu.visible_on_background
 
 

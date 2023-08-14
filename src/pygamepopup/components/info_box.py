@@ -346,7 +346,7 @@ class InfoBox:
         Keyword arguments:
             position (Position): the position to be checked
         """
-        return False
+        return pygame.Rect(self.position, self.__size).collidepoint(position)
 
     def click(self, position: Position) -> Callable:
         """

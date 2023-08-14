@@ -52,14 +52,12 @@ def test_position_is_static_when_providing_specific_position_at_init(screen, sta
     assert static_menu.position == STATIC_MENU_POSITION
 
 
-@pytest.mark.skip(reason="not implemented yet")
 @pytest.mark.parametrize("static_menu", [(0, 0)], indirect=True)
 def test_is_position_inside_when_position_is_outside_info_box(screen, static_menu):
     far_away_position = (1200, 1300)
     assert not static_menu.is_position_inside(far_away_position)
 
 
-@pytest.mark.skip(reason="not implemented yet")
 @pytest.mark.parametrize("static_menu", [(0, 0)], indirect=True)
 def test_is_position_inside_when_position_is_inside_info_box(screen, static_menu):
     inside_position = (20, 20)

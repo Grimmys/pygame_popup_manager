@@ -333,6 +333,18 @@ class InfoBox:
                 2,
             )
 
+    def is_position_inside(self, position: Position) -> bool:
+        """
+        Check if given position is inside or outside the InfoBox.
+
+        Returns:
+            bool: whether the position is inside the borders or not
+
+        Keyword arguments:
+            position (Position): the position to be checked
+        """
+        return False
+
     def click(self, position: Position) -> Callable:
         """
         Handle the triggering of a click event.

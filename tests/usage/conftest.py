@@ -12,4 +12,4 @@ def setup_pygamepopup():
 
 @pytest.fixture(autouse=True, scope="session")
 def screen():
-    return pygame.display.set_mode((10, 10))
+    return pygame.display.set_mode((500, 500))

@@ -62,7 +62,7 @@ class TextElement(BoxElement):
         """
         final_render = rendered_text
 
-        if final_render.get_width() + 20 > container_width:
+        if final_render.get_width() > container_width:
             first_part, second_part = TextElement.__divide_text(text)
             first_part_render = self._font.render(first_part, True, self._text_color)
             first_part_render = self._verify_rendered_text_size(

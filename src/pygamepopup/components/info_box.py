@@ -225,13 +225,12 @@ class InfoBox:
         """
         for row in self.__elements:
             for element in row.elements:
+                number_columns = row.compute_number_columns()
                 if isinstance(element, TextElement):
                     element.content = element._verify_rendered_text_size(
                         element.content,
                         element._text,
-                        self.__size[0]
-                        - element.get_margin_left()
-                        - element.get_margin_right(),
+                        (self.__size[0] - 20) // number_columns * element.column_span - element.get_margin_left() - element.get_margin_right(),
                     )
                     element.size = element.content.get_size()
 

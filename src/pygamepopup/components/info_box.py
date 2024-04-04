@@ -1,5 +1,5 @@
 """
-Defines InfoBox class, an helper to draw any kind of popup (menu or informative message).
+Defines InfoBox class, a helper to draw any kind of popup (menu or informative message).
 """
 
 from __future__ import annotations
@@ -66,7 +66,7 @@ class InfoBox:
         element_linked (pygame.Rect): the pygame Rect of the element linked to this infoBox if there is one
         has_close_button (bool): whether the infoBox has a close button or not
         title_color (pygame.Color): the color of the title
-        element_grid (list[list[BoxElement]): the grid containing the components that should be rendered by the infoBox
+        element_grid (list[list[BoxElement]]): the grid containing the components that should be rendered by the infoBox
         buttons (Sequence[Button]): the sequence of buttons of the infoBox, including the close button if present
         sprite (pygame.Surface): the pygame Surface corresponding to the sprite of the infoBox
         visible_on_background (bool): whether the popup is visible on background or not
@@ -168,7 +168,7 @@ class InfoBox:
             self.title,
             pygame.Vector2(0, 0),
             _default_fonts["info_box_title"],
-            (20, 0, 20, 0),
+            (10, 0, 30, 0),
             self.title_color,
         )
         self.__separator["vertical_position"] += title.get_height()
@@ -197,7 +197,7 @@ class InfoBox:
         Returns:
              int: the computed height.
         """
-        # Margin to be add at begin and at end
+        # Margin to be added at begin and at end
         height: int = MARGIN_BOX * 2
         self.__separator["height"] -= height
         self.__separator["vertical_position"] += height

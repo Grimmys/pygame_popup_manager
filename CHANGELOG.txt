@@ -1,3 +1,10 @@
+-- VERSION 0.10.0 --
+
+* Add possibility for any BoxElement (i.e. button or text element) to take the space of multiple columns (column_span argument)
+* Add function to configure the default text colors of buttons
+* Improve margin of InfoBox title
+* Fix rendering of TextElement in row with other elements
+
 -- VERSION 0.9.1 --
 
 * Fix configuration for default title of close buttons not being applied
@@ -5,7 +12,7 @@
 -- VERSION 0.9.0 --
 
 * Add method to check if a given position is inside or outside a InfoBox
-* Add method to configure the default title of close buttons
+* Add function to configure the default title of close buttons
 
 -- VERSION 0.8.0 --
 

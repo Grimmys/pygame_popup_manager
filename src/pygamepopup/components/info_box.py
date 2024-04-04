@@ -27,8 +27,11 @@ from ..types import Position
 
 class _Row:
     def __init__(self, elements: list[BoxElement], height: int = 0):
-        self.elements = elements
+        self.elements: list[BoxElement] = elements
         self.height = height
+
+    def compute_number_columns(self):
+        return sum(element.column_span for element in self.elements)
 
 
 class InfoBox:
@@ -286,10 +289,10 @@ class InfoBox:
         mouse_pos = pygame.mouse.get_pos()
         # A row begins by a value identifying its height, followed by its elements
         for row in self.__elements:
-            nb_elements = len(row.elements)
-            i = 1
+            number_columns = row.compute_number_columns()
+            column = 1
             for element in row.elements:
-                base_x = self.position.x + (self.__size[0] // (2 * nb_elements)) * i
+                base_x = self.position.x + (self.__size[0] // (2 * number_columns)) * (column + element.column_span - 1)
                 x_coordinate = base_x - element.get_width() // 2
                 element.position = pygame.Vector2(
                     x_coordinate,
@@ -297,7 +300,7 @@ class InfoBox:
                 )
                 if isinstance(element, Button):
                     element.set_hover(element.get_rect().collidepoint(mouse_pos))
-                i += 2
+                column += 2 * element.column_span
             y_coordinate += row.height
 
     def display(self, screen: pygame.Surface) -> None:

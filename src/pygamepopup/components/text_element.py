@@ -26,6 +26,7 @@ class TextElement(BoxElement):
         margin (Margin): a tuple containing the margins of the box,
             should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
         text_color (pygame.Color): the color of the rendered text, defaults to WHITE.
+        column_span (int): the number of columns the element should span, defaults to 1.
     """
 
     def __init__(
@@ -35,6 +36,7 @@ class TextElement(BoxElement):
         font: pygame.font.Font = None,
         margin: Margin = (0, 0, 0, 0),
         text_color: pygame.Color = WHITE,
+        column_span: int = 1,
     ) -> None:
         if not font:
             font = _default_fonts["text_element_content"]
@@ -42,7 +44,7 @@ class TextElement(BoxElement):
         self._text = text
         self._text_color = text_color
         rendered_text: pygame.Surface = font.render(text, True, text_color)
-        super().__init__(position, rendered_text, margin)
+        super().__init__(position, rendered_text, margin, column_span)
 
     def _verify_rendered_text_size(
         self, rendered_text: pygame.Surface, text: str, container_width: int

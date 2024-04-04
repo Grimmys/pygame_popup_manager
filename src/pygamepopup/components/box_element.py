@@ -20,16 +20,18 @@ class BoxElement:
     In fact, it adds a margin to any border of an element to have a cleaner interface.
 
     Keyword arguments:
-        position (Position): the position of the box on the screen
-        content (Optional[pygame.Surface]): a surface that will be wrapped by the box
+        position (Position): the position of the box on the screen.
+        content (Optional[pygame.Surface]): a surface that will be wrapped by the box.
         margin (Margin): a tuple containing the margins of the box, should be in the form
-            "(top_margin, right_margin, bottom_margin, left_margin), defaults to (0, 0, 0, 0)"
+            "(top_margin, right_margin, bottom_margin, left_margin), defaults to (0, 0, 0, 0)".
+        column_span (int): the number of columns the element should span, defaults to 1.
 
     Attributes:
-        position (Position): the position of the box on the screen
-        content (Optional[pygame.Surface]): the element wrapped in the box
+        position (Position): the position of the box on the screen.
+        content (Optional[pygame.Surface]): the element wrapped in the box.
         size (tuple[int, int]): the size of the content following the format "(width, height)"
-        margin (dict[str, int]): a dict containing all the values for margins TOP, BOTTOM, LEFT and RIGHT
+        margin (dict[str, int]): a dict containing all the values for margins TOP, BOTTOM, LEFT and RIGHT.
+        column_span (int): the number of columns the element should span.
     """
 
     def __new__(cls, *args, **kwargs):
@@ -45,6 +47,7 @@ class BoxElement:
         position: Position,
         content: Optional[pygame.Surface],
         margin: Margin = (0, 0, 0, 0),
+        column_span: int = 1,
     ) -> None:
         self.position: Position = position
         self.content: pygame.Surface = content
@@ -57,6 +60,7 @@ class BoxElement:
             "LEFT": margin[3],
             "RIGHT": margin[1],
         }
+        self.column_span = column_span
 
     def get_width(self) -> int:
         """

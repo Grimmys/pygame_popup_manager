@@ -44,6 +44,7 @@ class ImageButton(Button):
         complementary_text_lines (str): the other text lines that should be displayed in addition of
             the title.
         image_path (str): the relative path to the image that should be displayed on the left (inside of the frame).
+        column_span (int): the number of columns the element should span, defaults to 1.
     """
 
     def __init__(
@@ -63,6 +64,7 @@ class ImageButton(Button):
         text_hover_color: pygame.Color = MIDNIGHT_BLUE,
         complementary_text_lines: Sequence[str] = None,
         image_path: str = None,
+        column_span: int = 1,
     ) -> None:
         super().__init__(
             callback,
@@ -79,6 +81,7 @@ class ImageButton(Button):
             font_hover,
             text_hover_color,
             complementary_text_lines,
+            column_span,
         )
 
         padding: int = size[1] // 10

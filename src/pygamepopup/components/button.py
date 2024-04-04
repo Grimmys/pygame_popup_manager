@@ -45,6 +45,7 @@ class Button(BoxElement):
             defaults to WHITE.
         complementary_text_lines (str): the other text lines that should be displayed in addition of
             the title.
+        column_span (int): the number of columns the element should span, defaults to 1.
 
     Attributes:
         callback (Callable): the reference to the function that should be call after a click.
@@ -69,8 +70,9 @@ class Button(BoxElement):
         font_hover: pygame.font.Font = None,
         text_hover_color: pygame.Color = WHITE,
         complementary_text_lines: Sequence[str] = None,
+        column_span: int = 1,
     ) -> None:
-        super().__init__(position, None, margin)
+        super().__init__(position, None, margin, column_span)
         self.callback: Union[Enum, Callable] = callback
         self.size: tuple[int, int] = size
 

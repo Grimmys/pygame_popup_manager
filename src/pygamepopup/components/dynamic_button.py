@@ -43,6 +43,7 @@ class DynamicButton(Button):
         margin (Margin): a tuple containing the margins of the box,
             should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
         disabled (bool): a boolean indicating if it is not possible to interact with the button, defaults to False.
+        column_span (int): the number of columns the element should span, defaults to 1.
 
     Attributes:
         values (Sequence[any]): the sequence of values that will be iterated to determine the next inner value.
@@ -65,6 +66,7 @@ class DynamicButton(Button):
         no_background: bool = False,
         margin: Margin = (0, 0, 0, 0),
         disabled: bool = False,
+        column_span: int = 1,
     ) -> None:
         # TODO: default background for dynamic button should be used instead of
         #  letting the ascendant init takes the default one for generic button
@@ -78,6 +80,7 @@ class DynamicButton(Button):
             no_background,
             margin,
             disabled,
+            column_span
         )
         self.values: Sequence[any] = values
         self.current_value_index: int = current_value_index

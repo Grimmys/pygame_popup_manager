@@ -5,15 +5,17 @@ Defines utility functions to configure the default values used across the librar
 from __future__ import annotations
 
 import os
+from os.path import abspath
+from typing import Union
 
 import pkg_resources
 import pygame
 
-from pygamepopup.constants import WHITE
+from .constants import WHITE
 
 resource_package = __name__
 
-_default_sprites: dict[str, dict[str, str]] = {
+_default_sprites: dict[str, Union[dict[str, str], str]] = {
     "button_background": {
         "inactive": pkg_resources.resource_filename(
             resource_package, "/".join(("images", "default_box.png"))
@@ -94,7 +96,7 @@ def set_info_box_background(info_box_background_path: str) -> None:
     Keyword Args:
         info_box_background_path (str): the path to the background sprite to be set.
     """
-    _default_sprites["info_box_background"] = os.path.abspath(info_box_background_path)
+    _default_sprites["info_box_background"] = abspath(info_box_background_path)
 
 
 def set_button_title_font(font: pygame.font.Font) -> None:

@@ -9,6 +9,8 @@ import os
 import pkg_resources
 import pygame
 
+from pygamepopup.constants import WHITE
+
 resource_package = __name__
 
 _default_sprites: dict[str, dict[str, str]] = {
@@ -44,6 +46,13 @@ _default_fonts: dict[str, pygame.font.Font] = {}
 
 _default_texts: dict[str, str] = {
     "close_button": "Close"
+}
+
+_default_colors: dict[str, dict[str, pygame.Color]] = {
+    "button_text_color": {
+        "inactive": WHITE,
+        "active": WHITE
+    }
 }
 
 
@@ -141,3 +150,14 @@ def set_close_button_text(text: str) -> None:
         text (str): the default text to be set.
     """
     _default_texts["close_button"] = text
+
+def set_button_text_color(color: pygame.Color, hover_color: pygame.color) -> None:
+    """
+    Set the default text colors for buttons.
+
+    Keyword Args:
+        color (pygame.Color): the default text color to be set.
+        hover_color (pygame.Color): the default text color for when the button is hover to be set.
+    """
+    _default_colors["button_text_color"]["inactive"] = color
+    _default_colors["button_text_color"]["active"] = hover_color

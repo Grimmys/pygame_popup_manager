@@ -10,9 +10,9 @@ from typing import Union, Callable, Sequence
 
 import pygame
 
-from ..configuration import _default_sprites, _default_fonts
 from .box_element import BoxElement
-from ..constants import WHITE, BUTTON_SIZE
+from ..configuration import _default_sprites, _default_fonts, _default_colors
+from ..constants import BUTTON_SIZE
 from ..types import Position, Margin
 
 
@@ -38,11 +38,11 @@ class Button(BoxElement):
             should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
         disabled (bool): a boolean indicating if it is not possible to interact with the button, defaults to False.
         font (pygame.font.Font): the font that should be used to render the text content.
-        text_color (pygame.Color): the color of the text content, defautls to WHITE.
+        text_color (pygame.Color): the color of the text content, defaults to value from configuration.
         font_hover (pygame.font.Font): the font that should be used to render the text content when the mouse is over
             the button.
         text_hover_color (pygame.Color): the color of the text content when the mouse is over the button,
-            defaults to WHITE.
+            defaults to value from configuration.
         complementary_text_lines (str): the other text lines that should be displayed in addition of
             the title.
         column_span (int): the number of columns the element should span, defaults to 1.
@@ -66,9 +66,9 @@ class Button(BoxElement):
         margin: Margin = (0, 0, 0, 0),
         disabled: bool = False,
         font: pygame.font.Font = None,
-        text_color: pygame.Color = WHITE,
+        text_color: pygame.Color = None,
         font_hover: pygame.font.Font = None,
-        text_hover_color: pygame.Color = WHITE,
+        text_hover_color: pygame.Color = None,
         complementary_text_lines: Sequence[str] = None,
         column_span: int = 1,
     ) -> None:
@@ -82,6 +82,8 @@ class Button(BoxElement):
 
         if not font:
             font = _default_fonts["button_title"]
+        if not text_color:
+            text_color = _default_colors["button_text_color"]["inactive"]
         rendered_text_lines = Button.render_text_lines(text_lines, text_color, font)
         if no_background:
             self.size = (
@@ -99,6 +101,8 @@ class Button(BoxElement):
 
         if not font_hover:
             font_hover = font
+        if not text_hover_color:
+            text_hover_color = _default_colors["button_text_color"]["active"]
         rendered_text_lines_hover = Button.render_text_lines(
             text_lines, text_hover_color, font_hover
         )

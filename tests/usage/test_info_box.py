@@ -18,7 +18,7 @@ def static_menu(screen, request):
     static_menu = InfoBox(
         title="My Test Menu",
         element_grid=[[Button(title="A sample button", callback=lambda: None)]],
-        position=request.param
+        position=request.param,
     )
     static_menu.init_render(screen)
     static_menu.display(screen)
@@ -49,7 +49,9 @@ def test_display_on_screen(sample_menu, screen):
 
 
 @pytest.mark.parametrize("static_menu", [STATIC_MENU_POSITION], indirect=True)
-def test_position_is_static_when_providing_specific_position_at_init(screen, static_menu):
+def test_position_is_static_when_providing_specific_position_at_init(
+    screen, static_menu
+):
     assert static_menu.position == STATIC_MENU_POSITION
 
 

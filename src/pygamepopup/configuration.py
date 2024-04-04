@@ -44,15 +44,10 @@ _default_fonts_description: dict[str, dict[str, any]] = {
 
 _default_fonts: dict[str, pygame.font.Font] = {}
 
-_default_texts: dict[str, str] = {
-    "close_button": "Close"
-}
+_default_texts: dict[str, str] = {"close_button": "Close"}
 
 _default_colors: dict[str, dict[str, pygame.Color]] = {
-    "button_text_color": {
-        "inactive": WHITE,
-        "active": WHITE
-    }
+    "button_text_color": {"inactive": WHITE, "active": WHITE}
 }
 
 
@@ -150,6 +145,7 @@ def set_close_button_text(text: str) -> None:
         text (str): the default text to be set.
     """
     _default_texts["close_button"] = text
+
 
 def set_button_text_color(color: pygame.Color, hover_color: pygame.color) -> None:
     """

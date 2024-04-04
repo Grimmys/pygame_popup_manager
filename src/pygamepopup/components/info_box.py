@@ -109,8 +109,11 @@ class InfoBox:
             else _default_sprites["info_box_background"]
         )
         self.sprite: pygame.Surface = pygame.image.load(background_path)
-        self.close_button_text: str = close_button_text if close_button_text is not None \
+        self.close_button_text: str = (
+            close_button_text
+            if close_button_text is not None
             else _default_texts["close_button"]
+        )
         self.__close_button_background_path: str = close_button_background_path
         self.__close_button_background_hover_path: str = (
             close_button_background_hover_path
@@ -230,7 +233,9 @@ class InfoBox:
                     element.content = element._verify_rendered_text_size(
                         element.content,
                         element._text,
-                        (self.__size[0] - 20) // number_columns * element.column_span - element.get_margin_left() - element.get_margin_right(),
+                        (self.__size[0] - 20) // number_columns * element.column_span
+                        - element.get_margin_left()
+                        - element.get_margin_right(),
                     )
                     element.size = element.content.get_size()
 
@@ -291,7 +296,9 @@ class InfoBox:
             number_columns = row.compute_number_columns()
             column = 1
             for element in row.elements:
-                base_x = self.position.x + (self.__size[0] // (2 * number_columns)) * (column + element.column_span - 1)
+                base_x = self.position.x + (self.__size[0] // (2 * number_columns)) * (
+                    column + element.column_span - 1
+                )
                 x_coordinate = base_x - element.get_width() // 2
                 element.position = pygame.Vector2(
                     x_coordinate,

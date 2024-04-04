@@ -68,7 +68,7 @@ closable_menu = InfoBox(
     [
         [
             TextElement(
-                text="This menu can be close by clicking on the \"Close\" button but also by clicking outside of it."
+                text='This menu can be close by clicking on the "Close" button but also by clicking outside of it.'
             )
         ]
     ],
@@ -88,7 +88,7 @@ customized_menu = InfoBox(
     width=400,
     identifier=CUSTOMIZED_MENU_ID,
     title_color=pygame.Color("red"),
-    close_button_text="Shutdown!"
+    close_button_text="Shutdown!",
 )
 
 # Define a side menu, with relative positioning and close button

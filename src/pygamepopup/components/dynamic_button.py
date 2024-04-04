@@ -80,7 +80,7 @@ class DynamicButton(Button):
             no_background,
             margin,
             disabled,
-            column_span=column_span
+            column_span=column_span,
         )
         self.values: Sequence[any] = values
         self.current_value_index: int = current_value_index

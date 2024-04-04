@@ -24,7 +24,7 @@ class DynamicButton(Button):
 
     The sequence will be iterated to determine the next inner value after a click.
 
-    This fluctuating value is the one that will be send has the first argument of
+    This fluctuating value is the one that will be sent has the first argument of
     the method called on click, and a different label will be displayed on the button for
     each different value of the sequence.
 
@@ -80,7 +80,7 @@ class DynamicButton(Button):
             no_background,
             margin,
             disabled,
-            column_span
+            column_span=column_span
         )
         self.values: Sequence[any] = values
         self.current_value_index: int = current_value_index

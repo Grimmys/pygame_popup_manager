@@ -10,7 +10,7 @@ from typing import Optional, Sequence
 import pygame
 
 from .components.info_box import InfoBox
-from .types import Position
+from .type_definitions import Position
 
 
 class MenuManager:

@@ -22,7 +22,7 @@ from ..constants import (
 from .box_element import BoxElement
 from .text_element import TextElement
 from .button import Button
-from ..types import Position
+from ..type_definitions import Position
 
 
 class _Row:

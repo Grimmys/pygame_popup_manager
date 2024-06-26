@@ -8,33 +8,23 @@ import os
 from os.path import abspath
 from typing import Union
 
-import pkg_resources
+from importlib import resources
 import pygame
 
 from .constants import WHITE
 
-resource_package = __name__
+resource_package = __package__
 
 _default_sprites: dict[str, Union[dict[str, str], str]] = {
     "button_background": {
-        "inactive": pkg_resources.resource_filename(
-            resource_package, "/".join(("images", "default_box.png"))
-        ),
-        "active": pkg_resources.resource_filename(
-            resource_package, "/".join(("images", "default_box_hover.png"))
-        ),
+        "inactive": resources.files(resource_package)  / 'images' / 'default_box.png',
+        "active": resources.files(resource_package) / 'images' / 'default_box_hover.png',
     },
     "dynamic_button_background": {
-        "inactive": pkg_resources.resource_filename(
-            resource_package, "/".join(("images", "default_box.png"))
-        ),
-        "active": pkg_resources.resource_filename(
-            resource_package, "/".join(("images", "default_box_hover.png"))
-        ),
+        "inactive": resources.files(resource_package) / 'images' / 'default_box.png',
+        "active": resources.files(resource_package) / 'images' / 'default_box_hover.png',
     },
-    "info_box_background": pkg_resources.resource_filename(
-        resource_package, "/".join(("images", "default_box.png"))
-    ),
+    "info_box_background": resources.files(resource_package) / 'images' / 'default_box.png',
 }
 
 _default_fonts_description: dict[str, dict[str, any]] = {

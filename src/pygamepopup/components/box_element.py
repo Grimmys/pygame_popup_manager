@@ -11,7 +11,7 @@ import pygame
 
 from .. import initialization
 from .._exceptions.wrong_initialization_exception import WrongInitializationException
-from ..types import Position, Margin
+from ..type_definitions import Position, Margin
 
 
 class BoxElement:

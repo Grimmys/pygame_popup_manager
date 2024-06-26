@@ -22,10 +22,10 @@ copyright = "2022, Grimmys"
 author = "Grimmys"
 
 # The full version, including alpha/beta/rc tags
-release = "0.7.0"
+release = "0.10.1"
 
 # The major version only
-version = "0.7"
+version = "0.10"
 
 
 # -- General configuration ---------------------------------------------------

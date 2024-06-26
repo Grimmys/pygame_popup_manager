@@ -11,7 +11,7 @@ from pygame.constants import SRCALPHA
 from ..configuration import _default_fonts
 from ..constants import WHITE
 from .box_element import BoxElement
-from ..types import Position, Margin
+from ..type_definitions import Position, Margin
 
 
 class TextElement(BoxElement):

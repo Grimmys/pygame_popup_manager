@@ -13,7 +13,7 @@ import pygame
 
 from .constants import WHITE
 
-resource_package = 'pygamepopup'
+resource_package = __name__
 
 _default_sprites: dict[str, Union[dict[str, str], str]] = {
     "button_background": {

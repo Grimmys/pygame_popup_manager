@@ -13,7 +13,7 @@ import pygame
 from .box_element import BoxElement
 from ..configuration import _default_sprites, _default_fonts, _default_colors
 from ..constants import BUTTON_SIZE
-from ..types import Position, Margin
+from ..type_definitions import Position, Margin
 
 
 class Button(BoxElement):

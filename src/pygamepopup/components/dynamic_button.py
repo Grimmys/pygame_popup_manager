@@ -12,7 +12,7 @@ import pygame
 
 from ..configuration import _default_fonts
 from ..constants import WHITE, BUTTON_SIZE
-from ..types import Position, Margin
+from ..type_definitions import Position, Margin
 from .button import Button
 
 

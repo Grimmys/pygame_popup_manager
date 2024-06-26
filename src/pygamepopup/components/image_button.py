@@ -13,7 +13,7 @@ import pygame
 from .button import Button
 from ..configuration import _default_sprites
 from ..constants import WHITE, MIDNIGHT_BLUE, IMAGE_BUTTON_SIZE
-from ..types import Position, Margin
+from ..type_definitions import Position, Margin
 
 
 class ImageButton(Button):

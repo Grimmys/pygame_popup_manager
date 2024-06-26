@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="pygame-popup",
-    version="0.10.0",
+    version="0.10.1",
     author="Grimmys",
     author_email="grimmys.programming@gmail.com",
     description="A popup manager for pygame",
@@ -23,6 +23,6 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     package_data={"": ["images/*.png"]},
-    python_requires=">=3.7",
+    python_requires=">=3.12",
     install_requires=["pygame-ce>=2.0.0"],
 )

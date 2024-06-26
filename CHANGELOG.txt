@@ -1,3 +1,6 @@
+-- VERSION 0.10.1 --
+* Update the code to support Python 3.12.4
+
 -- VERSION 0.10.0 --
 
 * Add possibility for any BoxElement (i.e. button or text element) to take the space of multiple columns (column_span argument)

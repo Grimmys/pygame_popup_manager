@@ -13,7 +13,7 @@ import pygame
 
 from .constants import WHITE
 
-resource_package = __name__
+resource_package = __package__
 
 _default_sprites: dict[str, Union[dict[str, str], str]] = {
     "button_background": {

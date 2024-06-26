@@ -13,28 +13,18 @@ import pygame
 
 from .constants import WHITE
 
-resource_package = __name__
+resource_package = 'pygamepopup'
 
 _default_sprites: dict[str, Union[dict[str, str], str]] = {
     "button_background": {
-        "inactive": resources.as_file(
-            resources.files(resource_package) / "images" / 'default_box.png'
-        ),
-        "active": resources.as_file(
-            resources.files(resource_package) / "images" / 'default_box_hover.png'
-        ),
+        "inactive": resources.files(resource_package)  / 'images' / 'default_box.png',
+        "active": resources.files(resource_package) / 'images' / 'default_box_hover.png',
     },
     "dynamic_button_background": {
-        "inactive": resources.as_file(
-            resources.files(resource_package) / "images" / 'default_box.png'
-        ),
-        "active": resources.as_file(
-            resources.files(resource_package) / "images" / 'default_box_hover.png'
-        ),
+        "inactive": resources.files(resource_package) / 'images' / 'default_box.png',
+        "active": resources.files(resource_package) / 'images' / 'default_box_hover.png',
     },
-    "info_box_background": resources.as_file(
-            resources.files(resource_package) / "images" / 'default_box.png'
-    ),
+    "info_box_background": resources.files(resource_package) / 'images' / 'default_box.png',
 }
 
 _default_fonts_description: dict[str, dict[str, any]] = {

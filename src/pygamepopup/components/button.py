@@ -7,6 +7,7 @@ from __future__ import annotations
 import os.path
 from enum import Enum
 from typing import Union, Callable, Sequence
+from importlib import resources
 
 import pygame
 
@@ -154,11 +155,11 @@ class Button(BoxElement):
             rendered_text_lines (Sequence[pygame.Surface]): the sequence of text lines in order that should be clipped
                 on the surface.
         """
-        raw_sprite = (
-            pygame.image.load(background_path)
-            if background_path
-            else pygame.Surface((0, 0))
-        )
+        if background_path:
+            with resources.as_file(background_path) as path:
+                raw_sprite = pygame.image.load(path)
+        else:
+            raw_sprite = pygame.Surface((0, 0))
         sprite = pygame.transform.scale(raw_sprite.convert_alpha(), self.size)
         text_lines_count = len(rendered_text_lines)
 

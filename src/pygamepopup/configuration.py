@@ -5,6 +5,7 @@ Defines utility functions to configure the default values used across the librar
 from __future__ import annotations
 
 import os
+from importlib.resources.abc import Traversable
 from os.path import abspath
 from typing import Union
 
@@ -15,7 +16,7 @@ from .constants import WHITE
 
 resource_package = __package__
 
-_default_sprites: dict[str, Union[dict[str, str], str]] = {
+_default_sprites: dict[str, Union[dict[str, Traversable], Traversable]] = {
     "button_background": {
         "inactive": resources.files(resource_package)  / 'images' / 'default_box.png',
         "active": resources.files(resource_package) / 'images' / 'default_box_hover.png',

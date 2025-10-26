@@ -17,9 +17,9 @@ setuptools.setup(
     },
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: GNU General Public License (GPL)",
         "Operating System :: OS Independent",
     ],
+    license="GPL-3.0-or-later",
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     package_data={"": ["images/*.png"]},

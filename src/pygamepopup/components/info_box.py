@@ -109,8 +109,7 @@ class InfoBox:
             if background_path
             else _default_sprites["info_box_background"]
         )
-        with resources.as_file(background_path) as path:
-            self.sprite: pygame.Surface = pygame.image.load(path)
+        self.sprite: pygame.Surface = pygame.image.load(background_path)
         self.close_button_text: str = (
             close_button_text
             if close_button_text is not None

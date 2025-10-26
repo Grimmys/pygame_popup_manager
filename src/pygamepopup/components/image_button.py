@@ -97,8 +97,7 @@ class ImageButton(Button):
             if frame_background_path
             else _default_sprites["button_background"]["inactive"]
         )
-        with resources.as_file(frame_background_path) as path:
-            raw_frame = pygame.image.load(path)
+        raw_frame = pygame.image.load(frame_background_path)
         frame = pygame.transform.scale(raw_frame.convert_alpha(), frame_size)
 
         frame_background_hover_path = (
@@ -106,18 +105,16 @@ class ImageButton(Button):
             if frame_background_hover_path
             else _default_sprites["button_background"]["active"]
         )
-        with resources.as_file(frame_background_hover_path) as path:
-            raw_frame_hover = pygame.image.load(path)
+        raw_frame_hover = pygame.image.load(frame_background_hover_path)
         frame_hover = pygame.transform.scale(
             raw_frame_hover.convert_alpha(), frame_size
         )
 
         if image_path:
-            with resources.as_file(image_path) as path:
-                image = pygame.transform.scale(
-                    pygame.image.load(path),
-                    (frame_size[0] - padding * 2, frame_size[1] - padding * 2),
-                )
+            image = pygame.transform.scale(
+                pygame.image.load(image_path),
+                (frame_size[0] - padding * 2, frame_size[1] - padding * 2),
+            )
             frame.blit(image, (padding, padding))
             frame_hover.blit(image, (padding, padding))
 
@@ -140,8 +137,7 @@ class ImageButton(Button):
             rendered_text_lines (Sequence[pygame.Surface]): the sequence of text lines in order that should be clipped
                 on the surface
         """
-        with resources.as_file(background_path) as path:
-            raw_sprite = pygame.image.load(path)
+        raw_sprite = pygame.image.load(background_path)
         sprite = pygame.transform.scale(raw_sprite.convert_alpha(), self.size)
 
         text_lines_count = len(rendered_text_lines)

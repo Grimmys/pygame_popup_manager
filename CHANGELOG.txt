@@ -1,6 +1,8 @@
--- VERSION 0.11.1 --
+-- VERSION 0.11.2 --
 * Fix issue with inconsistent wrapping of resource path to context manager
 * Validated support for Python 3.13
+
+(version 0.11.1 unfortunately had to be thrown in the void because of human mistake)
 
 -- VERSION 0.11.0 --
 * Update the code to support Python 3.12.4

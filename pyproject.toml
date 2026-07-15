@@ -1,3 +1,22 @@
+[project]
+name = "pygame_popup"
+version = "0.11.2"
+description = "Library to easily build a UI in a pygame project"
+authors = [
+  {name = "Grimmys", email = "grimmys.programming@gmail.com"},
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pygame-ce>=2.5.7",
+    "sphinx-rtd-theme>=3.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Grimmys/pygame_popup_manager"
+Documentation = "https://pygame-popup-manager.readthedocs.io/en/latest"
+"Issue Tracker" = "https://github.com/Grimmys/pygame_popup_manager/issues"
+
 [build-system]
 requires = [
     "setuptools>=42",

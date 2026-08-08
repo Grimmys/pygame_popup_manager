@@ -1,2 +1,0 @@
-pygame-ce>=2.5.7
-sphinx-rtd-theme>=2.0.0

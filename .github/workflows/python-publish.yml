@@ -12,13 +12,18 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v9.0.0
       with:
-        python-version: 3.14
-        architecture: x64
+        version: "0.12.3"
+
+    - name: Set up Python
+      run: uv python install
+
     - name: Build package
       run:  uv build
+
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@release/v1
       with:

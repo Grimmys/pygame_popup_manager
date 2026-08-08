@@ -30,7 +30,7 @@ class BoxElement:
         position (Position): the position of the box on the screen.
         content (Optional[pygame.Surface]): the element wrapped in the box.
         size (tuple[int, int]): the size of the content following the format "(width, height)"
-        margin (dict[str, int]): a dict containing all the values for margins TOP, BOTTOM, LEFT and RIGHT.
+        margin (dict[str, int]): a dict containing all the values for margins TOP, BOTTOM, LEFT, and RIGHT.
         column_span (int): the number of columns the element should span.
     """
 

@@ -208,7 +208,7 @@ wheels = [
 ]
 
 [[package]]
-name = "pygame-popup-manager"
+name = "pygame-popup"
 version = "0.11.2"
 source = { editable = "." }
 dependencies = [

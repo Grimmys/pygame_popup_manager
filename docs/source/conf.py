@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath("../../src/"))
 # -- Project information -----------------------------------------------------
 
 project = "Pygame Popup Manager"
-copyright = "2022, Grimmys"
+copyright = "2026, Grimmys"
 author = "Grimmys"
 
 # The full version, including alpha/beta/rc tags

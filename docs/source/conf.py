@@ -18,9 +18,10 @@ sys.path.insert(0, os.path.abspath("../../src/"))
 # -- Project information -----------------------------------------------------
 
 project = "Pygame Popup Manager"
-copyright = "2026, Grimmys"
+copyright = "2022-2026, Grimmys"
 author = "Grimmys"
 
+# TODO: handle version dynamically, take inspiration from pygame-ce buildconfig
 # The full version, including alpha/beta/rc tags
 release = "0.11.2"
 

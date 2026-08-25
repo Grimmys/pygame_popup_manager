@@ -24,6 +24,10 @@ jobs:
       - name: Set up Python
         run: uv python install
 
+      - name: Install linting dependencies
+        run: |
+          uv sync --group linting
+
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names

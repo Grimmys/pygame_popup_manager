@@ -37,7 +37,7 @@ jobs:
 
       - name: Lint with Pylint
         run: |
-          uv run pylint src/pygamepopup --extension-pkg-whitelist=pygame || pylint-exit $?
+          uv run pylint src/pygamepopup --extension-pkg-whitelist=pygame || uv run pylint-exit $?
 
   test:
     name: Unit tests

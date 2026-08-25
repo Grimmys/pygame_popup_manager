@@ -20,7 +20,7 @@ from ..type_definitions import Position, Margin
 class ImageButton(Button):
     """
     This component is a Button having an image displayed
-    at the left of its content and that is considered as part of the button.
+    at the left of its content, and that is considered as part of the button.
 
     The image is displayed in a dedicated square frame.
 
@@ -30,21 +30,21 @@ class ImageButton(Button):
             defaults to IMAGE_BUTTON_SIZE.
         title (str): the text that should be displayed at the center of the element.
         position (Position): the position of the element on the screen.
-        background_path (str): the path to the image corresponding to the sprite of the element.
-        frame_background_path (str): the path to the background for the frame.
-        frame_background_hover_path (str): the path to the background for the frame when the mouse is over.
-        margin (Margin): a tuple containing the margins of the box,
-            should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
+        background_path (str | None): the path to the image corresponding to the sprite of the element.
+        frame_background_path (str | None): the path to the background for the frame.
+        frame_background_hover_path (str | None): the path to the background for the frame when the mouse is over.
+        margin (Margin): a tuple containing the margins of the box.
+            Should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
         disabled (bool): a boolean indicating if it is not possible to interact with the button, defaults to False.
-        font (pygame.font.Font): the font that should be used to render the text content.
-        text_color (pygame.Color): the color of the text content, defautls to WHITE.
-        font_hover (pygame.font.Font): the font that should be used to render the text content when the mouse is over
+        font (pygame.font.Font | None): the font that should be used to render the text content.
+        text_color (pygame.Color | None): the color of the text content. Defaults to WHITE.
+        font_hover (pygame.font.Font | None): the font that should be used to render the text content when the mouse is over
             the button.
-        text_hover_color (pygame.Color): the color of the text content when the mouse is over the button,
+        text_hover_color (pygame.Color | None): the color of the text content when the mouse is over the button,
             defaults to MIDNIGHT_BLUE.
-        complementary_text_lines (str): the other text lines that should be displayed in addition of
+        complementary_text_lines (list[str] | None): the other text lines that should be displayed in addition of
             the title.
-        image_path (str): the relative path to the image that should be displayed on the left (inside of the frame).
+        image_path (str | None): the relative path to the image that should be displayed on the left (inside of the frame).
         column_span (int): the number of columns the element should span, defaults to 1.
     """
 
@@ -54,17 +54,17 @@ class ImageButton(Button):
         size: tuple[int, int] = IMAGE_BUTTON_SIZE,
         title: str = "",
         position: Position = pygame.Vector2(0, 0),
-        background_path: str = None,
-        frame_background_path: str = None,
-        frame_background_hover_path: str = None,
+        background_path: str | None = None,
+        frame_background_path: str | None = None,
+        frame_background_hover_path: str | None = None,
         margin: Margin = (0, 0, 0, 0),
         disabled: bool = False,
-        font: pygame.font.Font = None,
-        text_color: pygame.Color = None,
-        font_hover: pygame.font.Font = None,
-        text_hover_color: pygame.Color = None,
-        complementary_text_lines: Sequence[str] = None,
-        image_path: str = None,
+        font: pygame.font.Font | None = None,
+        text_color: pygame.Color | None = None,
+        font_hover: pygame.font.Font | None = None,
+        text_hover_color: pygame.Color | None = None,
+        complementary_text_lines: list[str] | None = None,
+        image_path: str | None = None,
         column_span: int = 1,
     ) -> None:
         super().__init__(
@@ -122,7 +122,7 @@ class ImageButton(Button):
         self.sprite_hover.blit(frame_hover, frame_position)
 
     def render_sprite(
-        self, background_path: str, rendered_text_lines: Sequence[pygame.Surface]
+        self, background_path: str | None, rendered_text_lines: Sequence[pygame.Surface]
     ) -> pygame.Surface:
         """
         Compute the rendering of the image button with the given background and text lines.

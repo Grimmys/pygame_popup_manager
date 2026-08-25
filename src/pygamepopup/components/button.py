@@ -7,7 +7,6 @@ from __future__ import annotations
 import os.path
 from enum import Enum
 from typing import Union, Callable, Sequence
-from importlib import resources
 
 import pygame
 
@@ -24,10 +23,10 @@ class Button(BoxElement):
     A button is receptive to user clicks and returns an id corresponding to a method,
     it may have specific arguments too.
 
-    Mouse motion is also handled: the button appearance can change according to current focus.
+    Mouse motion is also handled: the button appearance can change according to its current focus.
 
     Keyword arguments:
-        callback (Callable): the reference to the function that should be call after a click.
+        callback (Callable): the reference to the function that should be called after a click.
         size (tuple[int, int]): the size of the button following the format "(width, height)", defaults to BUTTON_SIZE.
         title (str): the text that should be displayed at the center of the element.
         position (Position): the position of the element on the screen.
@@ -35,21 +34,21 @@ class Button(BoxElement):
         background_hover_path (str): the path to the image corresponding to the sprite of the element
             when it has the focus.
         no_background (bool): specify whether a background should be present or not, defaults to False.
-        margin (Margin): a tuple containing the margins of the box,
-            should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
+        margin (Margin): a tuple containing the margins of the box.
+            Should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
         disabled (bool): a boolean indicating if it is not possible to interact with the button, defaults to False.
         font (pygame.font.Font): the font that should be used to render the text content.
-        text_color (pygame.Color): the color of the text content, defaults to value from configuration.
+        text_color (pygame.Color): the color of the text content. Defaults to value from configuration.
         font_hover (pygame.font.Font): the font that should be used to render the text content when the mouse is over
             the button.
-        text_hover_color (pygame.Color): the color of the text content when the mouse is over the button,
-            defaults to value from configuration.
-        complementary_text_lines (str): the other text lines that should be displayed in addition of
+        text_hover_color (pygame.Color): the color of the text content when the mouse is over the button.
+            Defaults to value from configuration.
+        complementary_text_lines (str): the other text lines that should be displayed in addition to
             the title.
         column_span (int): the number of columns the element should span, defaults to 1.
 
     Attributes:
-        callback (Callable): the reference to the function that should be call after a click.
+        callback (Callable): the reference to the function that should be called after a click.
         sprite (pygame.Surface): the pygame Surface corresponding to the sprite of the element.
         sprite_hover (pygame.Surface): the pygame Surface corresponding to the sprite of the element
             when it has the focus.
@@ -61,16 +60,16 @@ class Button(BoxElement):
         size: tuple[int, int] = BUTTON_SIZE,
         title: str = "",
         position: Position = pygame.Vector2(0, 0),
-        background_path: str = None,
-        background_hover_path: str = None,
+        background_path: str | None = None,
+        background_hover_path: str | None = None,
         no_background: bool = False,
         margin: Margin = (0, 0, 0, 0),
         disabled: bool = False,
-        font: pygame.font.Font = None,
-        text_color: pygame.Color = None,
-        font_hover: pygame.font.Font = None,
-        text_hover_color: pygame.Color = None,
-        complementary_text_lines: Sequence[str] = None,
+        font: pygame.font.Font | None = None,
+        text_color: pygame.Color | None = None,
+        font_hover: pygame.font.Font | None = None,
+        text_hover_color: pygame.Color | None = None,
+        complementary_text_lines: list[str] | None = None,
         column_span: int = 1,
     ) -> None:
         super().__init__(position, None, margin, column_span)
@@ -141,7 +140,7 @@ class Button(BoxElement):
         return [font.render(text_line, True, text_color) for text_line in text_lines]
 
     def render_sprite(
-        self, background_path: str, rendered_text_lines: Sequence[pygame.Surface]
+        self, background_path: str | None, rendered_text_lines: Sequence[pygame.Surface]
     ) -> pygame.Surface:
         """
         Compute the rendering of the button with the given background and text lines.
@@ -151,7 +150,7 @@ class Button(BoxElement):
              pygame.Surface: the generated surface.
 
         Keyword arguments:
-            background_path (str): the path to the image corresponding to the sprite of the button.
+            background_path (str | None): the path to the image corresponding to the sprite of the button.
             rendered_text_lines (Sequence[pygame.Surface]): the sequence of text lines in order that should be clipped
                 on the surface.
         """

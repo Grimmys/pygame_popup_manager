@@ -5,11 +5,13 @@ Defines InfoBox class, a helper to draw any kind of popup (menu or informative m
 from __future__ import annotations
 
 import os.path
-from typing import Union, Sequence, Callable, Optional
-from importlib import resources
+from typing import Union, Sequence, Callable
 
 import pygame
 
+from .box_element import BoxElement
+from .button import Button
+from .text_element import TextElement
 from ..configuration import _default_sprites, _default_fonts, _default_texts
 from ..constants import (
     WHITE,
@@ -20,9 +22,6 @@ from ..constants import (
     MARGIN_LINKED_ELEMENT,
     DEFAULT_POPUP_WIDTH,
 )
-from .box_element import BoxElement
-from .text_element import TextElement
-from .button import Button
 from ..type_definitions import Position
 
 
@@ -39,8 +38,8 @@ class InfoBox:
     """
     This class is defining any kind of popup that can be found in the app.
 
-    It can be used to represent the interface of a menu, or a simple text message.
-    Some elements can be buttons, that will react to user clicks (see the button component
+    It can be used to represent the interface of a menu or a simple text message.
+    Some elements can be buttons, which will react to user clicks (see the button component
     for more information).
 
 
@@ -48,17 +47,17 @@ class InfoBox:
         title (str): the title of the infoBox
         element_grid (list[list[BoxElement]]): a grid containing the components that should be rendered by the infoBox
         width (int): the width of the infoBox, defaults to DEFAULT_POPUP_WIDTH
-        element_linked (pygame.Rect): the pygame Rect of the element linked to this infoBox,
+        element_linked (pygame.Rect | None): the pygame Rect of the element linked to this infoBox,
             the infoBox will be displayed beside the element if provided
         position (Position): the static position of the infoBox, if not provided position would be computed basing on
         element linked or screen
         has_close_button (bool): whether a close button should be added at the bottom or not, defaults to True
         title_color (pygame.Color): the color of the title
-        background_path (str): the path corresponding to the image that should be the sprite of the infoBox
-        close_button_text (str): the text that will be shown on close button
-        close_button_background_path (str): the path to the image corresponding to the sprite of the close button
+        background_path (str | None): the path corresponding to the image that should be the sprite of the infoBox
+        close_button_text (str | None): the text that will be shown on close button
+        close_button_background_path (str | None): the path to the image corresponding to the sprite of the close button
             if there should be one
-        close_button_background_hover_path (str): the path to the image corresponding to the sprite of
+        close_button_background_hover_path (str | None): the path to the image corresponding to the sprite of
             the close button when it is hovered if there should be one
         visible_on_background (bool): whether the popup is visible on background or not, defaults to True
         has_vertical_separator (bool): whether there should be a line splitting the infoBox in two at middle width or
@@ -82,14 +81,14 @@ class InfoBox:
         title: str,
         element_grid: list[list[BoxElement]],
         width: int = DEFAULT_POPUP_WIDTH,
-        element_linked: Optional[pygame.Rect] = None,
-        position: Optional[Position] = None,
+        element_linked: pygame.Rect | None = None,
+        position: Position | None = None,
         has_close_button: bool = True,
         title_color: pygame.Color = WHITE,
-        background_path: str = None,
-        close_button_text: Optional[str] = None,
-        close_button_background_path: str = None,
-        close_button_background_hover_path: str = None,
+        background_path: str | None = None,
+        close_button_text: str | None = None,
+        close_button_background_path: str | None = None,
+        close_button_background_hover_path: str | None = None,
         visible_on_background: bool = True,
         has_vertical_separator: bool = False,
         identifier: str = "",
@@ -115,8 +114,8 @@ class InfoBox:
             if close_button_text is not None
             else _default_texts["close_button"]
         )
-        self.__close_button_background_path: str = close_button_background_path
-        self.__close_button_background_hover_path: str = (
+        self.__close_button_background_path: str | None = close_button_background_path
+        self.__close_button_background_hover_path: str | None = (
             close_button_background_hover_path
         )
         self.__elements: list[_Row] = self.init_elements()
@@ -124,7 +123,7 @@ class InfoBox:
         self.__size: tuple[int, int] = (width, 0)
         self.__is_position_static: bool = position is not None
         if self.__is_position_static:
-            self.position: Optional[Position] = pygame.Vector2(position)
+            self.position: Position | None = pygame.Vector2(position)
         else:
             self.position = None
         self.visible_on_background: bool = visible_on_background
@@ -240,7 +239,7 @@ class InfoBox:
                     )
                     element.size = element.content.get_size()
 
-    def determine_position(self, screen: pygame.Surface) -> Optional[Position]:
+    def determine_position(self, screen: pygame.Surface) -> Position | None:
         """
         Compute the position of the infoBox to be beside the linked element.
 
@@ -248,7 +247,7 @@ class InfoBox:
         according to the screen.
 
         Returns:
-             Optional[Position]: the computed position.
+             Position | None: the computed position.
 
         Keyword arguments:
             screen (pygame.Surface): The screen on which the infoBox is rendered.
@@ -364,7 +363,7 @@ class InfoBox:
         Handle the triggering of a click event.
 
         Returns:
-            Optional[Callable]: the data corresponding to the action that should be done if the click was done
+            Callable | None: the data corresponding to the action that should be done if the click was done
                 on a button, else None.
 
         Keyword arguments:

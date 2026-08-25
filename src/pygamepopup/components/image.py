@@ -27,8 +27,8 @@ class Image(BoxElement):
         size (tuple[int, int]): the size of the image following the format "(width, height)",
             defaults to :const:`~pygamepopup.constants.IMAGE_SIZE`.
         position (Position): the position of the image on the screen.
-        margin (Margin): a tuple containing the margins of the box,
-            should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
+        margin (Margin): a tuple containing the margins of the box.
+            Should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
         column_span (int): the number of columns the element should span, defaults to 1.
     """
 

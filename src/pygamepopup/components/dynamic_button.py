@@ -1,12 +1,12 @@
 """
 Defines DynamicButton class, a special Button iterating through a list of values
 on each click.
-Generally use as a parameter button.
+Usually used as a parameter button.
 """
 
 from __future__ import annotations
 
-from typing import Sequence, Callable
+from typing import Sequence, Callable, Any
 
 import pygame
 
@@ -20,7 +20,7 @@ class DynamicButton(Button):
     """
     This class is representing a special button with an inner value changing after each click.
 
-    A DynamicButton has a sequence of values given at initialization, and a initial value.
+    A DynamicButton has a sequence of values given at initialization, and an initial value.
 
     The sequence will be iterated to determine the next inner value after a click.
 
@@ -29,24 +29,24 @@ class DynamicButton(Button):
     each different value of the sequence.
 
     Keyword arguments:
-        callback (Callable): the reference to the function that should be call after a click.
-        values (Sequence[any]): the sequence of values that will be iterated to determine the next inner value.
+        callback (Callable): the reference to the function that should be called after a click.
+        values (Sequence[Any]): the sequence of values that will be iterated to determine the next inner value.
         current_value_index (int): the index of the initial value of the button.
         base_title (str): the common prefix of all the different labels
             (it could be the name of the dynamic button in a way).
         size (str): the size of the button following the format "(width, height)", defaults to BUTTON_SIZE.
         position (Position): the position of the element on the screen.
-        background_path (str): the path to the image corresponding to the sprite of the element.
-        background_hover_path (str): the path to the image corresponding to the sprite of the element
+        background_path (str | None): the path to the image corresponding to the sprite of the element.
+        background_hover_path (str | None): the path to the image corresponding to the sprite of the element
             when it has the focus.
         no_background (bool): specify whether a background should be present or not, defaults to False.
-        margin (Margin): a tuple containing the margins of the box,
-            should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
+        margin (Margin): a tuple containing the margins of the box.
+            Should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
         disabled (bool): a boolean indicating if it is not possible to interact with the button, defaults to False.
         column_span (int): the number of columns the element should span, defaults to 1.
 
     Attributes:
-        values (Sequence[any]): the sequence of values that will be iterated to determine the next inner value.
+        values (Sequence[Any]): the sequence of values that will be iterated to determine the next inner value.
         current_value_index (int): the index of the current value of the button.
         base_title (str): the common prefix of all the different labels
             (it could be the name of the dynamic button in a way).
@@ -56,13 +56,13 @@ class DynamicButton(Button):
     def __init__(
         self,
         callback: Callable,
-        values: Sequence[any],
+        values: Sequence[Any],
         current_value_index: int,
         base_title: str,
         size: tuple[int, int] = BUTTON_SIZE,
         position: Position = pygame.Vector2(0, 0),
-        background_path: str = None,
-        background_hover_path: str = None,
+        background_path: str | None = None,
+        background_hover_path: str | None = None,
         no_background: bool = False,
         margin: Margin = (0, 0, 0, 0),
         disabled: bool = False,
@@ -82,7 +82,7 @@ class DynamicButton(Button):
             disabled,
             column_span=column_span,
         )
-        self.values: Sequence[any] = values
+        self.values: Sequence[Any] = values
         self.current_value_index: int = current_value_index
         self.base_title: str = base_title
         self.__base_sprite: pygame.Surface = self.sprite
@@ -131,7 +131,7 @@ class DynamicButton(Button):
         Method that should be called after a click.
 
         Change the current value of the button to the next one in the sequence of values.
-        If the end of the sequence is reach, the iteration restarts at the first value.
+        If the end of the sequence is reached, the iteration restarts at the first value.
 
         Returns:
              Callable: a lambda containing the function that should be called with the current value of the

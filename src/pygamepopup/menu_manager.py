@@ -5,7 +5,7 @@ handle the triggering of user events on the elements of the active menu
 
 from __future__ import annotations
 
-from typing import Optional, Sequence
+from typing import Sequence
 
 import pygame
 
@@ -29,21 +29,21 @@ class MenuManager:
     Attributes:
         screen (pygame.Surface): the screen on which the menus should be displayed and on which the
             user events should be handled
-        active_menu (Optional[InfoBox]): the current menu in the foreground, the only one that will react to user events
+        active_menu (InfoBox | None): the current menu in the foreground, the only one that will react to user events
         background_menus (list[InfoBox]): the ordered sequence of menus that are in the background
     """
 
     def __init__(self, screen: pygame.Surface) -> None:
         self.screen: pygame.Surface = screen
-        self.active_menu: Optional[InfoBox] = None
+        self.active_menu: InfoBox | None = None
         self.background_menus: list[InfoBox] = []
 
     def open_menu(self, menu: InfoBox) -> None:
         """
         Open the given menu.
-        Initialize the rendering of the menu, and set it as the new active menu.
+        Initialize the rendering of the menu and set it as the new active menu.
 
-        Previous active menu is sent to the background.
+        The previous active menu is sent to the background.
 
         Keyword arguments:
             menu (InfoBox): the popup that should be open
@@ -57,9 +57,9 @@ class MenuManager:
         self, menu_identifier: str, new_menu: InfoBox, all_occurrences: bool = False
     ) -> bool:
         """
-        Replace a menu by a new one according to its identifier.
+        Replace a menu with a new one according to its identifier.
 
-        By default, only first occurrence is replaced if many menus in the manager have the given identifier.
+        By default, only the first occurrence is replaced if many menus in the manager have the given identifier.
 
         Keyword arguments:
             menu_identifier (str): the identifier of the menu to be replaced
@@ -89,7 +89,7 @@ class MenuManager:
         """
         Close the active menu by 'destroying' it.
 
-        Take the next menu in the background to move it to foreground if there is any.
+        Take the next menu in the background to move it to the foreground if there is any.
         """
         self.active_menu = (
             self.background_menus.pop() if len(self.background_menus) != 0 else None
@@ -102,9 +102,9 @@ class MenuManager:
         self, menu_identifier: str, all_occurrences: bool = False
     ) -> bool:
         """
-        Close menu corresponding to the given identifier.
+        Close the menu corresponding to the given identifier.
 
-        By default, only first occurrence is closed if many menus in the manager have the given identifier.
+        By default, only the first occurrence is closed if many menus in the manager have the given identifier.
 
         Keyword arguments:
             menu_identifier (str): the identifier of the menu to be closed
@@ -130,7 +130,7 @@ class MenuManager:
 
     def clear_menus(self) -> None:
         """
-        Close all the menus (in foreground and in background)
+        Close all the menus (in the foreground and in the background)
         """
         self.active_menu = None
         self.background_menus.clear()
@@ -192,7 +192,7 @@ class MenuManager:
     ) -> Sequence[InfoBox]:
         """
         Returns:
-             Sequence[InfoBox]: all the menus in background matching the given identifier
+             Sequence[InfoBox]: all the menus in the background matching the given identifier
 
         Keyword arguments:
             menu_identifier (str): the identifier to look for

@@ -5,11 +5,10 @@ Defines utility functions to configure the default values used across the librar
 from __future__ import annotations
 
 import os
-from importlib.resources.abc import Traversable
-from os.path import abspath
-from typing import Union
-
 from importlib import resources
+from importlib.resources.abc import Traversable
+from typing import Union, Any
+
 import pygame
 
 from .constants import WHITE
@@ -28,7 +27,7 @@ _default_sprites: dict[str, Union[dict[str, Traversable], Traversable]] = {
     "info_box_background": resources.files(resource_package) / 'images' / 'default_box.png',
 }
 
-_default_fonts_description: dict[str, dict[str, any]] = {
+_default_fonts_description: dict[str, dict[str, Any]] = {
     "button_title": {"is_system_font": True, "size": 20, "is_bold": True},
     "dynamic_button_title": {"is_system_font": True, "size": 20, "is_bold": True},
     "text_element_content": {"is_system_font": True, "size": 20, "is_bold": True},
@@ -87,7 +86,7 @@ def set_info_box_background(info_box_background_path: str) -> None:
     Keyword Args:
         info_box_background_path (str): the path to the background sprite to be set.
     """
-    _default_sprites["info_box_background"] = abspath(info_box_background_path)
+    _default_sprites["info_box_background"] = os.path.abspath(info_box_background_path)
 
 
 def set_button_title_font(font: pygame.font.Font) -> None:
@@ -140,7 +139,7 @@ def set_close_button_text(text: str) -> None:
     _default_texts["close_button"] = text
 
 
-def set_button_text_color(color: pygame.Color, hover_color: pygame.color) -> None:
+def set_button_text_color(color: pygame.Color, hover_color: pygame.Color) -> None:
     """
     Set the default text colors for buttons.
 

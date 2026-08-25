@@ -5,8 +5,6 @@ All other components that should be drawn on a popup inherit from this class.
 
 from __future__ import annotations
 
-from typing import Optional
-
 import pygame
 
 from .. import initialization
@@ -21,14 +19,14 @@ class BoxElement:
 
     Keyword arguments:
         position (Position): the position of the box on the screen.
-        content (Optional[pygame.Surface]): a surface that will be wrapped by the box.
+        content (pygame.Surface | None): a surface that will be wrapped by the box.
         margin (Margin): a tuple containing the margins of the box, should be in the form
             "(top_margin, right_margin, bottom_margin, left_margin), defaults to (0, 0, 0, 0)".
         column_span (int): the number of columns the element should span, defaults to 1.
 
     Attributes:
         position (Position): the position of the box on the screen.
-        content (Optional[pygame.Surface]): the element wrapped in the box.
+        content (pygame.Surface | None): the element wrapped in the box.
         size (tuple[int, int]): the size of the content following the format "(width, height)"
         margin (dict[str, int]): a dict containing all the values for margins TOP, BOTTOM, LEFT, and RIGHT.
         column_span (int): the number of columns the element should span.
@@ -45,12 +43,12 @@ class BoxElement:
     def __init__(
         self,
         position: Position,
-        content: Optional[pygame.Surface],
+        content: pygame.Surface | None,
         margin: Margin = (0, 0, 0, 0),
         column_span: int = 1,
     ) -> None:
         self.position: Position = position
-        self.content: pygame.Surface = content
+        self.content: pygame.Surface | None = content
         self.size: tuple[int, int] = (0, 0)
         if self.content:
             self.size = (self.content.get_width(), self.content.get_height())

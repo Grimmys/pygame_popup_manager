@@ -1,6 +1,6 @@
 """
 Defines TextElement class, a BoxElement permitting to easily draw text and let it
-be centered on an popup.
+be centered on a popup.
 """
 
 from __future__ import annotations
@@ -22,18 +22,18 @@ class TextElement(BoxElement):
     Keyword arguments:
         text (str): the text that should be rendered.
         position (Position): the position of the text on the screen.
-        font (pygame.font.Font): the font that should be used to render the text.
-        margin (Margin): a tuple containing the margins of the box,
-            should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
-        text_color (pygame.Color): the color of the rendered text, defaults to WHITE.
-        column_span (int): the number of columns the element should span, defaults to 1.
+        font (pygame.font.Font | None): the font that should be used to render the text.
+        margin (Margin): a tuple containing the margins of the box.
+            Should be in the form "(top_margin, right_margin, bottom_margin, left_margin)", defaults to (0, 0, 0, 0).
+        text_color (pygame.Color): the color of the rendered text. Defaults to WHITE.
+        column_span (int): the number of columns the element should span. Defaults to 1.
     """
 
     def __init__(
         self,
         text: str,
         position: Position = pygame.Vector2(0, 0),
-        font: pygame.font.Font = None,
+        font: pygame.font.Font | None = None,
         margin: Margin = (0, 0, 0, 0),
         text_color: pygame.Color = WHITE,
         column_span: int = 1,

@@ -49,4 +49,4 @@ uv run --group docs sphinx-build -M html docs/source docs/build
 ```
 
 Documentation files will be generated under `docs/build` as specified in the command.
-Open `docs/build/html/index.html` file in your favorite browser to explore the new version.
+Open `docs/build/html/index.html` file in your favorite browser to explore this documentation.

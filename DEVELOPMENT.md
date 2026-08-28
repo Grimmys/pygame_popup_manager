@@ -4,31 +4,33 @@
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - A sample `pygame-ce` (or `pygame`) project to include the library in
 
-## Build
+## Use the development version in a local project
 
-To build a dev version of the library, run:
-
-```bash
-uv build
-```
-
-## Install dev build to a local project
-
-Once you have created a dev build containing your own changes for the library,
-you can install it to a local project for verifying the changes using:
+For ongoing development, install the source tree as an editable dependency in
+the consuming project:
 
 ```bash
-# uv project
-uv pip install --reinstall ./pygame_popup-<version>-py3-none-any.whl
+# uv project (run this from the consuming project's directory)
+uv add --editable /path/to/pygame_popup_manager
 
 # pip project
 python -m pip install ./pygame_popup-<version>-py3-none-any.whl
 ```
 
-Where `pygame_popup-<version>-py3-none-any.whl` is the file extracted 
-from the `dist` folder generated as part of the build.
+The editable uv dependency records the local source in the consuming project's
+`pyproject.toml` and remains installed after syncing or restarting the project, 
+by handling the build of the library automatically.
 
-You may have to uninstall the existing version of the library before installing the dev build.
+To switch back to the production version afterwards, run this from the consuming
+project's directory:
+
+```bash
+uv remove pygame-popup
+uv add pygame-popup
+```
+
+For pip projects, build the wheel first with `uv build`; the wheel is generated
+in the `dist` folder.
 
 ## Execute tests
 

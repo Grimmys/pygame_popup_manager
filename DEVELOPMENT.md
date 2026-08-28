@@ -1,6 +1,6 @@
 ## Project requirements
 
-- Python 3.13
+- Python 3.14 or above
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - A sample `pygame-ce` (or `pygame`) project to include the library in
 
